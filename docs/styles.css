@@ -340,6 +340,10 @@ section {
   align-items: start;
 }
 
+.docs-grid > div {
+  min-width: 0;
+}
+
 .docs-layout {
   margin-top: 0.2rem;
 }
@@ -402,6 +406,19 @@ section {
   width: 100%;
 }
 
+.api-card h3 {
+  margin: 0 0 0.9rem;
+}
+
+.api-card code {
+  display: block;
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  font-size: 1.1rem;
+  line-height: 1.2;
+}
+
 .command,
 pre,
 code {
@@ -426,6 +443,12 @@ code {
   position: relative;
 }
 
+.copy-command {
+  display: grid;
+  gap: 0.55rem;
+  align-items: start;
+}
+
 .copy-button {
   position: absolute;
   top: 0.75rem;
@@ -434,6 +457,11 @@ code {
   min-height: auto;
   padding: 0.45rem 0.8rem;
   font-size: 0.88rem;
+}
+
+.copy-command .copy-button {
+  position: static;
+  justify-self: end;
 }
 
 .copy-button.copied {

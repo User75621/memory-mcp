@@ -7,7 +7,7 @@ Thanks for helping improve Project Memory MCP for long-term AI project memory an
 1. Fork the repository and create a feature branch.
 2. Install development dependencies with `pip install -r requirements-dev.txt`.
 3. Run `pytest`, `black .`, `flake8`, and `mypy src` before opening a pull request.
-4. Document any user-facing change in `README.md`, `docs/`, or `context.md`.
+4. Document any user-facing change in `README.md` or `docs/`.
 
 ## Code style guidelines
 

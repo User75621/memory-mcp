@@ -237,7 +237,7 @@
             </article>
             <article class="card">
               <h3 data-i18n="clients.standardTitle">3. Use one standard MCP command</h3>
-              <p data-i18n="clients.standardText">After installation, configure clients to launch the same command: `project-memory-mcp`. This makes the server behave like any other stdio MCP server.</p>
+              <p data-i18n="clients.standardText">After installation, configure clients to launch the same command: project-memory-mcp. This makes the server behave like any other stdio MCP server.</p>
               <p class="command">"command": "project-memory-mcp"</p>
               <p class="command">"env": { "SUPABASE_URL": "..." }</p>
             </article>
@@ -247,39 +247,39 @@
             </article>
             <article class="card">
               <h3 data-i18n="clients.genericTitle">Works with other MCP clients</h3>
-              <p data-i18n="clients.genericText">If an IDE or agent accepts a standard MCP JSON config with `mcpServers`, you can usually paste the same server entry and only adjust the file path or environment values.</p>
+              <p data-i18n="clients.genericText">If an IDE or agent accepts a standard MCP JSON config with an mcpServers entry, you can usually paste the same server block and only adjust environment values.</p>
               <p class="command">mcpServers.project-memory-mcp</p>
             </article>
             <article class="card" id="config-opencode">
               <h3 data-i18n="clients.opencodeTitle">OpenCode</h3>
-              <p data-i18n="clients.opencodeText">Point OpenCode to `mcp.json` or copy the same `mcpServers` entry into its config. Make sure `PROJECT_MEMORY_INTERFACE=opencode` is set.</p>
+              <p data-i18n="clients.opencodeText">Point OpenCode to the shared MCP config or paste the same server block into its settings, then set PROJECT_MEMORY_INTERFACE=opencode.</p>
               <p class="command">opencode --mcp-config mcp.json</p>
             </article>
             <article class="card" id="config-codex">
               <h3 data-i18n="clients.codexTitle">Codex</h3>
-              <p data-i18n="clients.codexText">Register the server with the existing `mcp.json` file or equivalent Codex MCP settings, then start Codex with that config.</p>
+              <p data-i18n="clients.codexText">Register the same server block in Codex MCP settings, then launch Codex with that configuration.</p>
               <p class="command">codex --config mcp.json</p>
             </article>
             <article class="card" id="config-claude-desktop">
               <h3 data-i18n="clients.claudeDesktopTitle">Claude Desktop</h3>
-              <p data-i18n="clients.claudeDesktopText">Add a local MCP server entry to `claude_desktop_config.json` using the installed `project-memory-mcp` command and the same environment variables from `.env`.</p>
+              <p data-i18n="clients.claudeDesktopText">Add a local MCP server entry to Claude Desktop using the installed project-memory-mcp command and the same environment variables from your local setup.</p>
               <p class="command">%APPDATA%\Claude\claude_desktop_config.json</p>
               <p class="command">"command": "project-memory-mcp"</p>
             </article>
             <article class="card" id="config-claude-code">
               <h3 data-i18n="clients.claudeCodeTitle">Claude Code CLI</h3>
-              <p data-i18n="clients.claudeCodeText">Run Claude Code with the shared `mcp.json` config or the equivalent CLI MCP registration flow.</p>
+              <p data-i18n="clients.claudeCodeText">Run Claude Code with the shared MCP config or the equivalent CLI registration flow.</p>
               <p class="command">claude-code --mcp-config mcp.json</p>
             </article>
             <article class="card" id="config-antigravity">
               <h3 data-i18n="clients.antigravityTitle">Antigravity</h3>
-              <p data-i18n="clients.antigravityText">Paste the same MCP JSON into Antigravity MCP settings. On the verified Windows installation used here, Antigravity wrote MCP config to `%USERPROFILE%/.gemini/antigravity/mcp_config.json`.</p>
+              <p data-i18n="clients.antigravityText">Paste the same MCP JSON into Antigravity MCP settings. On Windows, a common config location is shown below.</p>
               <p class="command">%USERPROFILE%\.gemini\antigravity\mcp_config.json</p>
               <p class="command">"command": "project-memory-mcp"</p>
             </article>
             <article class="card" id="config-qwen">
               <h3 data-i18n="clients.qwenTitle">Qwen Code</h3>
-              <p data-i18n="clients.qwenText">Point Qwen Code to the same `mcp.json` file or paste the standard `mcpServers` block into its MCP settings, then set `PROJECT_MEMORY_INTERFACE=qwen-code`.</p>
+              <p data-i18n="clients.qwenText">Point Qwen Code to the same MCP config or paste the shared server block into its settings, then set PROJECT_MEMORY_INTERFACE=qwen-code.</p>
               <p class="command">qwen --mcp-config mcp.json</p>
             </article>
           </div>
@@ -299,7 +299,7 @@
     }
   }
 }</code></pre>
-            <p class="muted" data-i18n="clients.antigravityPathTitle">Verified Antigravity path on Windows</p>
+            <p class="muted" data-i18n="clients.antigravityPathTitle">Common Antigravity path on Windows</p>
             <p class="command">%USERPROFILE%\.gemini\antigravity\mcp_config.json</p>
           </div>
         </div>

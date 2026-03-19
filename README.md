@@ -101,7 +101,6 @@ If a client accepts a standard MCP JSON with `mcpServers`, you can usually reuse
 ### Quick Links
 
 - Docs site: `https://dannymaaz.github.io/project-memory-mcp/`
-- Memory notes: `context.md`
 - SQL schema: `schema.sql`
 - MCP config: `mcp.json`
 
@@ -249,7 +248,7 @@ project-memory-mcp
 
 Use the same `mcpServers` JSON block as the base config and set the interface to `native` or `antigravity` in your client flow.
 
-Verified Windows path found on this machine:
+Common Windows path:
 
 ```text
 %USERPROFILE%\.gemini\antigravity\mcp_config.json
@@ -307,7 +306,6 @@ If your client disables tool use, the model cannot call MCP tools by itself. In 
 
 - Public docs: `docs/index.html`
 - SEO sitemap: `docs/sitemap.xml`
-- Project memory notes: `context.md`
 - GitHub Pages target: `https://dannymaaz.github.io/project-memory-mcp/`
 - Locales: `docs/locales/en.json` and `docs/locales/es.json`
 
