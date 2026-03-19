@@ -444,24 +444,28 @@ code {
 }
 
 .copy-command {
-  display: grid;
-  gap: 0.55rem;
-  align-items: start;
+  display: block;
 }
 
 .copy-button {
   position: absolute;
-  top: 0.75rem;
-  right: 0.75rem;
+  top: 0.7rem;
+  right: 0.7rem;
   z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.1rem;
+  height: 2.1rem;
   min-height: auto;
-  padding: 0.45rem 0.8rem;
-  font-size: 0.88rem;
+  padding: 0;
+  font-size: 0.95rem;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
 }
 
-.copy-command .copy-button {
-  position: static;
-  justify-self: end;
+.copy-icon {
+  line-height: 1;
 }
 
 .copy-button.copied {

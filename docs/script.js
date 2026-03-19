@@ -58,9 +58,14 @@ function initTheme() {
 function updateCopyButtons() {
   document.querySelectorAll('[data-copy-button]').forEach((button) => {
     const copied = button.dataset.copied === 'true';
-    button.textContent = copied
+    const label = copied
       ? getMessage('ui.copied', 'Copied')
       : getMessage('ui.copy', 'Copy');
+    const icon = copied ? '&#10003;' : '&#10697;';
+
+    button.innerHTML = `<span class="copy-icon" aria-hidden="true">${icon}</span>`;
+    button.setAttribute('aria-label', label);
+    button.setAttribute('title', label);
   });
 }
 
