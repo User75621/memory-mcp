@@ -441,16 +441,22 @@ code {
 .copy-block,
 .copy-command {
   position: relative;
+  margin-top: 0.55rem;
 }
 
 .copy-command {
   display: block;
 }
 
+.copy-command .command,
+.copy-block pre {
+  margin: 0;
+}
+
 .copy-button {
   position: absolute;
-  top: 0.7rem;
-  right: 0.7rem;
+  top: 0.65rem;
+  right: 0.65rem;
   z-index: 2;
   display: inline-flex;
   align-items: center;
@@ -462,6 +468,7 @@ code {
   font-size: 0.95rem;
   border-radius: 12px;
   background: color-mix(in srgb, var(--surface) 92%, transparent);
+  transition: transform 0.18s ease, background 0.18s ease, color 0.18s ease;
 }
 
 .copy-icon {
@@ -471,6 +478,7 @@ code {
 .copy-button.copied {
   background: var(--text);
   color: var(--bg);
+  transform: scale(1.08);
 }
 
 pre {
