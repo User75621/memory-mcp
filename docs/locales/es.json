@@ -1,0 +1,174 @@
+{
+  "meta": {
+    "siteName": "Project Memory MCP",
+    "title": "Project Memory MCP | Memoria de Proyecto IA",
+    "description": "Memoria de proyecto MCP con Supabase persistent context para modelos de IA, OpenCode, Claude Code CLI, Qwen Code y Codex.",
+    "ogDescription": "Memoria persistente de proyecto para modelos de IA y agentes de codigo impulsada por Supabase.",
+    "twitterDescription": "Memoria de proyecto para IA con Supabase persistent context para OpenCode, Claude Code CLI, Qwen Code y Codex."
+  },
+  "nav": {
+    "overview": "Resumen",
+    "features": "Funciones",
+    "setup": "Instalacion",
+    "clients": "Clientes",
+    "usage": "Uso natural",
+    "api": "API",
+    "examples": "Ejemplos"
+  },
+  "hero": {
+    "eyebrow": "Project Memory MCP Server",
+    "title": "Memoria de largo plazo para modelos de IA y agentes de codigo",
+    "description": "Project Memory MCP guarda arquitectura, decisiones, tareas, advertencias, preferencias y estado de sesion para que tus herramientas de IA retomen el trabajo exactamente donde se quedaron.",
+    "primaryCta": "Leer guia de instalacion",
+    "secondaryCta": "Ver arquitectura",
+    "statsLabel": "Lo que resuelve",
+    "statOne": "Retomar trabajo entre sesiones",
+    "statTwo": "Compartir contexto entre interfaces",
+    "statThree": "Reducir perdida de contexto y repeticiones"
+  },
+  "index": {
+    "title": "Indice interactivo",
+    "description": "Salta directo a la seccion que necesitas y sigue una implementacion clara paso a paso.",
+    "overview": "Resumen del proyecto",
+    "features": "Funciones principales",
+    "setup": "Instalacion paso a paso",
+    "clients": "Configuracion por cliente",
+    "usage": "Uso en lenguaje natural",
+    "api": "Referencia API",
+    "architecture": "Arquitectura",
+    "examples": "Ejemplos por interfaz"
+  },
+  "features": {
+    "title": "Por que los equipos lo usan",
+    "intro": "Pensado para equipos que quieren memoria de proyecto MCP, Supabase persistent context, AI agent memory y handoff confiable entre OpenCode, Claude Code CLI, Qwen Code, Codex y sesiones nativas.",
+    "items": [
+      {
+        "title": "Contexto persistente del proyecto",
+        "text": "Guarda arquitectura, decisiones, tareas, advertencias y preferencias en una sola capa durable de memoria."
+      },
+      {
+        "title": "Continuidad entre clientes",
+        "text": "Pasa de OpenCode a Claude Code CLI, Qwen Code, Codex o chat nativo sin perder en que punto ibas."
+      },
+      {
+        "title": "Optimizacion de contexto",
+        "text": "Recorta payloads grandes de forma segura con estrategias por interfaz y por modelo."
+      },
+      {
+        "title": "Visibilidad operativa",
+        "text": "Sigue advertencias, sesiones y analitica por interfaz para que el siguiente paso de IA arranque con la memoria correcta."
+      }
+    ]
+  },
+  "setup": {
+    "title": "Instalacion en cinco pasos",
+    "intro": "Configuracion minima, navegacion amigable con teclado y guia responsive para escritorio, tablet y movil.",
+    "steps": [
+      "Clona el repositorio e instala las dependencias de Python.",
+      "Crea un proyecto en Supabase y ejecuta el archivo schema.sql incluido.",
+      "Copia .env.example a .env y agrega tus valores publicos.",
+      "Registra el servidor en mcp.json o en la configuracion de tu cliente compatible con MCP.",
+      "Inicia el servidor y valida que la memoria del proyecto se recupere correctamente entre sesiones."
+    ]
+  },
+  "usage": {
+    "title": "Usalo con lenguaje natural",
+    "intro": "En la mayoria de clientes compatibles con MCP, hablas normalmente con el modelo y este decide que tool llamar cuando el uso de tools esta habilitado.",
+    "cardOneTitle": "Habla normal",
+    "cardOneText": "No necesitas nombrar manualmente una tool para tareas comunes. Puedes pedir contexto, preguntar que cambio o pedir que retome el proyecto.",
+    "cardTwoTitle": "El modelo elige las tools",
+    "cardTwoText": "Si el cliente expone las tools de Project Memory MCP, el modelo puede llamar `load_unified_context`, `sync_session_state` u otras tools automaticamente segun tu solicitud.",
+    "cardThreeTitle": "Fuerza una tool solo si hace falta",
+    "cardThreeText": "Las llamadas manuales sirven para depuracion, integraciones o cuando quieres control exacto sobre entradas y salidas.",
+    "promptOne": "Retoma este proyecto y dime por donde nos quedamos.",
+    "promptTwo": "Carga la memoria guardada del proyecto antes de continuar el refactor.",
+    "promptThree": "Guarda esta decision de arquitectura y marca la tarea actual como en progreso.",
+    "note": "Si un cliente desactiva el uso de tools, el modelo no podra llamar tools MCP automaticamente. En ese caso, habilita MCP en el cliente o llama la tool de forma explicita."
+  },
+  "clients": {
+    "title": "Instala desde GitHub y conecta tu cliente",
+    "intro": "Puedes dejar este repositorio en la carpeta que prefieras. La mayoria de usuarios lo clonan una sola vez, guardan un `.env` privado y conectan varios IDEs o clientes de IA al mismo servidor MCP.",
+    "installTitle": "1. Clona y prepara el servidor",
+    "installText": "Clona el repositorio, instala dependencias, ejecuta `pip install -e .`, crea `.env`, ejecuta `schema.sql` en Supabase y deja la carpeta en una ubicacion estable.",
+    "keepTitle": "2. Mantén una sola instalacion central",
+    "keepText": "No copies el servidor dentro de cada proyecto. Mantén una sola carpeta como `C:/Users/Danny/Documents/Projects-dannymaaz/Google VPS MCP/project-memory-mcp` y conecta todos los clientes a esa misma instalacion.",
+    "standardTitle": "3. Usa un solo comando MCP estandar",
+    "standardText": "Despues de instalarlo, configura los clientes para lanzar el mismo comando: `project-memory-mcp`. Asi el servidor se comporta como cualquier otro servidor MCP por stdio.",
+    "genericTitle": "Funciona con otros clientes MCP",
+    "genericText": "Si un IDE o agente acepta una configuracion MCP estandar con `mcpServers`, normalmente puedes pegar la misma entrada del servidor y solo ajustar la ruta del archivo o las variables de entorno.",
+    "opencodeTitle": "OpenCode",
+    "opencodeText": "Apunta OpenCode a `mcp.json` o copia la misma entrada `mcpServers` dentro de su configuracion. Asegurate de tener `PROJECT_MEMORY_INTERFACE=opencode`.",
+    "codexTitle": "Codex",
+    "codexText": "Registra el servidor con el archivo `mcp.json` existente o con la configuracion MCP equivalente de Codex, y luego inicia Codex con esa configuracion.",
+    "claudeDesktopTitle": "Claude Desktop",
+    "claudeDesktopText": "Agrega una entrada de servidor MCP local en `claude_desktop_config.json` usando el comando instalado `project-memory-mcp` y las mismas variables de entorno de `.env`.",
+    "claudeCodeTitle": "Claude Code CLI",
+    "claudeCodeText": "Ejecuta Claude Code con el `mcp.json` compartido o con el flujo equivalente de registro MCP del CLI.",
+    "antigravityTitle": "Antigravity",
+    "antigravityText": "Pega el mismo JSON MCP en los ajustes MCP de Antigravity. En la instalacion de Windows verificada aqui, Antigravity escribio la configuracion MCP en `%USERPROFILE%/.gemini/antigravity/mcp_config.json`.",
+    "desktopSnippetTitle": "Snippet MCP generico",
+    "antigravityPathTitle": "Ruta verificada de Antigravity en Windows"
+  },
+  "api": {
+    "title": "Herramientas MCP principales",
+    "intro": "La API se enfoca en cargar contexto compartido, guardar decisiones, sincronizar estado de sesion y medir uso por interfaz.",
+    "items": [
+      {
+        "name": "load_unified_context",
+        "description": "Carga memoria durable del proyecto optimizada para la interfaz y el modelo actual."
+      },
+      {
+        "name": "save_cross_interface_decision",
+        "description": "Guarda una decision para que futuras sesiones hereden el mismo razonamiento."
+      },
+      {
+        "name": "sync_session_state",
+        "description": "Guarda el estado actual de trabajo para que otro cliente de IA continúe la misma tarea."
+      },
+      {
+        "name": "get_interface_analytics",
+        "description": "Mide patrones de uso entre OpenCode, Claude Code CLI, Qwen Code, Codex y flujos nativos."
+      }
+    ]
+  },
+  "examples": {
+    "title": "Ejemplos por interfaz",
+    "intro": "Cambia de vista para comparar flujos con OpenCode, Claude Code CLI y Codex usando el mismo backend de memoria de proyecto.",
+    "opencode": {
+      "label": "OpenCode",
+      "title": "Flujo con OpenCode",
+      "text": "Carga la memoria del proyecto antes de editar para que OpenCode herede arquitectura, decisiones previas y advertencias activas.",
+      "commandLabel": "Abre OpenCode con la configuracion MCP"
+    },
+    "claude": {
+      "label": "Claude Code",
+      "title": "Flujo con Claude Code CLI",
+      "text": "Usa la misma memoria guardada para retomar implementacion, depuracion o planeacion desde el ultimo estado de sesion registrado.",
+      "commandLabel": "Abre Claude Code CLI con la configuracion MCP"
+    },
+    "codex": {
+      "label": "Codex",
+      "title": "Flujo con Codex",
+      "text": "Conserva advertencias, tareas y estado sincronizado de sesion al delegar trabajo de codigo a Codex.",
+      "commandLabel": "Abre Codex con la configuracion MCP"
+    }
+  },
+  "architecture": {
+    "title": "Arquitectura",
+    "description": "Esta arquitectura mantiene durable la memoria del proyecto mientras la optimizacion, el routing y la deteccion de interfaz viven dentro del servidor MCP."
+  },
+  "seo": {
+    "title": "Enfoque SEO",
+    "description": "Project Memory MCP, memoria de proyecto IA, Supabase persistent context, AI agent memory, OpenCode memory, Claude Code CLI memory, Qwen Code memory y Codex memory estan explicados en lenguaje claro para una adopcion rapida."
+  },
+  "footer": {
+    "title": "Pensado para flujos MCP publicos y escalables",
+    "description": "Creado por Danny Maaz para equipos que construyen memoria de proyecto de largo plazo sobre Supabase.",
+    "supportTitle": "Apoya el proyecto",
+    "supportDescription": "Si Project Memory MCP te ayuda en tu flujo de trabajo, puedes apoyar su desarrollo con PayPal o Ko-fi.",
+    "supportButton": "Apoyar con PayPal",
+    "supportKofi": "Apoyar en Ko-fi",
+    "github": "GitHub",
+    "linkedin": "LinkedIn"
+  }
+}

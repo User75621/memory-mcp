@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://dannymaaz.github.io/project-memory-mcp/sitemap.xml

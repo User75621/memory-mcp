@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Danny Maaz">
+    <meta name="theme-color" content="#101010">
+    <title data-i18n="meta.title">Project Memory MCP | AI Project Memory</title>
+    <meta name="description" content="MCP project memory with Supabase persistent context for AI models, OpenCode, Claude Code CLI, Qwen Code, and Codex." data-i18n-attr="content:meta.description">
+    <meta name="keywords" content="Project Memory MCP, AI project memory, Supabase persistent context, AI agent memory, OpenCode memory, Claude Code CLI memory, Qwen Code memory, Codex memory, multi-interface AI, context optimization, Danny Maaz">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="https://dannymaaz.github.io/project-memory-mcp/">
+    <link rel="alternate" hreflang="en" href="https://dannymaaz.github.io/project-memory-mcp/">
+    <link rel="alternate" hreflang="es" href="https://dannymaaz.github.io/project-memory-mcp/">
+    <link rel="alternate" hreflang="x-default" href="https://dannymaaz.github.io/project-memory-mcp/">
+    <link rel="sitemap" type="application/xml" href="sitemap.xml">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:locale:alternate" content="es_ES">
+    <meta property="og:title" content="Project Memory MCP | AI Project Memory">
+    <meta property="og:description" content="Persistent project memory for AI models and coding agents powered by Supabase." data-i18n-attr="content:meta.ogDescription">
+    <meta property="og:url" content="https://dannymaaz.github.io/project-memory-mcp/">
+    <meta property="og:image" content="https://dannymaaz.github.io/project-memory-mcp/assets/logo.svg">
+    <meta property="og:site_name" content="Project Memory MCP">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@dannymaaz">
+    <meta name="twitter:creator" content="@dannymaaz">
+    <meta name="twitter:title" content="Project Memory MCP | AI Project Memory">
+    <meta name="twitter:description" content="AI project memory with Supabase persistent context for OpenCode, Claude Code CLI, Qwen Code, and Codex." data-i18n-attr="content:meta.twitterDescription">
+    <meta name="twitter:image" content="https://dannymaaz.github.io/project-memory-mcp/assets/logo.svg">
+    <style>
+      :root { color-scheme: light; background: #f7f7f5; color: #101010; }
+      body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+      .site-header { position: sticky; top: 0; backdrop-filter: blur(16px); }
+      .shell { width: min(1120px, calc(100% - 2rem)); margin: 0 auto; }
+      .hero { padding: 4.5rem 0 2rem; }
+      .button, .ghost-button { min-height: 48px; }
+    </style>
+    <link rel="stylesheet" href="styles.css">
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Project Memory MCP",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Cross-platform",
+        "author": {
+          "@type": "Person",
+          "name": "Danny Maaz",
+          "url": "https://github.com/dannymaaz"
+        },
+        "description": "Project Memory MCP stores long-term project context in Supabase so AI tools can resume architecture, tasks, and decisions across sessions.",
+        "url": "https://dannymaaz.github.io/project-memory-mcp/",
+        "image": "https://dannymaaz.github.io/project-memory-mcp/assets/logo.svg",
+        "softwareRequirements": "Python 3.10+, Supabase",
+        "license": "https://opensource.org/licenses/MIT"
+      }
+    </script>
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="shell">
+        <a class="brand" href="#overview" aria-label="Go to top of documentation">
+          <img class="brand-mark" src="assets/logo.svg" alt="Project Memory MCP logo">
+          <span class="brand-copy">
+            <strong>Project Memory MCP</strong>
+            <span>Persistent Project Memory for AI Models</span>
+          </span>
+        </a>
+        <nav class="header-nav" aria-label="Primary">
+          <a href="#overview" data-i18n="nav.overview">Overview</a>
+          <a href="#features" data-i18n="nav.features">Features</a>
+          <a href="#setup" data-i18n="nav.setup">Setup</a>
+          <a href="#clients" data-i18n="nav.clients">Clients</a>
+          <a href="#usage" data-i18n="nav.usage">Natural use</a>
+          <a href="#api" data-i18n="nav.api">API</a>
+          <a href="#examples" data-i18n="nav.examples">Examples</a>
+        </nav>
+        <div class="header-actions">
+          <button class="toggle" type="button" data-theme-toggle aria-label="Toggle color theme">Dark</button>
+          <button class="toggle" type="button" data-language-toggle aria-label="Toggle page language">ES</button>
+        </div>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero" id="overview">
+        <div class="shell hero-grid">
+          <div class="hero-copy">
+            <span class="eyebrow" data-i18n="hero.eyebrow">Project Memory MCP Server</span>
+            <h1 data-i18n="hero.title">Long-term project memory for AI models and coding agents</h1>
+            <p data-i18n="hero.description">Project Memory MCP stores architecture, decisions, tasks, warnings, preferences, and session state so your AI tools can resume work exactly where they left off.</p>
+            <div class="hero-actions">
+              <a class="button" href="#setup" data-i18n="hero.primaryCta">Read setup guide</a>
+              <a class="ghost-button" href="#architecture" data-i18n="hero.secondaryCta">View architecture</a>
+            </div>
+          </div>
+          <aside class="hero-card" aria-labelledby="hero-card-title">
+            <strong id="hero-card-title" data-i18n="hero.statsLabel">What it solves</strong>
+            <ul class="hero-stats">
+              <li><span class="stat-bullet">1</span><span data-i18n="hero.statOne">Multi-interface AI consistency</span></li>
+              <li><span class="stat-bullet">2</span><span data-i18n="hero.statTwo">Shared persistent memory</span></li>
+              <li><span class="stat-bullet">3</span><span data-i18n="hero.statThree">Model-aware context optimization</span></li>
+            </ul>
+          </aside>
+        </div>
+      </section>
+
+      <section id="index">
+        <div class="shell index-grid">
+          <div class="index-card">
+            <div class="section-heading">
+              <h2 data-i18n="index.title">Interactive index</h2>
+              <p class="muted" data-i18n="index.description">Jump directly to the area you need and keep implementation steps easy to follow.</p>
+            </div>
+            <nav class="index-links" aria-label="On-page index">
+              <a class="index-link" href="#overview" data-i18n="index.overview">Project overview</a>
+              <a class="index-link" href="#features" data-i18n="index.features">Core features</a>
+              <a class="index-link" href="#setup" data-i18n="index.setup">Step-by-step setup</a>
+              <a class="index-link" href="#clients" data-i18n="index.clients">Client setup</a>
+              <a class="index-link" href="#usage" data-i18n="index.usage">Natural language usage</a>
+              <a class="index-link" href="#api" data-i18n="index.api">API reference</a>
+              <a class="index-link" href="#architecture" data-i18n="index.architecture">Architecture</a>
+              <a class="index-link" href="#examples" data-i18n="index.examples">Interface examples</a>
+            </nav>
+          </div>
+          <aside class="index-card">
+            <h3 data-i18n="seo.title">SEO focus</h3>
+            <p class="muted" data-i18n="seo.description">Project Memory MCP, AI project memory, Supabase persistent context, AI agent memory, OpenCode memory, Claude Code CLI memory, Qwen Code memory, and Codex memory are explained in plain language for quick onboarding.</p>
+          </aside>
+        </div>
+      </section>
+
+      <section id="features">
+        <div class="shell">
+          <div class="section-heading">
+            <h2 data-i18n="features.title">Why teams use it</h2>
+            <p class="muted" data-i18n="features.intro">Built for teams that want MCP project memory, Supabase persistent context, AI agent memory, and reliable handoff between OpenCode, Claude Code CLI, Qwen Code, Codex, and native sessions.</p>
+          </div>
+          <div class="cards">
+            <article class="card">
+              <h3 data-i18n-array="features.0.title">Unified memory</h3>
+              <p data-i18n-array="features.0.text">Store decisions, warnings, tasks, and preferences in one Supabase-backed memory layer.</p>
+            </article>
+            <article class="card">
+              <h3 data-i18n-array="features.1.title">Interface-aware routing</h3>
+              <p data-i18n-array="features.1.text">Adapt responses for native chat, Qwen Code integration, and Codex plugin memory without duplicating logic.</p>
+            </article>
+            <article class="card">
+              <h3 data-i18n-array="features.2.title">Context optimization</h3>
+              <p data-i18n-array="features.2.text">Trim large payloads safely with model-aware and interface-aware token strategies.</p>
+            </article>
+            <article class="card">
+              <h3 data-i18n-array="features.3.title">Production ready</h3>
+              <p data-i18n-array="features.3.text">Use SQL RLS policies, analytics, and test coverage to ship a public MCP server with confidence.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="setup">
+        <div class="shell">
+          <div class="section-heading">
+            <h2 data-i18n="setup.title">Setup in five steps</h2>
+            <p class="muted" data-i18n="setup.intro">Minimal setup, keyboard-friendly navigation, and responsive guidance for desktop, tablet, and mobile.</p>
+          </div>
+          <ol class="setup-list">
+            <li class="step"><span class="step-number">1</span><p data-i18n-step="0">Clone the repository and install Python dependencies.</p></li>
+            <li class="step"><span class="step-number">2</span><p data-i18n-step="1">Create a Supabase project and run the provided schema.sql file.</p></li>
+            <li class="step"><span class="step-number">3</span><p data-i18n-step="2">Copy .env.example to .env and add your public values.</p></li>
+            <li class="step"><span class="step-number">4</span><p data-i18n-step="3">Register the server in mcp.json or your MCP-compatible client settings.</p></li>
+            <li class="step"><span class="step-number">5</span><p data-i18n-step="4">Start the server and verify shared memory across interfaces.</p></li>
+          </ol>
+        </div>
+      </section>
+
+      <section id="usage">
+        <div class="shell">
+          <div class="section-heading">
+            <h2 data-i18n="usage.title">Use it with natural language</h2>
+            <p class="muted" data-i18n="usage.intro">In most MCP-compatible clients, you talk to the model normally and it decides which tool to call when tool use is enabled.</p>
+          </div>
+          <div class="cards">
+            <article class="card">
+              <h3 data-i18n="usage.cardOneTitle">Talk normally</h3>
+              <p data-i18n="usage.cardOneText">You do not need to manually name a tool for common tasks. Ask for the context, ask what changed, or ask to continue the project.</p>
+            </article>
+            <article class="card">
+              <h3 data-i18n="usage.cardTwoTitle">The model selects tools</h3>
+              <p data-i18n="usage.cardTwoText">If the client exposes Project Memory MCP tools, the model can call `load_unified_context`, `sync_session_state`, or other tools automatically based on your request.</p>
+            </article>
+            <article class="card">
+              <h3 data-i18n="usage.cardThreeTitle">Force a tool only when needed</h3>
+              <p data-i18n="usage.cardThreeText">Manual tool calls are useful for debugging, integrations, or when you want exact control over inputs and outputs.</p>
+            </article>
+            <article class="card">
+              <h3>Prompt examples</h3>
+              <p class="command" data-i18n="usage.promptOne">Resume this project and tell me where we left off.</p>
+              <p class="command" data-i18n="usage.promptTwo">Load the stored project memory before continuing the refactor.</p>
+              <p class="command" data-i18n="usage.promptThree">Save this architecture decision and mark the current task as in progress.</p>
+            </article>
+          </div>
+          <p class="muted" data-i18n="usage.note">If a client disables tool use, the model cannot call MCP tools automatically. In that case, enable MCP tools in the client or call the tool explicitly.</p>
+        </div>
+      </section>
+
+      <section id="clients">
+        <div class="shell">
+          <div class="section-heading">
+            <h2 data-i18n="clients.title">Install from GitHub and connect your client</h2>
+            <p class="muted" data-i18n="clients.intro">You can keep this repository in the folder you prefer. Most users clone it once, keep a private `.env`, and connect multiple IDEs or AI clients to the same MCP server.</p>
+          </div>
+          <div class="cards">
+            <article class="card">
+              <h3 data-i18n="clients.installTitle">1. Clone and prepare the server</h3>
+              <p data-i18n="clients.installText">Clone the repository, install dependencies, run `pip install -e .`, create `.env`, run `schema.sql` in Supabase, and keep the folder in a stable location.</p>
+              <p class="command">git clone https://github.com/dannymaaz/project-memory-mcp.git</p>
+              <p class="command">cd project-memory-mcp</p>
+              <p class="command">python -m venv .venv</p>
+              <p class="command">pip install -r requirements.txt</p>
+              <p class="command">pip install -e .</p>
+            </article>
+            <article class="card">
+              <h3 data-i18n="clients.keepTitle">2. Keep one central installation</h3>
+              <p data-i18n="clients.keepText">Do not copy the server into every project. Keep one folder such as `C:/Users/Danny/Documents/Projects-dannymaaz/Google VPS MCP/project-memory-mcp` and connect all clients to that same installation.</p>
+              <p class="command">copy .env.example .env</p>
+              <p class="command">project-memory-mcp</p>
+            </article>
+            <article class="card">
+              <h3 data-i18n="clients.standardTitle">3. Use one standard MCP command</h3>
+              <p data-i18n="clients.standardText">After installation, configure clients to launch the same command: `project-memory-mcp`. This makes the server behave like any other stdio MCP server.</p>
+              <p class="command">"command": "project-memory-mcp"</p>
+              <p class="command">"env": { "SUPABASE_URL": "..." }</p>
+            </article>
+            <article class="card">
+              <h3 data-i18n="clients.genericTitle">Works with other MCP clients</h3>
+              <p data-i18n="clients.genericText">If an IDE or agent accepts a standard MCP JSON config with `mcpServers`, you can usually paste the same server entry and only adjust the file path or environment values.</p>
+              <p class="command">mcpServers.project-memory-mcp</p>
+            </article>
+            <article class="card">
+              <h3 data-i18n="clients.opencodeTitle">OpenCode</h3>
+              <p data-i18n="clients.opencodeText">Point OpenCode to `mcp.json` or copy the same `mcpServers` entry into its config. Make sure `PROJECT_MEMORY_INTERFACE=opencode` is set.</p>
+              <p class="command">opencode --mcp-config mcp.json</p>
+            </article>
+            <article class="card">
+              <h3 data-i18n="clients.codexTitle">Codex</h3>
+              <p data-i18n="clients.codexText">Register the server with the existing `mcp.json` file or equivalent Codex MCP settings, then start Codex with that config.</p>
+              <p class="command">codex --config mcp.json</p>
+            </article>
+            <article class="card">
+              <h3 data-i18n="clients.claudeDesktopTitle">Claude Desktop</h3>
+              <p data-i18n="clients.claudeDesktopText">Add a local MCP server entry to `claude_desktop_config.json` using the installed `project-memory-mcp` command and the same environment variables from `.env`.</p>
+              <p class="command">%APPDATA%\Claude\claude_desktop_config.json</p>
+              <p class="command">"command": "project-memory-mcp"</p>
+            </article>
+            <article class="card">
+              <h3 data-i18n="clients.claudeCodeTitle">Claude Code CLI</h3>
+              <p data-i18n="clients.claudeCodeText">Run Claude Code with the shared `mcp.json` config or the equivalent CLI MCP registration flow.</p>
+              <p class="command">claude-code --mcp-config mcp.json</p>
+            </article>
+            <article class="card">
+              <h3 data-i18n="clients.antigravityTitle">Antigravity</h3>
+              <p data-i18n="clients.antigravityText">Paste the same MCP JSON into Antigravity MCP settings. On the verified Windows installation used here, Antigravity wrote MCP config to `%USERPROFILE%/.gemini/antigravity/mcp_config.json`.</p>
+              <p class="command">%USERPROFILE%\.gemini\antigravity\mcp_config.json</p>
+              <p class="command">"command": "project-memory-mcp"</p>
+            </article>
+          </div>
+          <div class="architecture-card">
+            <h3 data-i18n="clients.desktopSnippetTitle">Generic MCP config snippet</h3>
+            <pre><code>{
+  "mcpServers": {
+    "project-memory-mcp": {
+      "command": "project-memory-mcp",
+      "env": {
+        "SUPABASE_URL": "https://your-project.supabase.co",
+        "SUPABASE_KEY": "your-anon-key",
+        "OWNER_ID": "your-owner-id",
+        "DEFAULT_MODEL": "gemini-pro",
+        "PROJECT_MEMORY_INTERFACE": "claude-code"
+      }
+    }
+  }
+}</code></pre>
+            <p class="muted" data-i18n="clients.antigravityPathTitle">Verified Antigravity path on Windows</p>
+            <p class="command">%USERPROFILE%\.gemini\antigravity\mcp_config.json</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="api">
+        <div class="shell docs-grid">
+          <div>
+            <div class="section-heading">
+              <h2 data-i18n="api.title">Core MCP tools</h2>
+            <p class="muted" data-i18n="api.intro">The API focuses on loading shared context, saving decisions, syncing session state, and measuring interface usage.</p>
+            </div>
+            <div class="api-grid">
+              <article class="api-card">
+                <h3><code>load_unified_context</code></h3>
+                <p data-i18n-array="api.0.description">Load durable project memory optimized for the current interface and model.</p>
+              </article>
+              <article class="api-card">
+                <h3><code>save_cross_interface_decision</code></h3>
+                <p data-i18n-array="api.1.description">Persist a decision so future sessions inherit the same reasoning.</p>
+              </article>
+              <article class="api-card">
+                <h3><code>sync_session_state</code></h3>
+                <p data-i18n-array="api.2.description">Store the current working state so another AI client can continue the same task.</p>
+              </article>
+              <article class="api-card">
+                <h3><code>get_interface_analytics</code></h3>
+                <p data-i18n-array="api.3.description">Measure usage patterns across OpenCode, Claude Code CLI, Qwen Code, Codex, and native workflows.</p>
+              </article>
+            </div>
+          </div>
+          <aside class="architecture-card" id="architecture">
+            <h3 data-i18n="architecture.title">Architecture</h3>
+            <img src="assets/diagrams/architecture.svg" alt="Architecture diagram showing user, AI clients, MCP server, and Supabase communication flow">
+            <p class="muted" data-i18n="architecture.description">This architecture keeps project memory durable while optimization, routing, and interface detection stay inside the MCP server.</p>
+          </aside>
+        </div>
+      </section>
+
+      <section id="examples">
+        <div class="shell">
+          <div class="section-heading">
+            <h2 data-i18n="examples.title">Examples by interface</h2>
+            <p class="muted" data-i18n="examples.intro">Switch views to compare OpenCode, Claude Code CLI, and Codex workflows using the same project memory backend.</p>
+          </div>
+          <div class="tabs" role="tablist" aria-label="Example interfaces">
+            <button class="tab-button" id="tab-opencode" type="button" role="tab" data-tab-button="opencode" aria-selected="true" aria-controls="panel-opencode" aria-label="Open OpenCode example" data-i18n="examples.opencode.label">OpenCode</button>
+            <button class="tab-button" id="tab-claude" type="button" role="tab" data-tab-button="claude" aria-selected="false" aria-controls="panel-claude" aria-label="Open Claude Code example" data-i18n="examples.claude.label">Claude Code</button>
+            <button class="tab-button" id="tab-codex" type="button" role="tab" data-tab-button="codex" aria-selected="false" aria-controls="panel-codex" aria-label="Open Codex example" data-i18n="examples.codex.label">Codex</button>
+          </div>
+          <article class="tab-panel active" id="panel-opencode" role="tabpanel" aria-labelledby="tab-opencode" data-tab-panel="opencode">
+            <h3 data-i18n="examples.opencode.title">OpenCode workflow</h3>
+            <p data-i18n="examples.opencode.text">Load project memory before editing so OpenCode inherits architecture, previous decisions, and active warnings.</p>
+            <p class="muted" data-i18n="examples.opencode.commandLabel">Launch OpenCode with the MCP config</p>
+            <p class="command">opencode --mcp-config mcp.json</p>
+          </article>
+          <article class="tab-panel" id="panel-claude" role="tabpanel" aria-labelledby="tab-claude" data-tab-panel="claude" hidden>
+            <h3 data-i18n="examples.claude.title">Claude Code CLI workflow</h3>
+            <p data-i18n="examples.claude.text">Use the same stored memory to resume implementation, debugging, or planning from the last recorded session state.</p>
+            <p class="muted" data-i18n="examples.claude.commandLabel">Launch Claude Code CLI with the MCP config</p>
+            <p class="command">claude-code --mcp-config mcp.json</p>
+          </article>
+          <article class="tab-panel" id="panel-codex" role="tabpanel" aria-labelledby="tab-codex" data-tab-panel="codex" hidden>
+            <h3 data-i18n="examples.codex.title">Codex workflow</h3>
+            <p data-i18n="examples.codex.text">Preserve warnings, tasks, and synced session state when handing off coding work to Codex.</p>
+            <p class="muted" data-i18n="examples.codex.commandLabel">Launch Codex with the MCP config</p>
+            <p class="command">codex --config mcp.json</p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="shell footer-grid">
+        <div class="footer-card">
+          <h2 data-i18n="footer.title">Built for public, scalable MCP workflows</h2>
+          <p data-i18n="footer.description">Created by Danny Maaz for teams building reliable long-term project memory on Supabase.</p>
+        </div>
+        <div class="footer-card">
+          <p><strong>Danny Maaz</strong></p>
+          <p class="muted">GitHub: <a href="https://github.com/dannymaaz">dannymaaz</a><br>LinkedIn: <a href="https://linkedin.com/in/dannymaaz">dannymaaz</a></p>
+          <div class="footer-links">
+            <a class="ghost-button" href="https://github.com/dannymaaz" data-i18n="footer.github">GitHub</a>
+            <a class="ghost-button" href="https://linkedin.com/in/dannymaaz" data-i18n="footer.linkedin">LinkedIn</a>
+          </div>
+          <div class="section-heading">
+            <h3 data-i18n="footer.supportTitle">Support the project</h3>
+            <p class="muted" data-i18n="footer.supportDescription">If Project Memory MCP helps your workflow, you can support its development with PayPal or Ko-fi.</p>
+          </div>
+          <div class="footer-links">
+            <a class="button" href="https://www.paypal.me/Creativegt" target="_blank" rel="noopener noreferrer" data-i18n="footer.supportButton" aria-label="Support Project Memory MCP with PayPal">Support with PayPal</a>
+            <a class="ghost-button support-kofi" href="https://ko-fi.com/X8X71W99D6" target="_blank" rel="noopener noreferrer" aria-label="Support Project Memory MCP on Ko-fi">
+              <img class="support-kofi-image" src="https://ko-fi.com/img/githubbutton_sm.svg" alt="Support on Ko-fi">
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

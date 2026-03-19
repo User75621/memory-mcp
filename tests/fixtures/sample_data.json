@@ -1,0 +1,28 @@
+{
+  "projects": [
+    {
+      "id": "123e4567-e89b-12d3-a456-426614174000",
+      "owner_id": "demo-owner",
+      "name": "Project Memory Demo",
+      "slug": "project-memory-demo",
+      "description": "Shared memory project"
+    }
+  ],
+  "decisions": [
+    {
+      "id": "223e4567-e89b-12d3-a456-426614174001",
+      "project_id": "123e4567-e89b-12d3-a456-426614174000",
+      "interface": "native",
+      "summary": "Use Supabase as memory backend",
+      "details": "Centralizes context across interfaces"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "323e4567-e89b-12d3-a456-426614174002",
+      "project_id": "123e4567-e89b-12d3-a456-426614174000",
+      "title": "Ship server",
+      "status": "in_progress"
+    }
+  ]
+}

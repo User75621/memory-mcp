@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" fill="none">
+  <rect width="960" height="540" fill="white"/>
+  <g stroke="black" stroke-width="3" fill="white">
+    <rect x="70" y="180" width="180" height="120" rx="22"/>
+    <rect x="390" y="120" width="180" height="120" rx="22"/>
+    <rect x="390" y="300" width="180" height="120" rx="22"/>
+    <rect x="710" y="180" width="180" height="120" rx="22"/>
+    <path d="M250 240h140" marker-end="url(#arrow)"/>
+    <path d="M570 180h140" marker-end="url(#arrow)"/>
+    <path d="M710 260H570" marker-end="url(#arrow)"/>
+    <path d="M480 240v60" marker-end="url(#arrow)"/>
+    <path d="M480 300v-60" marker-end="url(#arrow)"/>
+  </g>
+  <g fill="black" font-family="Arial, sans-serif" font-size="28" font-weight="700">
+    <text x="123" y="250">Usuario</text>
+    <text x="410" y="190">AI Clients</text>
+    <text x="417" y="370">MCP Server</text>
+    <text x="768" y="250">Supabase</text>
+  </g>
+  <g fill="black" font-family="Arial, sans-serif" font-size="18">
+    <text x="112" y="280">Prompt and context</text>
+    <text x="398" y="220">OpenCode, Claude, Codex</text>
+    <text x="420" y="400">Memory tools and routing</text>
+    <text x="744" y="280">Persistent storage</text>
+  </g>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 10 5 0 10z" fill="black"/>
+    </marker>
+  </defs>
+</svg>

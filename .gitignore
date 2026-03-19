@@ -1,0 +1,47 @@
+__pycache__/
+*.pyc
+.env
+.env.*
+!.env.example
+*.log
+.pytest_cache/
+.coverage
+htmlcov/
+.DS_Store
+*.swp
+*.swo
+*.egg-info/
+.venv/
+.mypy_cache/
+.ruff_cache/
+build/
+dist/
+*.db
+*.sqlite
+*.sqlite3
+coverage.xml
+
+# Local/private MCP and client state
+.antigravity/
+.gemini/
+.claude/
+.codex/
+.opencode/
+
+# Secrets and private local files
+secrets/
+private/
+*.pem
+*.key
+*.crt
+*.p12
+*.local
+*.secret
+
+# Private notes and drafts
+context.md
+CONTEXT.md
+*.private.md
+*.local.md
+scratch/
+notes/private/
