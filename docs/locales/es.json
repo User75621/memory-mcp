@@ -15,6 +15,15 @@
     "api": "API",
     "examples": "Ejemplos"
   },
+  "ui": {
+    "copy": "Copiar",
+    "copied": "Copiado",
+    "themeLight": "Dia",
+    "themeDark": "Noche",
+    "themeSwitchLight": "Cambiar a modo dia",
+    "themeSwitchDark": "Cambiar a modo noche",
+    "onThisPage": "En esta pagina"
+  },
   "hero": {
     "eyebrow": "Project Memory MCP Server",
     "title": "Memoria de largo plazo para modelos de IA y agentes de codigo",

@@ -62,25 +62,30 @@
     <a class="skip-link" href="#main">Skip to content</a>
     <header class="site-header">
       <div class="shell">
-        <a class="brand" href="#overview" aria-label="Go to top of documentation">
-          <img class="brand-mark" src="assets/logo.svg" alt="Project Memory MCP logo">
-          <span class="brand-copy">
-            <strong>Project Memory MCP</strong>
-            <span>Persistent Project Memory for AI Models</span>
-          </span>
-        </a>
-        <nav class="header-nav" aria-label="Primary">
-          <a href="#overview" data-i18n="nav.overview">Overview</a>
-          <a href="#features" data-i18n="nav.features">Features</a>
-          <a href="#setup" data-i18n="nav.setup">Setup</a>
-          <a href="#clients" data-i18n="nav.clients">Clients</a>
-          <a href="#usage" data-i18n="nav.usage">Natural use</a>
-          <a href="#api" data-i18n="nav.api">API</a>
-          <a href="#examples" data-i18n="nav.examples">Examples</a>
-        </nav>
-        <div class="header-actions">
-          <button class="toggle" type="button" data-theme-toggle aria-label="Toggle color theme">Dark</button>
-          <button class="toggle" type="button" data-language-toggle aria-label="Toggle page language">ES</button>
+        <div class="header-panel">
+          <a class="brand" href="#overview" aria-label="Go to top of documentation">
+            <img class="brand-mark" src="assets/logo.svg" alt="Project Memory MCP logo">
+            <span class="brand-copy">
+              <strong>Project Memory MCP</strong>
+              <span>Persistent Project Memory for AI Models</span>
+            </span>
+          </a>
+          <nav class="header-nav" aria-label="Primary">
+            <a href="#overview" data-section-link="overview" data-i18n="nav.overview">Overview</a>
+            <a href="#features" data-section-link="features" data-i18n="nav.features">Features</a>
+            <a href="#setup" data-section-link="setup" data-i18n="nav.setup">Setup</a>
+            <a href="#clients" data-section-link="clients" data-i18n="nav.clients">Clients</a>
+            <a href="#usage" data-section-link="usage" data-i18n="nav.usage">Natural use</a>
+            <a href="#api" data-section-link="api" data-i18n="nav.api">API</a>
+            <a href="#examples" data-section-link="examples" data-i18n="nav.examples">Examples</a>
+          </nav>
+          <div class="header-actions">
+            <button class="toggle theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark mode">
+              <span class="toggle-icon" data-theme-icon aria-hidden="true">&#9728;</span>
+              <span class="toggle-label" data-theme-label>Light</span>
+            </button>
+            <button class="toggle language-toggle" type="button" data-language-toggle aria-label="Toggle page language">ES</button>
+          </div>
         </div>
       </div>
     </header>
@@ -107,6 +112,9 @@
           </aside>
         </div>
       </section>
+
+      <div class="shell docs-layout">
+        <div class="docs-main">
 
       <section id="index">
         <div class="shell index-grid">
@@ -354,6 +362,25 @@
           </article>
         </div>
       </section>
+
+        </div>
+
+        <aside class="docs-sidebar" aria-label="On-page navigation">
+          <div class="sidebar-card">
+            <p class="sidebar-eyebrow" data-i18n="ui.onThisPage">On this page</p>
+            <nav class="sidebar-nav" aria-label="On-page navigation">
+              <a class="sidebar-link" href="#overview" data-section-link="overview" data-i18n="index.overview">Project overview</a>
+              <a class="sidebar-link" href="#features" data-section-link="features" data-i18n="index.features">Core features</a>
+              <a class="sidebar-link" href="#setup" data-section-link="setup" data-i18n="index.setup">Step-by-step setup</a>
+              <a class="sidebar-link" href="#clients" data-section-link="clients" data-i18n="index.clients">Client setup</a>
+              <a class="sidebar-link" href="#usage" data-section-link="usage" data-i18n="index.usage">Natural language usage</a>
+              <a class="sidebar-link" href="#api" data-section-link="api" data-i18n="index.api">API reference</a>
+              <a class="sidebar-link" href="#architecture" data-section-link="architecture" data-i18n="index.architecture">Architecture</a>
+              <a class="sidebar-link" href="#examples" data-section-link="examples" data-i18n="index.examples">Interface examples</a>
+            </nav>
+          </div>
+        </aside>
+      </div>
     </main>
 
     <footer class="footer">
@@ -373,9 +400,19 @@
             <h3 data-i18n="footer.supportTitle">Support the project</h3>
             <p class="muted" data-i18n="footer.supportDescription">If Project Memory MCP helps your workflow, you can support its development with PayPal or Ko-fi.</p>
           </div>
-          <div class="footer-links">
-            <a class="button" href="https://www.paypal.me/Creativegt" target="_blank" rel="noopener noreferrer" data-i18n="footer.supportButton" aria-label="Support Project Memory MCP with PayPal">Support with PayPal</a>
-            <a class="ghost-button support-kofi" href="https://ko-fi.com/X8X71W99D6" target="_blank" rel="noopener noreferrer" aria-label="Support Project Memory MCP on Ko-fi">
+          <div class="support-actions">
+            <a class="support-card support-card-paypal" href="https://www.paypal.me/Creativegt" target="_blank" rel="noopener noreferrer" aria-label="Support Project Memory MCP with PayPal">
+              <span class="support-icon" aria-hidden="true">$</span>
+              <span class="support-copy">
+                <strong data-i18n="footer.supportButton">Support with PayPal</strong>
+                <span>paypal.me/Creativegt</span>
+              </span>
+            </a>
+            <a class="support-card support-card-kofi" href="https://ko-fi.com/X8X71W99D6" target="_blank" rel="noopener noreferrer" aria-label="Support Project Memory MCP on Ko-fi">
+              <span class="support-copy support-copy-kofi">
+                <strong data-i18n="footer.supportKofi">Support on Ko-fi</strong>
+                <span>ko-fi.com/X8X71W99D6</span>
+              </span>
               <img class="support-kofi-image" src="https://ko-fi.com/img/githubbutton_sm.svg" alt="Support on Ko-fi">
             </a>
           </div>

@@ -15,6 +15,15 @@
     "api": "API",
     "examples": "Examples"
   },
+  "ui": {
+    "copy": "Copy",
+    "copied": "Copied",
+    "themeLight": "Light",
+    "themeDark": "Dark",
+    "themeSwitchLight": "Switch to light mode",
+    "themeSwitchDark": "Switch to dark mode",
+    "onThisPage": "On this page"
+  },
   "hero": {
     "eyebrow": "Project Memory MCP Server",
     "title": "Long-term project memory for AI models and coding agents",
