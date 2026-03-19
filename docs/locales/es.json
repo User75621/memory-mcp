@@ -173,12 +173,14 @@
     "description": "Project Memory MCP, memoria de proyecto IA, Supabase persistent context, AI agent memory, OpenCode memory, Claude Code CLI memory, Qwen Code memory y Codex memory estan explicados en lenguaje claro para una adopcion rapida."
   },
   "footer": {
-    "title": "Pensado para flujos MCP publicos y escalables",
-    "description": "Creado por Danny Maaz para equipos que construyen memoria de proyecto de largo plazo sobre Supabase.",
+    "title": "Infraestructura open source de memoria para flujos reales con IA",
+    "description": "Creado por Danny Maaz para que desarrolladores y equipos conserven contexto, decisiones de arquitectura y continuidad de trabajo entre distintos clientes de IA.",
     "supportTitle": "Apoya el proyecto",
     "supportDescription": "Si Project Memory MCP te ayuda en tu flujo de trabajo, puedes apoyar su desarrollo con PayPal o Ko-fi.",
     "supportButton": "Apoyar con PayPal",
     "supportKofi": "Apoyar en Ko-fi",
+    "supportMetaPayPal": "Apoyo puntual",
+    "supportMetaKofi": "Invitame un cafe",
     "github": "GitHub",
     "linkedin": "LinkedIn"
   }

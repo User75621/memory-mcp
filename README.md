@@ -341,10 +341,8 @@ Main tools exposed by the server in `src/server.py`:
 
 If Project Memory MCP helps your workflow, you can support development here:
 
-- PayPal: https://www.paypal.me/Creativegt
-- Ko-fi: https://ko-fi.com/X8X71W99D6
-
-[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/X8X71W99D6)
+[![PayPal](https://img.shields.io/badge/PayPal-Support-0A2540?style=for-the-badge&logo=paypal&logoColor=white)](https://www.paypal.me/Creativegt)
+[![Ko-fi](https://img.shields.io/badge/Ko--fi-Support-FF5E5B?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/X8X71W99D6)
 
 ## Contributing
 

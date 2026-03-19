@@ -398,7 +398,8 @@ section {
 .architecture-card img {
   border-radius: 16px;
   background: var(--surface-muted);
-  padding: 0.75rem;
+  padding: 0.9rem;
+  width: 100%;
 }
 
 .command,
@@ -411,11 +412,13 @@ code {
   display: block;
   width: 100%;
   margin: 0.55rem 0 0;
-  padding: 0.95rem 3.9rem 0.95rem 1rem;
+  padding: 0.95rem 5.1rem 0.95rem 1rem;
   border-radius: 14px;
   background: var(--surface-muted);
   border: 1px solid color-mix(in srgb, var(--text) 8%, transparent);
-  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 .copy-block,
@@ -508,7 +511,7 @@ pre code {
 .support-card {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 1rem;
   min-height: 72px;
   padding: 0.9rem 1rem;
@@ -544,6 +547,7 @@ pre code {
 .support-copy {
   display: grid;
   gap: 0.2rem;
+  flex: 1 1 auto;
 }
 
 .support-copy strong {
@@ -555,15 +559,8 @@ pre code {
   font-size: 0.92rem;
 }
 
-.support-copy-kofi {
-  flex: 1 1 auto;
-}
-
-.support-kofi-image {
-  display: block;
-  width: 140px;
-  height: auto;
-  flex: 0 0 auto;
+.support-icon-kofi {
+  font-size: 1.05rem;
 }
 
 .skip-link {
@@ -666,10 +663,6 @@ pre code {
   .support-card {
     flex-direction: column;
     align-items: flex-start;
-  }
-
-  .support-kofi-image {
-    width: 132px;
   }
 }
 
