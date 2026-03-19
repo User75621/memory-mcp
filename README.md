@@ -139,6 +139,8 @@ Recommended pattern:
 - one `.env` file inside that folder,
 - many repos or apps connected to the same memory backend.
 
+Use any stable folder you control. Do not publish personal local paths in public configs or screenshots.
+
 ### 3. Configure it like any other MCP server
 
 The simplest pattern is to register one command everywhere:
@@ -162,7 +164,19 @@ The simplest pattern is to register one command everywhere:
 
 That same block works as the base for Antigravity, OpenCode, Claude Code, Codex, and most other MCP-compatible clients.
 
-### 4. Configure each client
+### 4. Do I need to start it after every reboot?
+
+Usually no.
+
+If a client is configured to launch `project-memory-mcp`, it normally starts the server on demand when the client needs it. In normal use, that means you do not have to manually rerun the server every time you turn on the PC.
+
+You only need to start it yourself when:
+
+- testing the server directly,
+- debugging outside the client,
+- or using a custom setup that does not automatically spawn MCP servers.
+
+### 5. Configure each client
 
 #### OpenCode
 

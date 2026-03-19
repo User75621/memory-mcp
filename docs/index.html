@@ -231,7 +231,7 @@
             </article>
             <article class="card">
               <h3 data-i18n="clients.keepTitle">2. Keep one central installation</h3>
-              <p data-i18n="clients.keepText">Do not copy the server into every project. Keep one folder such as `C:/Users/Danny/Documents/Projects-dannymaaz/Google VPS MCP/project-memory-mcp` and connect all clients to that same installation.</p>
+              <p data-i18n="clients.keepText">Do not copy the server into every project. Keep one stable folder for the MCP server and connect all clients to that same installation.</p>
               <p class="command">copy .env.example .env</p>
               <p class="command">project-memory-mcp</p>
             </article>
@@ -240,6 +240,10 @@
               <p data-i18n="clients.standardText">After installation, configure clients to launch the same command: `project-memory-mcp`. This makes the server behave like any other stdio MCP server.</p>
               <p class="command">"command": "project-memory-mcp"</p>
               <p class="command">"env": { "SUPABASE_URL": "..." }</p>
+            </article>
+            <article class="card">
+              <h3 data-i18n="clients.startTitle">4. Do I need to start it after every reboot?</h3>
+              <p data-i18n="clients.startText">Usually no. When a client is configured with the `project-memory-mcp` command, it normally starts the server automatically when needed. You only need to run it manually when testing it directly or debugging outside the client.</p>
             </article>
             <article class="card">
               <h3 data-i18n="clients.genericTitle">Works with other MCP clients</h3>
