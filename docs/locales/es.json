@@ -41,7 +41,7 @@
     "overview": "Resumen del proyecto",
     "features": "Funciones principales",
     "setup": "Instalacion paso a paso",
-    "clients": "Configuracion por cliente",
+    "clients": "Configuracion",
     "usage": "Uso en lenguaje natural",
     "api": "Referencia API",
     "architecture": "Arquitectura",
@@ -95,7 +95,7 @@
     "note": "Si un cliente desactiva el uso de tools, el modelo no podra llamar tools MCP automaticamente. En ese caso, habilita MCP en el cliente o llama la tool de forma explicita."
   },
   "clients": {
-    "title": "Instala desde GitHub y conecta tu cliente",
+    "title": "Configuracion",
     "intro": "Puedes dejar este repositorio en la carpeta que prefieras. La mayoria de usuarios lo clonan una sola vez, guardan un `.env` privado y conectan varios IDEs o clientes de IA al mismo servidor MCP.",
     "installTitle": "1. Clona y prepara el servidor",
     "installText": "Clona el repositorio, instala dependencias, ejecuta `pip install -e .`, crea `.env`, ejecuta `schema.sql` en Supabase y deja la carpeta en una ubicacion estable.",
@@ -113,6 +113,8 @@
     "claudeDesktopText": "Agrega una entrada de servidor MCP local en `claude_desktop_config.json` usando el comando instalado `project-memory-mcp` y las mismas variables de entorno de `.env`.",
     "claudeCodeTitle": "Claude Code CLI",
     "claudeCodeText": "Ejecuta Claude Code con el `mcp.json` compartido o con el flujo equivalente de registro MCP del CLI.",
+    "qwenTitle": "Qwen Code",
+    "qwenText": "Apunta Qwen Code al mismo archivo `mcp.json` o pega el bloque estandar `mcpServers` en sus ajustes MCP, y luego define `PROJECT_MEMORY_INTERFACE=qwen-code`.",
     "antigravityTitle": "Antigravity",
     "antigravityText": "Pega el mismo JSON MCP en los ajustes MCP de Antigravity. En la instalacion de Windows verificada aqui, Antigravity escribio la configuracion MCP en `%USERPROFILE%/.gemini/antigravity/mcp_config.json`.",
     "desktopSnippetTitle": "Snippet MCP generico",

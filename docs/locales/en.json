@@ -41,7 +41,7 @@
     "overview": "Project overview",
     "features": "Core features",
     "setup": "Step-by-step setup",
-    "clients": "Client setup",
+    "clients": "Configuration",
     "usage": "Natural language usage",
     "api": "API reference",
     "architecture": "Architecture",
@@ -95,7 +95,7 @@
     "note": "If a client disables tool use, the model cannot call MCP tools automatically. In that case, enable MCP tools in the client or call the tool explicitly."
   },
   "clients": {
-    "title": "Install from GitHub and connect your client",
+    "title": "Configuration",
     "intro": "You can keep this repository in the folder you prefer. Most users clone it once, keep a private `.env`, and connect multiple IDEs or AI clients to the same MCP server.",
     "installTitle": "1. Clone and prepare the server",
     "installText": "Clone the repository, install dependencies, run `pip install -e .`, create `.env`, run `schema.sql` in Supabase, and keep the folder in a stable location.",
@@ -113,6 +113,8 @@
     "claudeDesktopText": "Add a local MCP server entry to `claude_desktop_config.json` using the installed `project-memory-mcp` command and the same environment variables from `.env`.",
     "claudeCodeTitle": "Claude Code CLI",
     "claudeCodeText": "Run Claude Code with the shared `mcp.json` config or the equivalent CLI MCP registration flow.",
+    "qwenTitle": "Qwen Code",
+    "qwenText": "Point Qwen Code to the same `mcp.json` file or paste the standard `mcpServers` block into its MCP settings, then set `PROJECT_MEMORY_INTERFACE=qwen-code`.",
     "antigravityTitle": "Antigravity",
     "antigravityText": "Paste the same MCP JSON into Antigravity MCP settings. On the verified Windows installation used here, Antigravity wrote MCP config to `%USERPROFILE%/.gemini/antigravity/mcp_config.json`.",
     "desktopSnippetTitle": "Generic MCP config snippet",
