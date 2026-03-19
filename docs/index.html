@@ -230,9 +230,16 @@
               <p class="command">pip install -e .</p>
             </article>
             <article class="card">
+              <h3 data-i18n="clients.platformTitle">macOS and Linux</h3>
+              <p data-i18n="clients.platformText">The MCP is not Windows-only. After `pip install -e .`, macOS and Linux expose the same `project-memory-mcp` command, so the same MCP server entry works across platforms.</p>
+              <p class="command">python3 -m venv .venv</p>
+              <p class="command">source .venv/bin/activate</p>
+              <p class="command">cp .env.example .env</p>
+            </article>
+            <article class="card">
               <h3 data-i18n="clients.keepTitle">2. Keep one central installation</h3>
               <p data-i18n="clients.keepText">Do not copy the server into every project. Keep one stable folder for the MCP server and connect all clients to that same installation.</p>
-              <p class="command">copy .env.example .env</p>
+              <p class="command">cp .env.example .env</p>
               <p class="command">project-memory-mcp</p>
             </article>
             <article class="card">
@@ -263,7 +270,10 @@
             <article class="card" id="config-claude-desktop">
               <h3 data-i18n="clients.claudeDesktopTitle">Claude Desktop</h3>
               <p data-i18n="clients.claudeDesktopText">Add a local MCP server entry to Claude Desktop using the installed project-memory-mcp command and the same environment variables from your local setup.</p>
+              <p class="muted" data-i18n="clients.claudeDesktopPathTitle">Claude Desktop path by platform</p>
               <p class="command">%APPDATA%\Claude\claude_desktop_config.json</p>
+              <p class="command" data-i18n="clients.claudeDesktopPathMac">macOS: ~/Library/Application Support/Claude/claude_desktop_config.json</p>
+              <p class="command" data-i18n="clients.claudeDesktopPathLinux">Linux: check your local Claude Desktop app data folder</p>
               <p class="command">"command": "project-memory-mcp"</p>
             </article>
             <article class="card" id="config-claude-code">

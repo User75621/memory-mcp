@@ -62,14 +62,29 @@ AI tools often forget the project state between sessions. Project Memory MCP fix
 
 ## Quick Start
 
+macOS and Linux:
+
 ```bash
 git clone https://github.com/dannymaaz/project-memory-mcp.git
 cd project-memory-mcp
-python -m venv .venv
-. .venv/bin/activate
+python3 -m venv .venv
+source .venv/bin/activate
 pip install -r requirements.txt
 pip install -e .
 cp .env.example .env
+project-memory-mcp
+```
+
+Windows PowerShell:
+
+```powershell
+git clone https://github.com/dannymaaz/project-memory-mcp.git
+cd project-memory-mcp
+py -m venv .venv
+.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+pip install -e .
+Copy-Item .env.example .env
 project-memory-mcp
 ```
 
@@ -111,14 +126,28 @@ For other users who clone it from GitHub, the best pattern is still the same: cl
 
 ### 1. Install from GitHub
 
+macOS and Linux:
+
 ```bash
 git clone https://github.com/dannymaaz/project-memory-mcp.git
 cd project-memory-mcp
-python -m venv .venv
-. .venv/bin/activate
+python3 -m venv .venv
+source .venv/bin/activate
 pip install -r requirements.txt
 pip install -e .
 cp .env.example .env
+```
+
+Windows PowerShell:
+
+```powershell
+git clone https://github.com/dannymaaz/project-memory-mcp.git
+cd project-memory-mcp
+py -m venv .venv
+.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+pip install -e .
+Copy-Item .env.example .env
 ```
 
 Then:
@@ -127,6 +156,12 @@ Then:
 2. Run `schema.sql` in Supabase SQL Editor.
 3. Keep the repository in a stable folder.
 4. Reuse that same folder for all your IDEs and AI clients.
+
+The installed MCP command is the same on Windows, macOS, and Linux:
+
+```text
+project-memory-mcp
+```
 
 ### 2. Keep one central installation
 
@@ -215,6 +250,18 @@ Windows path:
 
 ```text
 %APPDATA%\Claude\claude_desktop_config.json
+```
+
+macOS path:
+
+```text
+~/Library/Application Support/Claude/claude_desktop_config.json
+```
+
+Linux path:
+
+```text
+Check your local Claude Desktop app data folder
 ```
 
 Example config:

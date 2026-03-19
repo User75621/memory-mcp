@@ -99,6 +99,8 @@
     "intro": "Puedes dejar este repositorio en la carpeta que prefieras. La mayoria de usuarios lo clonan una sola vez, guardan un `.env` privado y conectan varios IDEs o clientes de IA al mismo servidor MCP.",
     "installTitle": "1. Clona y prepara el servidor",
     "installText": "Clona el repositorio, instala dependencias, ejecuta `pip install -e .`, crea `.env`, ejecuta `schema.sql` en Supabase y deja la carpeta en una ubicacion estable.",
+    "platformTitle": "macOS y Linux",
+    "platformText": "El MCP no es solo para Windows. Despues de `pip install -e .`, macOS y Linux tambien exponen el mismo comando `project-memory-mcp`, asi que la misma entrada MCP funciona entre plataformas.",
     "keepTitle": "2. Mantén una sola instalacion central",
     "keepText": "No copies el servidor dentro de cada proyecto. Mantén una sola carpeta estable para el servidor MCP y conecta todos los clientes a esa misma instalacion.",
     "standardTitle": "3. Usa un solo comando MCP estandar",
@@ -120,7 +122,10 @@
     "antigravityTitle": "Antigravity",
     "antigravityText": "Pega el mismo JSON MCP en los ajustes MCP de Antigravity. En Windows, una ruta comun de configuracion se muestra abajo.",
     "desktopSnippetTitle": "Snippet MCP generico",
-    "antigravityPathTitle": "Ruta comun de Antigravity en Windows"
+    "antigravityPathTitle": "Ruta comun de Antigravity en Windows",
+    "claudeDesktopPathTitle": "Ruta de Claude Desktop por plataforma",
+    "claudeDesktopPathMac": "macOS: ~/Library/Application Support/Claude/claude_desktop_config.json",
+    "claudeDesktopPathLinux": "Linux: revisa la carpeta local de datos de tu app Claude Desktop"
   },
   "api": {
     "title": "Herramientas MCP principales",
