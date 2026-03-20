@@ -5,9 +5,7 @@
       "env": {
         "SUPABASE_URL": "${SUPABASE_URL}",
         "SUPABASE_KEY": "${SUPABASE_KEY}",
-        "OWNER_ID": "${OWNER_ID}",
-        "DEFAULT_MODEL": "${DEFAULT_MODEL}",
-        "PROJECT_MEMORY_INTERFACE": "${PROJECT_MEMORY_INTERFACE}"
+        "OWNER_ID": "${OWNER_ID}"
       }
     }
   }

@@ -5,10 +5,15 @@ This example shows how to attach Project Memory MCP to a Qwen Code workflow.
 ## Configuration
 
 1. Install project dependencies.
-2. Set `PROJECT_MEMORY_INTERFACE=qwen-code` in your environment.
-3. Point Qwen Code to the local `mcp.json` file.
+2. Point Qwen Code to the local `mcp.json` file.
 
 ## Command
+
+```bash
+qwen --mcp-config mcp.json
+```
+
+If you want to force a client label for analytics or routing, you can optionally set:
 
 ```bash
 PROJECT_MEMORY_INTERFACE=qwen-code qwen --mcp-config mcp.json

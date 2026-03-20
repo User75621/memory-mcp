@@ -6,10 +6,15 @@ Use this guide when you want Claude Code CLI to continue a project with the same
 
 1. Install the project dependencies.
 2. Run `pip install -e .` so the `project-memory-mcp` command is available.
-3. Set `PROJECT_MEMORY_INTERFACE=claude-code` in your environment.
-4. Register `mcp.json` in your Claude Code CLI configuration.
+3. Register `mcp.json` in your Claude Code CLI configuration.
 
 ## Command
+
+```bash
+claude-code --mcp-config mcp.json
+```
+
+If you want to force a client label for analytics or routing, you can optionally set:
 
 ```bash
 PROJECT_MEMORY_INTERFACE=claude-code claude-code --mcp-config mcp.json

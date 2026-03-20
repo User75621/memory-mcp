@@ -6,10 +6,15 @@ Use this guide when you want OpenCode to inherit project memory before editing o
 
 1. Install the project dependencies.
 2. Run `pip install -e .` so the `project-memory-mcp` command is available.
-3. Set `PROJECT_MEMORY_INTERFACE=opencode` in your environment.
-4. Point OpenCode to the local `mcp.json` file.
+3. Point OpenCode to the local `mcp.json` file.
 
 ## Command
+
+```bash
+opencode --mcp-config mcp.json
+```
+
+If you want to force a client label for analytics or routing, you can optionally set:
 
 ```bash
 PROJECT_MEMORY_INTERFACE=opencode opencode --mcp-config mcp.json

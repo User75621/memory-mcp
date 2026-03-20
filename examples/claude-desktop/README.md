@@ -25,9 +25,7 @@ Use this guide when you want Claude Desktop to talk to the same Project Memory M
       "env": {
         "SUPABASE_URL": "https://your-project.supabase.co",
         "SUPABASE_KEY": "your-anon-key",
-        "OWNER_ID": "your-owner-id",
-        "DEFAULT_MODEL": "gemini-pro",
-        "PROJECT_MEMORY_INTERFACE": "claude-code"
+        "OWNER_ID": "your-stable-identifier"
       }
     }
   }

@@ -230,6 +230,18 @@
               <p class="command">pip install -e .</p>
             </article>
             <article class="card">
+              <h3 data-i18n="clients.envTitle">Required .env values</h3>
+              <p data-i18n="clients.envText">The MCP server only needs three values for normal use: SUPABASE_URL, SUPABASE_KEY, and OWNER_ID. DATABASE_URL is optional and only matters if you also want direct Postgres access for admin tasks or SQL tooling.</p>
+              <p class="command">SUPABASE_URL=https://your-project.supabase.co</p>
+              <p class="command">SUPABASE_KEY=your-anon-key</p>
+              <p class="command">OWNER_ID=your-stable-identifier</p>
+              <p class="command">DATABASE_URL=postgresql://user:password@host:6543/postgres</p>
+            </article>
+            <article class="card">
+              <h3 data-i18n="clients.envSourceTitle">How to get each value</h3>
+              <p data-i18n="clients.envSourceText">SUPABASE_URL and SUPABASE_KEY come from your Supabase project settings. OWNER_ID is not provided by Supabase: you choose a stable identifier such as your GitHub username, company slug, or workspace id and keep using the same value.</p>
+            </article>
+            <article class="card">
               <h3 data-i18n="clients.platformTitle">macOS and Linux</h3>
               <p data-i18n="clients.platformText">The MCP is not Windows-only. After `pip install -e .`, macOS and Linux expose the same `project-memory-mcp` command, so the same MCP server entry works across platforms.</p>
               <p class="command">python3 -m venv .venv</p>
@@ -259,7 +271,7 @@
             </article>
             <article class="card" id="config-opencode">
               <h3 data-i18n="clients.opencodeTitle">OpenCode</h3>
-              <p data-i18n="clients.opencodeText">Point OpenCode to the shared MCP config or paste the same server block into its settings, then set PROJECT_MEMORY_INTERFACE=opencode.</p>
+              <p data-i18n="clients.opencodeText">Point OpenCode to the shared MCP config or paste the same server block into its settings. PROJECT_MEMORY_INTERFACE is optional if you want to force a client label; most setups can skip it.</p>
               <p class="command">opencode --mcp-config mcp.json</p>
             </article>
             <article class="card" id="config-codex">
@@ -289,7 +301,7 @@
             </article>
             <article class="card" id="config-qwen">
               <h3 data-i18n="clients.qwenTitle">Qwen Code</h3>
-              <p data-i18n="clients.qwenText">Point Qwen Code to the same MCP config or paste the shared server block into its settings, then set PROJECT_MEMORY_INTERFACE=qwen-code.</p>
+              <p data-i18n="clients.qwenText">Point Qwen Code to the same MCP config or paste the shared server block into its settings. PROJECT_MEMORY_INTERFACE is optional if you want to force a client label.</p>
               <p class="command">qwen --mcp-config mcp.json</p>
             </article>
           </div>
@@ -302,9 +314,7 @@
       "env": {
         "SUPABASE_URL": "https://your-project.supabase.co",
         "SUPABASE_KEY": "your-anon-key",
-        "OWNER_ID": "your-owner-id",
-        "DEFAULT_MODEL": "gemini-pro",
-        "PROJECT_MEMORY_INTERFACE": "claude-code"
+        "OWNER_ID": "your-stable-identifier"
       }
     }
   }
