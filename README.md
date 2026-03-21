@@ -348,12 +348,24 @@ If your client disables tool use, the model cannot call MCP tools by itself. In 
 
 ## Features
 
-- 🧩 Persistent project context backed by Supabase.
+- 🧩 Automatic project resolution and creation from repository context.
 - 🔀 Multi-client continuity for OpenCode, Claude Code CLI, Qwen Code, Codex, and native MCP flows.
-- ✂️ Context optimization with interface-aware and model-aware trimming.
+- 🌿 Git-aware memory with repo path, remote, branch, commit, and working tree status.
+- 📦 Checkpoints, prompt patterns, file memory, and timeline snapshots for faster resume flows.
+- 🔎 Semantic memory search with Supabase embeddings plus lexical fallback.
+- 🗂️ Retention policies, JSON/Markdown export, and import support for backup or migration.
 - 🔐 Row Level Security across every persistent table.
 - 🧪 Pytest coverage for the server and optimizer.
 - 🌐 Public bilingual docs optimized for GitHub and Google search.
+
+## What it automates
+
+- Auto-resolves or auto-creates the project when `project_id` is omitted.
+- Detects repository context from git metadata when available.
+- Records session summaries and next steps when work stops or switches clients.
+- Stores file-level memory and dependency relationships for important modules.
+- Detects duplicate tasks, conflicting decisions, and missing file dependencies as warnings.
+- Builds a project timeline so you can understand how the work evolved.
 
 ## Architecture Snapshot
 
@@ -373,17 +385,39 @@ If your client disables tool use, the model cannot call MCP tools by itself. In 
 
 ## API Reference
 
-Main tools exposed by the server in `src/server.py`:
+Key tools exposed by the server in `src/server.py`:
 
-1. `load_unified_context`
-2. `save_cross_interface_decision`
-3. `update_task_status`
-4. `create_session`
-5. `end_session`
-6. `add_warning`
-7. `get_active_warnings`
-8. `sync_session_state`
-9. `get_interface_analytics`
+1. `resolve_project` — auto-detects or auto-creates the current project.
+2. `create_project` — creates a project explicitly with repo/workspace metadata.
+3. `list_projects` — lists projects for the current owner or workspace.
+4. `load_unified_context` — loads optimized durable memory for the current client.
+5. `save_cross_interface_decision` — persists architecture or implementation decisions.
+6. `update_task_status` — creates or updates tasks and flags duplicates.
+7. `create_session` — opens a tracked session with git context.
+8. `end_session` — closes a session and saves a resume-ready summary.
+9. `add_warning` — records warnings manually.
+10. `get_active_warnings` — returns unresolved warnings.
+11. `sync_session_state` — stores in-progress work for handoff between clients.
+12. `get_interface_analytics` — returns interface usage trends.
+13. `save_file_memory` — stores file summaries and dependency edges.
+14. `save_checkpoint` — saves checkpoints for architecture, blockers, and next steps.
+15. `save_prompt_pattern` — stores reusable prompt patterns and response preferences.
+16. `search_semantic_memory` — searches memory semantically or lexically.
+17. `get_project_timeline` — returns a chronological memory timeline.
+18. `export_memory_bundle` — exports memory to JSON or Markdown.
+19. `import_memory_bundle` — imports a memory bundle back into a project.
+20. `resume_project` — returns a ready-to-use summary to continue work.
+21. `apply_retention_policy` — stores retention rules and creates archive summaries.
+
+## Automatic Project Memory Workflow
+
+Typical usage now looks like this:
+
+1. The client launches `memory-mcp`.
+2. The server inspects the current repository context and resolves or creates a project.
+3. `load_unified_context` returns decisions, tasks, warnings, checkpoints, file memory, prompts, and timeline data.
+4. During work, sessions, decisions, prompt patterns, file relationships, and warnings are updated.
+5. When work ends, the server can save session state, create a checkpoint, and return a resume-ready next step.
 
 ## Examples
 
@@ -401,6 +435,28 @@ Main tools exposed by the server in `src/server.py`:
 - Keeps core keywords near the top for GitHub search and repository previews.
 - Ships Open Graph, Twitter Card, JSON-LD, canonical URL, hreflang, and sitemap for Google indexing.
 - Includes bilingual docs and MCP-oriented examples for broader discoverability.
+
+## FAQ
+
+### What is `OWNER_ID`?
+
+`OWNER_ID` is a stable identifier you choose for yourself or your team. It is not created by Supabase. Good values include your GitHub username, a company slug, or a workspace id.
+
+### Do I need `DATABASE_URL`?
+
+No, not for normal MCP usage. `SUPABASE_URL` and `SUPABASE_KEY` are enough for the server. `DATABASE_URL` is only useful if you also want direct Postgres access for SQL scripts or admin tooling.
+
+### Do I need `project_id` every time?
+
+No. Memory MCP now tries to resolve the project automatically from repository context and can create it when missing.
+
+### Does it work with semantic search immediately?
+
+Yes, with a fallback. The server can always do lexical search. If you also store embeddings in Supabase, `search_semantic_memory` can rank results semantically.
+
+### Do I have to start the server manually after every reboot?
+
+Usually no. MCP-compatible clients normally spawn `memory-mcp` on demand once they are configured with the command.
 
 ## Screenshots
 

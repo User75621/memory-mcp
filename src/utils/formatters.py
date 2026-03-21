@@ -16,11 +16,17 @@ def format_context(context: dict[str, Any]) -> dict[str, Any]:
     """
     formatted = {
         "project": context.get("project") or {},
+        "workspace": context.get("workspace") or {},
         "decisions": context.get("decisions") or [],
         "tasks": context.get("tasks") or [],
         "preferences": context.get("preferences") or [],
         "warnings": context.get("warnings") or [],
         "sessions": context.get("sessions") or [],
+        "checkpoints": context.get("checkpoints") or [],
+        "file_memory": context.get("file_memory") or [],
+        "prompt_patterns": context.get("prompt_patterns") or [],
+        "timeline": context.get("timeline") or [],
+        "semantic_matches": context.get("semantic_matches") or [],
         "metadata": context.get("metadata") or {},
     }
     formatted["counts"] = {
@@ -28,6 +34,10 @@ def format_context(context: dict[str, Any]) -> dict[str, Any]:
         "tasks": len(formatted["tasks"]),
         "warnings": len(formatted["warnings"]),
         "sessions": len(formatted["sessions"]),
+        "checkpoints": len(formatted["checkpoints"]),
+        "file_memory": len(formatted["file_memory"]),
+        "prompt_patterns": len(formatted["prompt_patterns"]),
+        "timeline": len(formatted["timeline"]),
     }
     return formatted
 

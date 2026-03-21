@@ -52,20 +52,28 @@
     "intro": "Pensado para equipos que quieren memoria de proyecto MCP, Supabase persistent context, AI agent memory y handoff confiable entre OpenCode, Claude Code CLI, Qwen Code, Codex y sesiones nativas.",
     "items": [
       {
-        "title": "Contexto persistente del proyecto",
-        "text": "Guarda arquitectura, decisiones, tareas, advertencias y preferencias en una sola capa durable de memoria."
+        "title": "Resolucion automatica del proyecto",
+        "text": "Resuelve o crea proyectos a partir del contexto del repo sin pedir siempre un project id manual."
       },
       {
-        "title": "Continuidad entre clientes",
-        "text": "Pasa de OpenCode a Claude Code CLI, Qwen Code, Codex o chat nativo sin perder en que punto ibas."
+        "title": "Memoria conectada a Git",
+        "text": "Guarda ruta, remoto, rama, commit y estado del repo para mantener la memoria alineada con el codigo real."
       },
       {
-        "title": "Optimizacion de contexto",
-        "text": "Recorta payloads grandes de forma segura con estrategias por interfaz y por modelo."
+        "title": "Resumenes de sesion y checkpoints",
+        "text": "Guarda que se hizo, que falta, blockers y siguiente paso cuando una sesion termina o cambia de cliente."
       },
       {
-        "title": "Visibilidad operativa",
-        "text": "Sigue advertencias, sesiones y analitica por interfaz para que el siguiente paso de IA arranque con la memoria correcta."
+        "title": "Memoria por archivo",
+        "text": "Documenta archivos clave, modulos y dependencias para que futuras sesiones entiendan como se relaciona el proyecto."
+      },
+      {
+        "title": "Busqueda semantica",
+        "text": "Busca memoria por significado con embeddings en Supabase y deja un fallback lexical para mayor portabilidad."
+      },
+      {
+        "title": "Retencion y exportes",
+        "text": "Optimiza almacenamiento con politicas de retencion, resumenes de timeline y exportes en JSON o Markdown."
       }
     ]
   },
@@ -136,6 +144,10 @@
     "intro": "La API se enfoca en cargar contexto compartido, guardar decisiones, sincronizar estado de sesion y medir uso por interfaz.",
     "items": [
       {
+        "name": "resolve_project",
+        "description": "Resuelve o crea automaticamente el proyecto actual a partir del contexto del repositorio."
+      },
+      {
         "name": "load_unified_context",
         "description": "Carga memoria durable del proyecto optimizada para la interfaz y el modelo actual."
       },
@@ -144,8 +156,24 @@
         "description": "Guarda una decision para que futuras sesiones hereden el mismo razonamiento."
       },
       {
+        "name": "save_file_memory",
+        "description": "Guarda resúmenes por archivo, dependencias y relaciones entre modulos."
+      },
+      {
+        "name": "save_checkpoint",
+        "description": "Guarda checkpoints de arquitectura, blockers, estado funcional y siguientes pasos."
+      },
+      {
         "name": "sync_session_state",
         "description": "Guarda el estado actual de trabajo para que otro cliente de IA continúe la misma tarea."
+      },
+      {
+        "name": "search_semantic_memory",
+        "description": "Busca documentos de memoria por similitud semantica o fallback lexical."
+      },
+      {
+        "name": "resume_project",
+        "description": "Devuelve un resumen listo para retomar con progreso, warnings y siguiente paso recomendado."
       },
       {
         "name": "get_interface_analytics",

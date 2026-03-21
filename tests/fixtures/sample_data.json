@@ -1,11 +1,21 @@
 {
+  "workspaces": [
+    {
+      "id": "023e4567-e89b-12d3-a456-426614174099",
+      "owner_id": "demo-owner",
+      "slug": "demo-owner",
+      "name": "Demo Owner"
+    }
+  ],
   "projects": [
     {
       "id": "123e4567-e89b-12d3-a456-426614174000",
       "owner_id": "demo-owner",
-      "name": "Project Memory Demo",
-      "slug": "project-memory-demo",
-      "description": "Shared memory project"
+      "workspace_id": "023e4567-e89b-12d3-a456-426614174099",
+      "name": "Memory Demo",
+      "slug": "memory-demo",
+      "description": "Shared memory project",
+      "repo_remote": "https://github.com/demo/memory-demo.git"
     }
   ],
   "decisions": [
@@ -23,6 +33,23 @@
       "project_id": "123e4567-e89b-12d3-a456-426614174000",
       "title": "Ship server",
       "status": "in_progress"
+    }
+  ],
+  "checkpoints": [
+    {
+      "id": "423e4567-e89b-12d3-a456-426614174003",
+      "project_id": "123e4567-e89b-12d3-a456-426614174000",
+      "title": "Auth checkpoint",
+      "functional_state": "Login flow completed",
+      "next_steps": ["Add tests"]
+    }
+  ],
+  "file_memory": [
+    {
+      "id": "523e4567-e89b-12d3-a456-426614174004",
+      "project_id": "123e4567-e89b-12d3-a456-426614174000",
+      "file_path": "src/auth.py",
+      "summary": "Authentication entry point"
     }
   ]
 }

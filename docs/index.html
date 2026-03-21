@@ -36,7 +36,7 @@
       .hero { padding: 4.5rem 0 2rem; }
       .button, .ghost-button { min-height: 48px; }
     </style>
-    <link rel="stylesheet" href="styles.css?v=20260319b">
+    <link rel="stylesheet" href="styles.css?v=20260320a">
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -56,7 +56,7 @@
         "license": "https://opensource.org/licenses/MIT"
       }
     </script>
-    <script src="script.js?v=20260319b" defer></script>
+    <script src="script.js?v=20260320a" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -140,20 +140,28 @@
           </div>
           <div class="cards">
             <article class="card">
-              <h3 data-i18n-array="features.0.title">Unified memory</h3>
-              <p data-i18n-array="features.0.text">Store decisions, warnings, tasks, and preferences in one Supabase-backed memory layer.</p>
+              <h3 data-i18n-array="features.0.title">Automatic project resolution</h3>
+              <p data-i18n-array="features.0.text">Resolve or create projects from repo context automatically, without asking users for a project id every time.</p>
             </article>
             <article class="card">
-              <h3 data-i18n-array="features.1.title">Interface-aware routing</h3>
-              <p data-i18n-array="features.1.text">Adapt responses for native chat, Qwen Code integration, and Codex plugin memory without duplicating logic.</p>
+              <h3 data-i18n-array="features.1.title">Git-aware memory</h3>
+              <p data-i18n-array="features.1.text">Capture repo path, remote, branch, commit, and working tree status so memory stays aligned with real code changes.</p>
             </article>
             <article class="card">
-              <h3 data-i18n-array="features.2.title">Context optimization</h3>
-              <p data-i18n-array="features.2.text">Trim large payloads safely with model-aware and interface-aware token strategies.</p>
+              <h3 data-i18n-array="features.2.title">Session summaries and checkpoints</h3>
+              <p data-i18n-array="features.2.text">Store what was done, what is left, blockers, and the next step whenever a session ends or changes client.</p>
             </article>
             <article class="card">
-              <h3 data-i18n-array="features.3.title">Production ready</h3>
-              <p data-i18n-array="features.3.text">Use SQL RLS policies, analytics, and test coverage to ship a public MCP server with confidence.</p>
+              <h3 data-i18n-array="features.3.title">File-level memory</h3>
+              <p data-i18n-array="features.3.text">Document key files, modules, and dependencies so future sessions know how parts of the project relate.</p>
+            </article>
+            <article class="card">
+              <h3 data-i18n-array="features.4.title">Semantic search</h3>
+              <p data-i18n-array="features.4.text">Search saved memory by meaning with embeddings in Supabase, while keeping a lexical fallback for portability.</p>
+            </article>
+            <article class="card">
+              <h3 data-i18n-array="features.5.title">Retention and exports</h3>
+              <p data-i18n-array="features.5.text">Keep storage efficient with retention policies, timeline summaries, and JSON or Markdown exports for backup or transfer.</p>
             </article>
           </div>
         </div>
@@ -334,20 +342,40 @@
             </div>
             <div class="api-grid">
               <article class="api-card">
+                <h3><code>resolve_project</code></h3>
+                <p data-i18n-array="api.0.description">Resolve or create the current project automatically from repository context.</p>
+              </article>
+              <article class="api-card">
                 <h3><code>load_unified_context</code></h3>
-                <p data-i18n-array="api.0.description">Load durable project memory optimized for the current interface and model.</p>
+                <p data-i18n-array="api.1.description">Load durable project memory optimized for the current interface and model.</p>
               </article>
               <article class="api-card">
                 <h3><code>save_cross_interface_decision</code></h3>
-                <p data-i18n-array="api.1.description">Persist a decision so future sessions inherit the same reasoning.</p>
+                <p data-i18n-array="api.2.description">Persist a decision so future sessions inherit the same reasoning.</p>
+              </article>
+              <article class="api-card">
+                <h3><code>save_file_memory</code></h3>
+                <p data-i18n-array="api.3.description">Store file summaries, dependencies, and module relationships for later sessions.</p>
+              </article>
+              <article class="api-card">
+                <h3><code>save_checkpoint</code></h3>
+                <p data-i18n-array="api.4.description">Save architecture checkpoints, blockers, functional state, and next steps.</p>
               </article>
               <article class="api-card">
                 <h3><code>sync_session_state</code></h3>
-                <p data-i18n-array="api.2.description">Store the current working state so another AI client can continue the same task.</p>
+                <p data-i18n-array="api.5.description">Store the current working state so another AI client can continue the same task.</p>
+              </article>
+              <article class="api-card">
+                <h3><code>search_semantic_memory</code></h3>
+                <p data-i18n-array="api.6.description">Search memory documents by embedding similarity or lexical fallback.</p>
+              </article>
+              <article class="api-card">
+                <h3><code>resume_project</code></h3>
+                <p data-i18n-array="api.7.description">Return a resume-ready view with progress, warnings, and recommended next action.</p>
               </article>
               <article class="api-card">
                 <h3><code>get_interface_analytics</code></h3>
-                <p data-i18n-array="api.3.description">Measure usage patterns across OpenCode, Claude Code CLI, Qwen Code, Codex, and native workflows.</p>
+                <p data-i18n-array="api.8.description">Measure usage patterns across OpenCode, Claude Code CLI, Qwen Code, Codex, and native workflows.</p>
               </article>
             </div>
           </div>

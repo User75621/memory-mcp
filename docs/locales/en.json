@@ -52,20 +52,28 @@
     "intro": "Built for teams that want MCP project memory, Supabase persistent context, AI agent memory, and reliable handoff between OpenCode, Claude Code CLI, Qwen Code, Codex, and native sessions.",
     "items": [
       {
-        "title": "Persistent project context",
-        "text": "Store architecture, decisions, tasks, warnings, and preferences in one durable memory layer."
+        "title": "Automatic project resolution",
+        "text": "Resolve or create projects from repo context automatically, without asking users for a project id every time."
       },
       {
-        "title": "Cross-client continuity",
-        "text": "Move from OpenCode to Claude Code CLI, Qwen Code, Codex, or native chat without losing where you were."
+        "title": "Git-aware memory",
+        "text": "Capture repo path, remote, branch, commit, and working tree status so memory stays aligned with real code changes."
       },
       {
-        "title": "Context optimization",
-        "text": "Trim large payloads safely with interface-aware and model-aware token strategies."
+        "title": "Session summaries and checkpoints",
+        "text": "Store what was done, what is left, blockers, and the next step whenever a session ends or changes client."
       },
       {
-        "title": "Operational visibility",
-        "text": "Track warnings, sessions, and interface analytics so the next AI step starts with the right memory."
+        "title": "File-level memory",
+        "text": "Document key files, modules, and dependencies so future sessions know how parts of the project relate."
+      },
+      {
+        "title": "Semantic search",
+        "text": "Search saved memory by meaning with embeddings in Supabase, while keeping a lexical fallback for portability."
+      },
+      {
+        "title": "Retention and exports",
+        "text": "Keep storage efficient with retention policies, timeline summaries, and JSON or Markdown exports for backup or transfer."
       }
     ]
   },
@@ -136,6 +144,10 @@
     "intro": "The API focuses on loading shared context, saving decisions, syncing session state, and measuring interface usage.",
     "items": [
       {
+        "name": "resolve_project",
+        "description": "Resolve or create the current project automatically from repository context."
+      },
+      {
         "name": "load_unified_context",
         "description": "Load durable project memory optimized for the current interface and model."
       },
@@ -144,8 +156,24 @@
         "description": "Persist a decision so future sessions inherit the same reasoning."
       },
       {
+        "name": "save_file_memory",
+        "description": "Store file summaries, dependencies, and module relationships for later sessions."
+      },
+      {
+        "name": "save_checkpoint",
+        "description": "Save architecture checkpoints, blockers, functional state, and next steps."
+      },
+      {
         "name": "sync_session_state",
         "description": "Store the current working state so another AI client can continue the same task."
+      },
+      {
+        "name": "search_semantic_memory",
+        "description": "Search memory documents by embedding similarity or lexical fallback."
+      },
+      {
+        "name": "resume_project",
+        "description": "Return a resume-ready view with progress, warnings, and recommended next action."
       },
       {
         "name": "get_interface_analytics",
