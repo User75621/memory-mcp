@@ -61,8 +61,8 @@ def set_owner_context(client: Any, owner_id: str) -> Any:
     if hasattr(client, "options") and getattr(client.options, "headers", None) is not None:
         client.options.headers["X-Owner-Context"] = normalized_owner
 
-    if hasattr(client, "postgrest") and hasattr(client.postgrest, "session"):
-        setattr(client.postgrest, "session", {"owner_id": normalized_owner})
+    if hasattr(client, "postgrest") and hasattr(client.postgrest, "headers"):
+        client.postgrest.headers["X-Owner-Context"] = normalized_owner
 
     setattr(client, "owner_id", normalized_owner)
     return client
