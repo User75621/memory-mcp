@@ -8,6 +8,16 @@ from datetime import UTC, datetime
 from typing import Any, Callable
 
 try:
+    import psycopg2
+    from psycopg2 import sql
+    from psycopg2.extras import Json, RealDictCursor
+except ModuleNotFoundError:  # pragma: no cover - optional direct SQL path
+    psycopg2 = None  # type: ignore[assignment]
+    sql = None  # type: ignore[assignment]
+    Json = None  # type: ignore[assignment]
+    RealDictCursor = None  # type: ignore[assignment]
+
+try:
     from mcp.server.fastmcp import FastMCP
 except ModuleNotFoundError:  # pragma: no cover - fallback para entornos sin dependencia
     class FastMCP:  # type: ignore[no-redef]
@@ -124,6 +134,122 @@ def _client(owner_id: str | None = None) -> Any:
     return set_owner_context(client, resolved_owner)
 
 
+def _use_database_url() -> bool:
+    """Indica si debe usarse acceso SQL directo en lugar de PostgREST."""
+    return bool(os.getenv("DATABASE_URL")) and psycopg2 is not None
+
+
+def _db_connect() -> Any:
+    """Crea una conexion Postgres directa cuando DATABASE_URL esta disponible."""
+    if psycopg2 is None:
+        raise RuntimeError("psycopg2 is required for direct database access")
+    database_url = os.getenv("DATABASE_URL", "").strip()
+    if not database_url:
+        raise RuntimeError("DATABASE_URL is not configured")
+    return psycopg2.connect(database_url, sslmode="require")
+
+
+def _db_prepare_value(value: Any) -> Any:
+    """Convierte valores Python a formatos compatibles con psycopg2."""
+    if Json is not None and isinstance(value, (dict, list)):
+        return Json(value)
+    return value
+
+
+def _db_conflict_columns(table: str, payload: dict[str, Any]) -> list[str] | None:
+    """Retorna columnas de conflicto para UPSERT directo."""
+    if payload.get("id"):
+        return ["id"]
+    mapping = {
+        "workspaces": ["owner_id", "slug"],
+        "projects": ["slug"],
+        "preferences": ["project_id", "preference_key"],
+        "session_state": ["session_id"],
+        "file_memory": ["project_id", "file_path"],
+        "file_relations": ["project_id", "source_file", "target_file", "relation_type"],
+        "prompt_patterns": ["project_id", "title"],
+        "retention_policies": ["project_id"],
+    }
+    conflict = mapping.get(table)
+    if conflict and all(column in payload and payload[column] is not None for column in conflict):
+        return conflict
+    return None
+
+
+def _db_select(table: str, filters: dict[str, Any] | None = None) -> list[dict[str, Any]]:
+    """Lee filas por SQL directo."""
+    assert sql is not None and RealDictCursor is not None
+    with _db_connect() as connection:
+        with connection.cursor(cursor_factory=RealDictCursor) as cursor:
+            query = sql.SQL("select * from {}").format(sql.Identifier(table))
+            values: list[Any] = []
+            if filters:
+                clauses = []
+                for key, value in filters.items():
+                    clauses.append(sql.SQL("{} = %s").format(sql.Identifier(key)))
+                    values.append(value)
+                query += sql.SQL(" where ") + sql.SQL(" and ").join(clauses)
+            cursor.execute(query, values)
+            rows = cursor.fetchall()
+            return [dict(row) for row in rows]
+
+
+def _db_insert(table: str, payload: dict[str, Any]) -> dict[str, Any]:
+    """Inserta una fila por SQL directo y retorna el registro."""
+    assert sql is not None and RealDictCursor is not None
+    clean_payload = {key: value for key, value in payload.items() if value is not None}
+    columns = list(clean_payload.keys())
+    values = [_db_prepare_value(clean_payload[column]) for column in columns]
+    with _db_connect() as connection:
+        with connection.cursor(cursor_factory=RealDictCursor) as cursor:
+            query = sql.SQL("insert into {} ({}) values ({}) returning *").format(
+                sql.Identifier(table),
+                sql.SQL(", ").join(sql.Identifier(column) for column in columns),
+                sql.SQL(", ").join(sql.SQL("%s") for _ in columns),
+            )
+            cursor.execute(query, values)
+            row = cursor.fetchone()
+            connection.commit()
+            return dict(row) if row else clean_payload
+
+
+def _db_upsert(table: str, payload: dict[str, Any]) -> dict[str, Any]:
+    """Hace UPSERT por SQL directo o inserta cuando no hay conflicto definido."""
+    assert sql is not None and RealDictCursor is not None
+    clean_payload = {key: value for key, value in payload.items() if value is not None}
+    conflict_columns = _db_conflict_columns(table, clean_payload)
+    if conflict_columns is None:
+        return _db_insert(table, clean_payload)
+
+    columns = list(clean_payload.keys())
+    values = [_db_prepare_value(clean_payload[column]) for column in columns]
+    update_columns = [column for column in columns if column not in conflict_columns]
+    if not update_columns:
+        update_columns = [conflict_columns[0]]
+
+    with _db_connect() as connection:
+        with connection.cursor(cursor_factory=RealDictCursor) as cursor:
+            query = sql.SQL(
+                "insert into {} ({}) values ({}) on conflict ({}) do update set {} returning *"
+            ).format(
+                sql.Identifier(table),
+                sql.SQL(", ").join(sql.Identifier(column) for column in columns),
+                sql.SQL(", ").join(sql.SQL("%s") for _ in columns),
+                sql.SQL(", ").join(sql.Identifier(column) for column in conflict_columns),
+                sql.SQL(", ").join(
+                    sql.SQL("{} = excluded.{}").format(
+                        sql.Identifier(column),
+                        sql.Identifier(column),
+                    )
+                    for column in update_columns
+                ),
+            )
+            cursor.execute(query, values)
+            row = cursor.fetchone()
+            connection.commit()
+            return dict(row) if row else clean_payload
+
+
 def _extract_data(response: Any) -> Any:
     """Normaliza la forma de leer respuestas del cliente Supabase."""
     return getattr(response, "data", response)
@@ -131,6 +257,8 @@ def _extract_data(response: Any) -> Any:
 
 def _table_select(client: Any, table: str, filters: dict[str, Any] | None = None) -> list[dict[str, Any]]:
     """Consulta una tabla con filtros simples de igualdad."""
+    if _use_database_url():
+        return _db_select(table, filters)
     query = client.table(table).select("*")
     for key, value in (filters or {}).items():
         query = query.eq(key, value)
@@ -140,6 +268,8 @@ def _table_select(client: Any, table: str, filters: dict[str, Any] | None = None
 
 def _table_upsert(client: Any, table: str, payload: dict[str, Any]) -> dict[str, Any]:
     """Inserta o actualiza un registro en Supabase y retorna una fila."""
+    if _use_database_url():
+        return _db_upsert(table, payload)
     result = _extract_data(client.table(table).upsert(payload).execute())
     if isinstance(result, list) and result:
         return result[0]
@@ -150,6 +280,8 @@ def _table_upsert(client: Any, table: str, payload: dict[str, Any]) -> dict[str,
 
 def _table_insert(client: Any, table: str, payload: dict[str, Any]) -> dict[str, Any]:
     """Inserta un registro nuevo en Supabase y retorna una fila."""
+    if _use_database_url():
+        return _db_insert(table, payload)
     result = _extract_data(client.table(table).insert(payload).execute())
     if isinstance(result, list) and result:
         return result[0]
@@ -160,6 +292,22 @@ def _table_insert(client: Any, table: str, payload: dict[str, Any]) -> dict[str,
 
 def _table_rpc(client: Any, function_name: str, params: dict[str, Any]) -> Any:
     """Ejecuta una funcion RPC si el cliente la soporta."""
+    if _use_database_url() and function_name == "match_memory_documents":
+        assert RealDictCursor is not None
+        with _db_connect() as connection:
+            with connection.cursor(cursor_factory=RealDictCursor) as cursor:
+                cursor.execute(
+                    (
+                        "select * from match_memory_documents(%s::vector, %s, %s::uuid, %s)"
+                    ),
+                    [
+                        str(params.get("query_embedding", [])),
+                        params.get("match_count", 5),
+                        params.get("filter_project_id"),
+                        params.get("filter_owner_id"),
+                    ],
+                )
+                return [dict(row) for row in cursor.fetchall()]
     if not hasattr(client, "rpc"):
         return []
     response = client.rpc(function_name, params).execute()

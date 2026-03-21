@@ -177,6 +177,7 @@ class FakeClient:
 def fake_client(monkeypatch: pytest.MonkeyPatch) -> FakeClient:
     """Provide a fake client and patch server dependencies."""
     client = FakeClient()
+    monkeypatch.delenv("DATABASE_URL", raising=False)
     monkeypatch.setattr(server_module, "get_supabase_client", lambda: client)
     monkeypatch.setattr(server_module, "set_owner_context", lambda c, _owner: c)
     monkeypatch.setattr(server_module, "detect_interface", lambda: "native")
