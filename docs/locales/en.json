@@ -44,6 +44,7 @@
     "clients": "Configuration",
     "usage": "Natural language usage",
     "api": "API reference",
+    "prompts": "Prompt recipes",
     "faq": "FAQ",
     "architecture": "Architecture",
     "examples": "Interface examples"
@@ -215,6 +216,22 @@
         "answer": "Usually no. MCP-compatible clients normally spawn memory-mcp on demand once they are configured with the command."
       }
     ]
+  },
+  "prompts": {
+    "title": "Prompt recipes by client",
+    "intro": "Use these prompt patterns when you want the model to save, resume, or structure memory with the right level of detail.",
+    "antigravityTitle": "Antigravity",
+    "antigravityText": "Useful when you want long-running planning sessions to save everything important without naming each tool manually.",
+    "antigravityPromptOne": "Use Memory MCP for this project. If you detect important decisions, blockers, tasks, or next steps, save them automatically while we work.",
+    "antigravityPromptTwo": "Before we finish, save everything important from this session in Memory MCP and leave me the next recommended step.",
+    "opencodeTitle": "OpenCode",
+    "opencodeText": "Useful for code-heavy work where file memory, dependencies, and checkpoints matter.",
+    "opencodePromptOne": "Use Memory MCP while we refactor. Document important files, dependencies, architectural decisions, and task progress automatically.",
+    "opencodePromptTwo": "If this repository is new to Memory MCP, create the project automatically and start storing context as we go.",
+    "claudeTitle": "Claude Code CLI",
+    "claudeText": "Useful when you want a concise working summary and strong handoff between sessions.",
+    "claudePromptOne": "Retoma este proyecto con Memory MCP y dame un resumen de lo hecho, lo que falta y el siguiente paso recomendado.",
+    "claudePromptTwo": "When we stop, capture the full session in Memory MCP, including decisions, tasks, warnings, prompts, and a checkpoint summary."
   },
   "examples": {
     "title": "Examples by interface",

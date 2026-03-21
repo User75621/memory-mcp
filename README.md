@@ -421,6 +421,23 @@ Typical usage now looks like this:
 4. During work, sessions, decisions, prompt patterns, file relationships, and warnings are updated.
 5. When work ends, the server can save session state, create a checkpoint, and return a resume-ready next step.
 
+## Prompt Recipes By Client
+
+### Antigravity
+
+- "Use Memory MCP for this project. If you detect important decisions, blockers, tasks, or next steps, save them automatically while we work."
+- "Before we finish, save everything important from this session in Memory MCP and leave me the next recommended step."
+
+### OpenCode
+
+- "Use Memory MCP while we refactor. Document important files, dependencies, architectural decisions, and task progress automatically."
+- "If this repository is new to Memory MCP, create the project automatically and start storing context as we go."
+
+### Claude Code CLI
+
+- "Retoma este proyecto con Memory MCP y dame un resumen de lo hecho, lo que falta y el siguiente paso recomendado."
+- "When we stop, capture the full session in Memory MCP, including decisions, tasks, warnings, prompts, and a checkpoint summary."
+
 ## Examples
 
 - `examples/antigravity/README.md`

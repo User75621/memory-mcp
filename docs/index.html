@@ -121,6 +121,7 @@
               <a class="index-link" href="#clients" data-i18n="index.clients">Configuration</a>
               <a class="index-link" href="#usage" data-i18n="index.usage">Natural language usage</a>
               <a class="index-link" href="#api" data-i18n="index.api">API reference</a>
+              <a class="index-link" href="#prompts" data-i18n="index.prompts">Prompt recipes</a>
               <a class="index-link" href="#faq" data-i18n="index.faq">FAQ</a>
               <a class="index-link" href="#architecture" data-i18n="index.architecture">Architecture</a>
               <a class="index-link" href="#examples" data-i18n="index.examples">Interface examples</a>
@@ -404,26 +405,55 @@
             <h2 data-i18n="faq.title">FAQ</h2>
             <p class="muted" data-i18n="faq.intro">Quick answers for the most common setup and usage questions.</p>
           </div>
-          <div class="cards faq-grid">
-            <article class="card faq-card">
-              <h3 data-i18n-array="faq.0.question">What is OWNER_ID?</h3>
+          <div class="faq-accordion">
+            <details class="faq-item card" open>
+              <summary class="faq-summary" data-i18n-array="faq.0.question">What is OWNER_ID?</summary>
               <p data-i18n-array="faq.0.answer">OWNER_ID is a stable identifier that you choose yourself. It is not created by Supabase. Good options include your GitHub username, a team slug, or a workspace id.</p>
-            </article>
-            <article class="card faq-card">
-              <h3 data-i18n-array="faq.1.question">Do I need DATABASE_URL?</h3>
+            </details>
+            <details class="faq-item card">
+              <summary class="faq-summary" data-i18n-array="faq.1.question">Do I need DATABASE_URL?</summary>
               <p data-i18n-array="faq.1.answer">No for normal use. SUPABASE_URL and SUPABASE_KEY are enough for the MCP server. DATABASE_URL is only useful for direct Postgres access, admin scripts, or manual SQL tooling.</p>
-            </article>
-            <article class="card faq-card">
-              <h3 data-i18n-array="faq.2.question">Do I need project_id every time?</h3>
+            </details>
+            <details class="faq-item card">
+              <summary class="faq-summary" data-i18n-array="faq.2.question">Do I need project_id every time?</summary>
               <p data-i18n-array="faq.2.answer">No. Memory MCP tries to resolve the active project automatically from repository context and can create it when missing.</p>
-            </article>
-            <article class="card faq-card">
-              <h3 data-i18n-array="faq.3.question">Can I just tell it to save everything?</h3>
+            </details>
+            <details class="faq-item card">
+              <summary class="faq-summary" data-i18n-array="faq.3.question">Can I just tell it to save everything?</summary>
               <p data-i18n-array="faq.3.answer">Yes. If the client exposes tool use, the model can call capture_project_memory to save decisions, tasks, warnings, checkpoints, file memory, prompts, and session state in one step.</p>
-            </article>
-            <article class="card faq-card">
-              <h3 data-i18n-array="faq.4.question">Do I need to start it after every reboot?</h3>
+            </details>
+            <details class="faq-item card">
+              <summary class="faq-summary" data-i18n-array="faq.4.question">Do I need to start it after every reboot?</summary>
               <p data-i18n-array="faq.4.answer">Usually no. MCP-compatible clients normally spawn memory-mcp on demand once they are configured with the command.</p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <section id="prompts">
+        <div class="shell">
+          <div class="section-heading">
+            <h2 data-i18n="prompts.title">Prompt recipes by client</h2>
+            <p class="muted" data-i18n="prompts.intro">Use these prompt patterns when you want the model to save, resume, or structure memory with the right level of detail.</p>
+          </div>
+          <div class="cards prompt-grid">
+            <article class="card prompt-card">
+              <h3 data-i18n="prompts.antigravityTitle">Antigravity</h3>
+              <p data-i18n="prompts.antigravityText">Useful when you want long-running planning sessions to save everything important without naming each tool manually.</p>
+              <p class="command" data-i18n="prompts.antigravityPromptOne">Use Memory MCP for this project. If you detect important decisions, blockers, tasks, or next steps, save them automatically while we work.</p>
+              <p class="command" data-i18n="prompts.antigravityPromptTwo">Before we finish, save everything important from this session in Memory MCP and leave me the next recommended step.</p>
+            </article>
+            <article class="card prompt-card">
+              <h3 data-i18n="prompts.opencodeTitle">OpenCode</h3>
+              <p data-i18n="prompts.opencodeText">Useful for code-heavy work where file memory, dependencies, and checkpoints matter.</p>
+              <p class="command" data-i18n="prompts.opencodePromptOne">Use Memory MCP while we refactor. Document important files, dependencies, architectural decisions, and task progress automatically.</p>
+              <p class="command" data-i18n="prompts.opencodePromptTwo">If this repository is new to Memory MCP, create the project automatically and start storing context as we go.</p>
+            </article>
+            <article class="card prompt-card">
+              <h3 data-i18n="prompts.claudeTitle">Claude Code CLI</h3>
+              <p data-i18n="prompts.claudeText">Useful when you want a concise working summary and strong handoff between sessions.</p>
+              <p class="command" data-i18n="prompts.claudePromptOne">Retoma este proyecto con Memory MCP y dame un resumen de lo hecho, lo que falta y el siguiente paso recomendado.</p>
+              <p class="command" data-i18n="prompts.claudePromptTwo">When we stop, capture the full session in Memory MCP, including decisions, tasks, warnings, prompts, and a checkpoint summary.</p>
             </article>
           </div>
         </div>
@@ -473,6 +503,7 @@
               <a class="sidebar-link" href="#clients" data-section-link="clients" data-i18n="index.clients">Configuration</a>
               <a class="sidebar-link" href="#usage" data-section-link="usage" data-i18n="index.usage">Natural language usage</a>
               <a class="sidebar-link" href="#api" data-section-link="api" data-i18n="index.api">API reference</a>
+              <a class="sidebar-link" href="#prompts" data-section-link="prompts" data-i18n="index.prompts">Prompt recipes</a>
               <a class="sidebar-link" href="#faq" data-section-link="faq" data-i18n="index.faq">FAQ</a>
               <a class="sidebar-link" href="#architecture" data-section-link="architecture" data-i18n="index.architecture">Architecture</a>
               <a class="sidebar-link" href="#examples" data-section-link="examples" data-i18n="index.examples">Interface examples</a>

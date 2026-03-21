@@ -331,11 +331,51 @@ section {
   gap: 1rem;
 }
 
-.faq-grid {
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+.faq-accordion {
+  display: grid;
+  gap: 0.9rem;
 }
 
-.faq-card h3 {
+.faq-item {
+  padding: 0;
+  overflow: hidden;
+}
+
+.faq-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.2rem 1.4rem;
+  cursor: pointer;
+  list-style: none;
+  font-weight: 600;
+}
+
+.faq-summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-summary::after {
+  content: '+';
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.faq-item[open] .faq-summary::after {
+  content: '-';
+}
+
+.faq-item p {
+  margin: 0;
+  padding: 0 1.4rem 1.3rem;
+}
+
+.prompt-grid {
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.prompt-card h3 {
   margin-top: 0;
   margin-bottom: 0.7rem;
 }

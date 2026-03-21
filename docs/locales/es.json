@@ -44,6 +44,7 @@
     "clients": "Configuracion",
     "usage": "Uso en lenguaje natural",
     "api": "Referencia API",
+    "prompts": "Prompts sugeridos",
     "faq": "FAQ",
     "architecture": "Arquitectura",
     "examples": "Ejemplos por interfaz"
@@ -215,6 +216,22 @@
         "answer": "Normalmente no. Los clientes compatibles con MCP suelen lanzar memory-mcp bajo demanda una vez que estan configurados con el comando."
       }
     ]
+  },
+  "prompts": {
+    "title": "Prompts sugeridos por cliente",
+    "intro": "Usa estos prompts cuando quieras que el modelo guarde, retome o estructure memoria con el nivel correcto de detalle.",
+    "antigravityTitle": "Antigravity",
+    "antigravityText": "Util cuando quieres sesiones largas de planeacion y que se guarde todo lo importante sin nombrar cada tool manualmente.",
+    "antigravityPromptOne": "Usa Memory MCP para este proyecto. Si detectas decisiones importantes, blockers, tareas o siguientes pasos, guardalos automaticamente mientras trabajamos.",
+    "antigravityPromptTwo": "Antes de terminar, guarda todo lo importante de esta sesion en Memory MCP y dejame el siguiente paso recomendado.",
+    "opencodeTitle": "OpenCode",
+    "opencodeText": "Util para trabajo centrado en codigo donde importan la memoria por archivo, las dependencias y los checkpoints.",
+    "opencodePromptOne": "Usa Memory MCP mientras refactorizamos. Documenta automaticamente archivos importantes, dependencias, decisiones de arquitectura y progreso de tareas.",
+    "opencodePromptTwo": "Si este repositorio es nuevo para Memory MCP, crea el proyecto automaticamente y empieza a guardar contexto mientras avanzamos.",
+    "claudeTitle": "Claude Code CLI",
+    "claudeText": "Util cuando quieres un resumen de trabajo conciso y un handoff fuerte entre sesiones.",
+    "claudePromptOne": "Retoma este proyecto con Memory MCP y dame un resumen de lo hecho, lo que falta y el siguiente paso recomendado.",
+    "claudePromptTwo": "Cuando terminemos, captura la sesion completa en Memory MCP, incluyendo decisiones, tareas, warnings, prompts y un checkpoint resumen."
   },
   "examples": {
     "title": "Ejemplos por interfaz",
