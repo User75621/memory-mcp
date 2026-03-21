@@ -94,12 +94,13 @@
     "cardOneTitle": "Habla normal",
     "cardOneText": "No necesitas nombrar manualmente una tool para tareas comunes. Puedes pedir contexto, preguntar que cambio o pedir que retome el proyecto.",
     "cardTwoTitle": "El modelo elige las tools",
-    "cardTwoText": "Si el cliente expone las tools de Memory MCP, el modelo puede llamar `load_unified_context`, `sync_session_state` u otras tools automaticamente segun tu solicitud.",
+    "cardTwoText": "Si el cliente expone las tools de Memory MCP, el modelo puede llamar `load_unified_context`, `capture_project_memory`, `sync_session_state` u otras tools automaticamente segun tu solicitud.",
     "cardThreeTitle": "Fuerza una tool solo si hace falta",
     "cardThreeText": "Las llamadas manuales sirven para depuracion, integraciones o cuando quieres control exacto sobre entradas y salidas.",
     "promptOne": "Retoma este proyecto y dime por donde nos quedamos.",
     "promptTwo": "Carga la memoria guardada del proyecto antes de continuar el refactor.",
     "promptThree": "Guarda esta decision de arquitectura y marca la tarea actual como en progreso.",
+    "promptFour": "Guarda todo lo importante de esta sesion en Memory MCP.",
     "note": "Si un cliente desactiva el uso de tools, el modelo no podra llamar tools MCP automaticamente. En ese caso, habilita MCP en el cliente o llama la tool de forma explicita."
   },
   "clients": {
@@ -166,6 +167,10 @@
       {
         "name": "sync_session_state",
         "description": "Guarda el estado actual de trabajo para que otro cliente de IA continúe la misma tarea."
+      },
+      {
+        "name": "capture_project_memory",
+        "description": "Guarda decisiones, tareas, checkpoints, memoria por archivo, prompts y estado de sesion en una sola llamada."
       },
       {
         "name": "search_semantic_memory",

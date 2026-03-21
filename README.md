@@ -327,7 +327,7 @@ PROJECT_MEMORY_INTERFACE=qwen-code qwen --mcp-config mcp.json
 ## Natural Language Usage
 
 In most MCP-compatible clients, you do not have to manually say which tool to call.
-If the client exposes Memory MCP tools and tool use is enabled, the model can decide on its own when to call tools like `load_unified_context`, `save_cross_interface_decision`, `update_task_status`, or `sync_session_state`.
+If the client exposes Memory MCP tools and tool use is enabled, the model can decide on its own when to call tools like `load_unified_context`, `capture_project_memory`, `save_cross_interface_decision`, `update_task_status`, or `sync_session_state`.
 
 Typical natural-language prompts:
 
@@ -335,6 +335,7 @@ Typical natural-language prompts:
 - "Load the stored project memory before continuing the refactor."
 - "Save this architecture decision and mark the current task as in progress."
 - "Check active warnings before we keep coding."
+- "Save everything important from this session in Memory MCP."
 
 When the model sees those requests, it can map them to the right MCP tools automatically.
 
@@ -457,6 +458,21 @@ Yes, with a fallback. The server can always do lexical search. If you also store
 ### Do I have to start the server manually after every reboot?
 
 Usually no. MCP-compatible clients normally spawn `memory-mcp` on demand once they are configured with the command.
+
+### Can I just tell the model to save everything?
+
+Yes. Memory MCP now includes `capture_project_memory`, a high-level tool designed for prompts like:
+
+- "Save everything important from this session in Memory MCP."
+- "Store all of this in your memory: decisions, tasks, blockers, next steps, and important files."
+
+When the model uses that tool well, it can persist multiple artifacts in one call: decisions, tasks, warnings, file memory, prompt patterns, session state, and a checkpoint summary.
+
+### What if I open multiple projects in an IDE?
+
+Memory MCP tries to resolve the active project from repository context. In clients that expose the current workspace or repository path, it can auto-detect which project is active and create storage automatically if it is new.
+
+If your client does not expose the correct repo path, the model can still pass a `repo_path` explicitly to `resolve_project` or `capture_project_memory`.
 
 ## Screenshots
 

@@ -79,6 +79,7 @@ TOOL_SCHEMAS: list[dict[str, Any]] = [
     {"name": "save_file_memory", "description": "Guarda memoria por archivo y relaciones."},
     {"name": "save_checkpoint", "description": "Guarda checkpoints de arquitectura y estado."},
     {"name": "save_prompt_pattern", "description": "Guarda prompts utiles y patrones de respuesta."},
+    {"name": "capture_project_memory", "description": "Guarda automaticamente decisiones, tareas, checkpoints, archivos y estado en una sola llamada."},
     {"name": "search_semantic_memory", "description": "Busca memoria por significado o texto."},
     {"name": "get_project_timeline", "description": "Devuelve la linea de tiempo del proyecto."},
     {"name": "export_memory_bundle", "description": "Exporta memoria a JSON o Markdown."},
@@ -1300,6 +1301,183 @@ def save_prompt_pattern(
         return {"error": str(exc), "tool": "save_prompt_pattern"}
 
 
+@server.tool(
+    name="capture_project_memory",
+    description="Guarda automaticamente decisiones, tareas, checkpoints, archivos y estado en una sola llamada.",
+)
+def capture_project_memory(
+    project_id: str | None = None,
+    owner_id: str | None = None,
+    summary: str = "",
+    what_was_done: str = "",
+    what_is_left: list[str] | None = None,
+    next_step: str = "",
+    decisions: list[dict[str, Any]] | None = None,
+    tasks: list[dict[str, Any]] | None = None,
+    blockers: list[str] | None = None,
+    warnings: list[dict[str, Any]] | None = None,
+    file_memory: list[dict[str, Any]] | None = None,
+    prompt_patterns: list[dict[str, Any]] | None = None,
+    session_state: dict[str, Any] | None = None,
+    tags: list[str] | None = None,
+    repo_path: str | None = None,
+    auto_checkpoint: bool = True,
+    auto_sync_session: bool = True,
+) -> dict[str, Any]:
+    """Guarda de forma orquestada todo el contexto importante de una iteracion.
+
+    Esta tool sirve para prompts tipo "guarda todo en tu memoria". El modelo puede
+    mandar en una sola llamada decisiones, tareas, warnings, archivos, prompts y estado.
+    """
+    client = _client(owner_id)
+    try:
+        project, workspace, repo = _resolve_or_create_project(
+            client,
+            project_id=project_id,
+            owner_id=owner_id,
+            repo_path=repo_path,
+            create_if_missing=True,
+        )
+        resolved_owner = owner_id or os.getenv("OWNER_ID", "default-owner")
+        saved: dict[str, list[Any]] = {
+            "decisions": [],
+            "tasks": [],
+            "warnings": [],
+            "file_memory": [],
+            "prompt_patterns": [],
+        }
+
+        for decision in decisions or []:
+            result = save_cross_interface_decision(
+                project_id=project["id"],
+                owner_id=resolved_owner,
+                summary=str(decision.get("summary", "")).strip(),
+                details=str(decision.get("details", "")).strip(),
+                decision_type=str(decision.get("decision_type", "general")),
+                metadata=decision.get("metadata") or {},
+                file_paths=_ensure_list(decision.get("file_paths")),
+                repo_path=repo_path,
+            )
+            if result.get("decision"):
+                saved["decisions"].append(result["decision"])
+
+        for task in tasks or []:
+            result = update_task_status(
+                task_id=task.get("id"),
+                project_id=project["id"],
+                owner_id=resolved_owner,
+                title=task.get("title"),
+                status=str(task.get("status", "pending")),
+                priority=str(task.get("priority", "medium")),
+                details=str(task.get("details", "")),
+                repo_path=repo_path,
+            )
+            if result.get("task"):
+                saved["tasks"].append(result["task"])
+            for warning in result.get("warnings", []):
+                saved["warnings"].append(warning)
+
+        for warning in warnings or []:
+            result = add_warning(
+                project_id=project["id"],
+                owner_id=resolved_owner,
+                message=str(warning.get("message", "")).strip(),
+                severity=str(warning.get("severity", "medium")),
+                interface=warning.get("interface"),
+            )
+            if result.get("warning"):
+                saved["warnings"].append(result["warning"])
+
+        for file_item in file_memory or []:
+            result = save_file_memory(
+                project_id=project["id"],
+                owner_id=resolved_owner,
+                file_path=str(file_item.get("file_path", "")).strip(),
+                summary=str(file_item.get("summary", "")).strip(),
+                dependencies=_ensure_list(file_item.get("dependencies")),
+                symbols=_ensure_list(file_item.get("symbols")),
+                file_role=str(file_item.get("file_role", "module")),
+                importance=str(file_item.get("importance", "medium")),
+            )
+            if result.get("file_memory"):
+                saved["file_memory"].append(result["file_memory"])
+            for warning in result.get("warnings", []):
+                saved["warnings"].append(warning)
+
+        for pattern in prompt_patterns or []:
+            result = save_prompt_pattern(
+                project_id=project["id"],
+                owner_id=resolved_owner,
+                title=str(pattern.get("title", "")).strip(),
+                prompt=str(pattern.get("prompt", "")).strip(),
+                category=str(pattern.get("category", "general")),
+                usage_notes=str(pattern.get("usage_notes", "")),
+                response_style=str(pattern.get("response_style", "")),
+            )
+            if result.get("prompt_pattern"):
+                saved["prompt_patterns"].append(result["prompt_pattern"])
+
+        synced_state = None
+        combined_state = dict(session_state or {})
+        if summary:
+            combined_state.setdefault("summary", summary)
+        if what_was_done:
+            combined_state.setdefault("what_was_done", what_was_done)
+        if next_step:
+            combined_state.setdefault("next_step", next_step)
+        if what_is_left:
+            combined_state.setdefault("remaining_work", what_is_left)
+
+        if auto_sync_session and combined_state:
+            sync_result = sync_session_state(
+                project_id=project["id"],
+                owner_id=resolved_owner,
+                state=combined_state,
+                summary=summary or what_was_done,
+            )
+            synced_state = sync_result.get("session_state")
+
+        checkpoint = None
+        if auto_checkpoint and (summary or what_was_done or blockers or next_step or what_is_left):
+            checkpoint_result = save_checkpoint(
+                project_id=project["id"],
+                owner_id=resolved_owner,
+                title=summary or "Auto memory checkpoint",
+                architecture_summary=str(combined_state.get("architecture_summary", "")),
+                functional_state=what_was_done or summary,
+                blockers=blockers or [],
+                next_steps=[*(_ensure_list(what_is_left)[:3]), next_step] if next_step else _ensure_list(what_is_left),
+                tags=tags or ["auto-memory"],
+            )
+            checkpoint = checkpoint_result.get("checkpoint")
+
+        _record_timeline(
+            client,
+            project["id"],
+            resolved_owner,
+            "memory.capture",
+            summary or what_was_done or "Captured project memory package.",
+            {
+                "repo": repo,
+                "saved_counts": {key: len(value) for key, value in saved.items()},
+                "checkpoint": bool(checkpoint),
+                "synced_state": bool(synced_state),
+            },
+        )
+        return {
+            "status": "ok",
+            "project": project,
+            "workspace": workspace,
+            "repo": repo,
+            "saved": {key: len(value) for key, value in saved.items()},
+            "checkpoint": checkpoint,
+            "session_state": synced_state,
+            "next_step": next_step or (what_is_left[0] if what_is_left else ""),
+        }
+    except Exception as exc:
+        return {"error": str(exc), "tool": "capture_project_memory"}
+
+
 @server.tool(name="search_semantic_memory", description="Busca memoria por significado o texto.")
 def search_semantic_memory(
     query: str,
@@ -1581,6 +1759,7 @@ TOOL_HANDLERS: dict[str, Handler] = {
     "save_file_memory": save_file_memory,
     "save_checkpoint": save_checkpoint,
     "save_prompt_pattern": save_prompt_pattern,
+    "capture_project_memory": capture_project_memory,
     "search_semantic_memory": search_semantic_memory,
     "get_project_timeline": get_project_timeline,
     "export_memory_bundle": export_memory_bundle,

@@ -196,7 +196,7 @@
             </article>
             <article class="card">
               <h3 data-i18n="usage.cardTwoTitle">The model selects tools</h3>
-              <p data-i18n="usage.cardTwoText">If the client exposes Memory MCP tools, the model can call `load_unified_context`, `sync_session_state`, or other tools automatically based on your request.</p>
+              <p data-i18n="usage.cardTwoText">If the client exposes Memory MCP tools, the model can call `load_unified_context`, `capture_project_memory`, `sync_session_state`, or other tools automatically based on your request.</p>
             </article>
             <article class="card">
               <h3 data-i18n="usage.cardThreeTitle">Force a tool only when needed</h3>
@@ -207,6 +207,7 @@
               <p class="command" data-i18n="usage.promptOne">Resume this project and tell me where we left off.</p>
               <p class="command" data-i18n="usage.promptTwo">Load the stored project memory before continuing the refactor.</p>
               <p class="command" data-i18n="usage.promptThree">Save this architecture decision and mark the current task as in progress.</p>
+              <p class="command" data-i18n="usage.promptFour">Save everything important from this session in Memory MCP.</p>
             </article>
           </div>
           <p class="muted" data-i18n="usage.note">If a client disables tool use, the model cannot call MCP tools automatically. In that case, enable MCP tools in the client or call the tool explicitly.</p>
@@ -366,16 +367,20 @@
                 <p data-i18n-array="api.5.description">Store the current working state so another AI client can continue the same task.</p>
               </article>
               <article class="api-card">
+                <h3><code>capture_project_memory</code></h3>
+                <p data-i18n-array="api.6.description">Store decisions, tasks, checkpoints, file memory, prompts, and session state in one call.</p>
+              </article>
+              <article class="api-card">
                 <h3><code>search_semantic_memory</code></h3>
-                <p data-i18n-array="api.6.description">Search memory documents by embedding similarity or lexical fallback.</p>
+                <p data-i18n-array="api.7.description">Search memory documents by embedding similarity or lexical fallback.</p>
               </article>
               <article class="api-card">
                 <h3><code>resume_project</code></h3>
-                <p data-i18n-array="api.7.description">Return a resume-ready view with progress, warnings, and recommended next action.</p>
+                <p data-i18n-array="api.8.description">Return a resume-ready view with progress, warnings, and recommended next action.</p>
               </article>
               <article class="api-card">
                 <h3><code>get_interface_analytics</code></h3>
-                <p data-i18n-array="api.8.description">Measure usage patterns across OpenCode, Claude Code CLI, Qwen Code, Codex, and native workflows.</p>
+                <p data-i18n-array="api.9.description">Measure usage patterns across OpenCode, Claude Code CLI, Qwen Code, Codex, and native workflows.</p>
               </article>
             </div>
           </div>

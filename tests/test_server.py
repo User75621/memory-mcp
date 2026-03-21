@@ -314,6 +314,50 @@ def test_save_prompt_pattern(fake_client: FakeClient) -> None:
     assert result["prompt_pattern"]["title"] == "Architecture review"
 
 
+def test_capture_project_memory_saves_multiple_artifacts(fake_client: FakeClient) -> None:
+    """Guarda decisiones, tareas, archivos y checkpoint en una sola llamada."""
+    result = server_module.capture_project_memory(
+        project_id=PROJECT_ID,
+        owner_id="demo-owner",
+        summary="Iteration summary",
+        what_was_done="Finished auth and routing",
+        what_is_left=["Write tests", "Review docs"],
+        next_step="Write tests",
+        decisions=[
+            {
+                "summary": "Use token rotation",
+                "details": "Refresh tokens are mandatory.",
+            }
+        ],
+        tasks=[
+            {
+                "title": "Write tests",
+                "status": "in_progress",
+            }
+        ],
+        file_memory=[
+            {
+                "file_path": "src/auth.py",
+                "summary": "Authentication service",
+                "dependencies": ["src/db.py"],
+            }
+        ],
+        prompt_patterns=[
+            {
+                "title": "Release checklist",
+                "prompt": "Review release blockers",
+            }
+        ],
+        session_state={"current_goal": "Finalize auth"},
+    )
+    assert result["status"] == "ok"
+    assert result["saved"]["decisions"] == 1
+    assert result["saved"]["tasks"] == 1
+    assert result["saved"]["file_memory"] == 1
+    assert result["saved"]["prompt_patterns"] == 1
+    assert result["checkpoint"] is not None
+
+
 def test_search_semantic_memory_uses_documents(fake_client: FakeClient) -> None:
     """Busca memoria desde documentos indexados."""
     server_module.save_cross_interface_decision(

@@ -94,12 +94,13 @@
     "cardOneTitle": "Talk normally",
     "cardOneText": "You do not need to manually name a tool for common tasks. Ask for the context, ask what changed, or ask to continue the project.",
     "cardTwoTitle": "The model selects tools",
-    "cardTwoText": "If the client exposes Memory MCP tools, the model can call `load_unified_context`, `sync_session_state`, or other tools automatically based on your request.",
+    "cardTwoText": "If the client exposes Memory MCP tools, the model can call `load_unified_context`, `capture_project_memory`, `sync_session_state`, or other tools automatically based on your request.",
     "cardThreeTitle": "Force a tool only when needed",
     "cardThreeText": "Manual tool calls are useful for debugging, integrations, or when you want exact control over inputs and outputs.",
     "promptOne": "Resume this project and tell me where we left off.",
     "promptTwo": "Load the stored project memory before continuing the refactor.",
     "promptThree": "Save this architecture decision and mark the current task as in progress.",
+    "promptFour": "Save everything important from this session in Memory MCP.",
     "note": "If a client disables tool use, the model cannot call MCP tools automatically. In that case, enable MCP tools in the client or call the tool explicitly."
   },
   "clients": {
@@ -166,6 +167,10 @@
       {
         "name": "sync_session_state",
         "description": "Store the current working state so another AI client can continue the same task."
+      },
+      {
+        "name": "capture_project_memory",
+        "description": "Store decisions, tasks, checkpoints, file memory, prompts, and session state in one call."
       },
       {
         "name": "search_semantic_memory",
