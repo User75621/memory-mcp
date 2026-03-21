@@ -331,6 +331,15 @@ section {
   gap: 1rem;
 }
 
+.faq-grid {
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.faq-card h3 {
+  margin-top: 0;
+  margin-bottom: 0.7rem;
+}
+
 .card,
 .step,
 .api-card,

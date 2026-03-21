@@ -44,6 +44,7 @@
     "clients": "Configuracion",
     "usage": "Uso en lenguaje natural",
     "api": "Referencia API",
+    "faq": "FAQ",
     "architecture": "Arquitectura",
     "examples": "Ejemplos por interfaz"
   },
@@ -186,6 +187,32 @@
       {
         "name": "get_interface_analytics",
         "description": "Mide patrones de uso entre OpenCode, Claude Code CLI, Qwen Code, Codex y flujos nativos."
+      }
+    ]
+  },
+  "faq": {
+    "title": "FAQ",
+    "intro": "Respuestas rapidas para las preguntas mas comunes de instalacion y uso.",
+    "items": [
+      {
+        "question": "Que es OWNER_ID?",
+        "answer": "OWNER_ID es un identificador estable que defines tu mismo. No lo crea Supabase. Buenas opciones son tu usuario de GitHub, un slug de equipo o el id de un workspace."
+      },
+      {
+        "question": "Necesito DATABASE_URL?",
+        "answer": "No para el uso normal. SUPABASE_URL y SUPABASE_KEY bastan para el servidor MCP. DATABASE_URL solo sirve para acceso directo a Postgres, scripts administrativos o SQL manual."
+      },
+      {
+        "question": "Necesito project_id cada vez?",
+        "answer": "No. Memory MCP intenta resolver automaticamente el proyecto activo a partir del contexto del repositorio y puede crearlo si no existe."
+      },
+      {
+        "question": "Puedo solo decirle que guarde todo?",
+        "answer": "Si. Si el cliente expone tool use, el modelo puede llamar capture_project_memory para guardar decisiones, tareas, warnings, checkpoints, memoria por archivo, prompts y estado de sesion en un solo paso."
+      },
+      {
+        "question": "Debo iniciarlo cada vez que enciendo la PC?",
+        "answer": "Normalmente no. Los clientes compatibles con MCP suelen lanzar memory-mcp bajo demanda una vez que estan configurados con el comando."
       }
     ]
   },
