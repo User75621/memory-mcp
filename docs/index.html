@@ -436,24 +436,43 @@
             <h2 data-i18n="prompts.title">Prompt recipes by client</h2>
             <p class="muted" data-i18n="prompts.intro">Use these prompt patterns when you want the model to save, resume, or structure memory with the right level of detail.</p>
           </div>
-          <div class="cards prompt-grid">
-            <article class="card prompt-card">
+          <div class="tabs" role="tablist" aria-label="Prompt recipe interfaces">
+            <button class="tab-button" id="prompt-tab-antigravity" type="button" role="tab" data-tab-group="prompts" data-tab-button="antigravity" aria-selected="true" aria-controls="prompt-panel-antigravity" aria-label="Open Antigravity prompts">Antigravity</button>
+            <button class="tab-button" id="prompt-tab-opencode" type="button" role="tab" data-tab-group="prompts" data-tab-button="opencode" aria-selected="false" aria-controls="prompt-panel-opencode" aria-label="Open OpenCode prompts">OpenCode</button>
+            <button class="tab-button" id="prompt-tab-claude" type="button" role="tab" data-tab-group="prompts" data-tab-button="claude" aria-selected="false" aria-controls="prompt-panel-claude" aria-label="Open Claude Code prompts">Claude Code</button>
+            <button class="tab-button" id="prompt-tab-codex" type="button" role="tab" data-tab-group="prompts" data-tab-button="codex" aria-selected="false" aria-controls="prompt-panel-codex" aria-label="Open Codex prompts">Codex</button>
+            <button class="tab-button" id="prompt-tab-qwen" type="button" role="tab" data-tab-group="prompts" data-tab-button="qwen" aria-selected="false" aria-controls="prompt-panel-qwen" aria-label="Open Qwen Code prompts">Qwen Code</button>
+          </div>
+          <div class="prompt-stack">
+            <article class="card prompt-card tab-panel active" id="prompt-panel-antigravity" role="tabpanel" aria-labelledby="prompt-tab-antigravity" data-tab-group="prompts" data-tab-panel="antigravity">
               <h3 data-i18n="prompts.antigravityTitle">Antigravity</h3>
               <p data-i18n="prompts.antigravityText">Useful when you want long-running planning sessions to save everything important without naming each tool manually.</p>
               <p class="command" data-i18n="prompts.antigravityPromptOne">Use Memory MCP for this project. If you detect important decisions, blockers, tasks, or next steps, save them automatically while we work.</p>
               <p class="command" data-i18n="prompts.antigravityPromptTwo">Before we finish, save everything important from this session in Memory MCP and leave me the next recommended step.</p>
             </article>
-            <article class="card prompt-card">
+            <article class="card prompt-card tab-panel" id="prompt-panel-opencode" role="tabpanel" aria-labelledby="prompt-tab-opencode" data-tab-group="prompts" data-tab-panel="opencode" hidden>
               <h3 data-i18n="prompts.opencodeTitle">OpenCode</h3>
               <p data-i18n="prompts.opencodeText">Useful for code-heavy work where file memory, dependencies, and checkpoints matter.</p>
               <p class="command" data-i18n="prompts.opencodePromptOne">Use Memory MCP while we refactor. Document important files, dependencies, architectural decisions, and task progress automatically.</p>
               <p class="command" data-i18n="prompts.opencodePromptTwo">If this repository is new to Memory MCP, create the project automatically and start storing context as we go.</p>
             </article>
-            <article class="card prompt-card">
+            <article class="card prompt-card tab-panel" id="prompt-panel-claude" role="tabpanel" aria-labelledby="prompt-tab-claude" data-tab-group="prompts" data-tab-panel="claude" hidden>
               <h3 data-i18n="prompts.claudeTitle">Claude Code CLI</h3>
               <p data-i18n="prompts.claudeText">Useful when you want a concise working summary and strong handoff between sessions.</p>
               <p class="command" data-i18n="prompts.claudePromptOne">Retoma este proyecto con Memory MCP y dame un resumen de lo hecho, lo que falta y el siguiente paso recomendado.</p>
               <p class="command" data-i18n="prompts.claudePromptTwo">When we stop, capture the full session in Memory MCP, including decisions, tasks, warnings, prompts, and a checkpoint summary.</p>
+            </article>
+            <article class="card prompt-card tab-panel" id="prompt-panel-codex" role="tabpanel" aria-labelledby="prompt-tab-codex" data-tab-group="prompts" data-tab-panel="codex" hidden>
+              <h3 data-i18n="prompts.codexTitle">Codex</h3>
+              <p data-i18n="prompts.codexText">Useful when you want delegated coding work to keep the same warnings, tasks, and file memory context.</p>
+              <p class="command" data-i18n="prompts.codexPromptOne">Use Memory MCP while implementing this task. Keep warnings, task status, and important file memory synchronized as you code.</p>
+              <p class="command" data-i18n="prompts.codexPromptTwo">Before handing control back, save everything important from this coding session in Memory MCP and tell me the next safe step.</p>
+            </article>
+            <article class="card prompt-card tab-panel" id="prompt-panel-qwen" role="tabpanel" aria-labelledby="prompt-tab-qwen" data-tab-group="prompts" data-tab-panel="qwen" hidden>
+              <h3 data-i18n="prompts.qwenTitle">Qwen Code</h3>
+              <p data-i18n="prompts.qwenText">Useful for code generation and refactors where you want memory to stay aligned with module relationships and checkpoints.</p>
+              <p class="command" data-i18n="prompts.qwenPromptOne">Use Memory MCP during this refactor. Save architectural decisions, file relationships, and task progress automatically.</p>
+              <p class="command" data-i18n="prompts.qwenPromptTwo">If this repository is new, create the project in Memory MCP and start capturing context as we modify the codebase.</p>
             </article>
           </div>
         </div>
@@ -466,23 +485,23 @@
             <p class="muted" data-i18n="examples.intro">Switch views to compare OpenCode, Claude Code CLI, and Codex workflows using the same project memory backend.</p>
           </div>
           <div class="tabs" role="tablist" aria-label="Example interfaces">
-            <button class="tab-button" id="tab-opencode" type="button" role="tab" data-tab-button="opencode" aria-selected="true" aria-controls="panel-opencode" aria-label="Open OpenCode example" data-i18n="examples.opencode.label">OpenCode</button>
-            <button class="tab-button" id="tab-claude" type="button" role="tab" data-tab-button="claude" aria-selected="false" aria-controls="panel-claude" aria-label="Open Claude Code example" data-i18n="examples.claude.label">Claude Code</button>
-            <button class="tab-button" id="tab-codex" type="button" role="tab" data-tab-button="codex" aria-selected="false" aria-controls="panel-codex" aria-label="Open Codex example" data-i18n="examples.codex.label">Codex</button>
+            <button class="tab-button" id="tab-opencode" type="button" role="tab" data-tab-group="examples" data-tab-button="opencode" aria-selected="true" aria-controls="panel-opencode" aria-label="Open OpenCode example" data-i18n="examples.opencode.label">OpenCode</button>
+            <button class="tab-button" id="tab-claude" type="button" role="tab" data-tab-group="examples" data-tab-button="claude" aria-selected="false" aria-controls="panel-claude" aria-label="Open Claude Code example" data-i18n="examples.claude.label">Claude Code</button>
+            <button class="tab-button" id="tab-codex" type="button" role="tab" data-tab-group="examples" data-tab-button="codex" aria-selected="false" aria-controls="panel-codex" aria-label="Open Codex example" data-i18n="examples.codex.label">Codex</button>
           </div>
-          <article class="tab-panel active" id="panel-opencode" role="tabpanel" aria-labelledby="tab-opencode" data-tab-panel="opencode">
+          <article class="tab-panel active" id="panel-opencode" role="tabpanel" aria-labelledby="tab-opencode" data-tab-group="examples" data-tab-panel="opencode">
             <h3 data-i18n="examples.opencode.title">OpenCode workflow</h3>
             <p data-i18n="examples.opencode.text">Load project memory before editing so OpenCode inherits architecture, previous decisions, and active warnings.</p>
             <p class="muted" data-i18n="examples.opencode.commandLabel">Launch OpenCode with the MCP config</p>
             <p class="command">opencode --mcp-config mcp.json</p>
           </article>
-          <article class="tab-panel" id="panel-claude" role="tabpanel" aria-labelledby="tab-claude" data-tab-panel="claude" hidden>
+          <article class="tab-panel" id="panel-claude" role="tabpanel" aria-labelledby="tab-claude" data-tab-group="examples" data-tab-panel="claude" hidden>
             <h3 data-i18n="examples.claude.title">Claude Code CLI workflow</h3>
             <p data-i18n="examples.claude.text">Use the same stored memory to resume implementation, debugging, or planning from the last recorded session state.</p>
             <p class="muted" data-i18n="examples.claude.commandLabel">Launch Claude Code CLI with the MCP config</p>
             <p class="command">claude-code --mcp-config mcp.json</p>
           </article>
-          <article class="tab-panel" id="panel-codex" role="tabpanel" aria-labelledby="tab-codex" data-tab-panel="codex" hidden>
+          <article class="tab-panel" id="panel-codex" role="tabpanel" aria-labelledby="tab-codex" data-tab-group="examples" data-tab-panel="codex" hidden>
             <h3 data-i18n="examples.codex.title">Codex workflow</h3>
             <p data-i18n="examples.codex.text">Preserve warnings, tasks, and synced session state when handing off coding work to Codex.</p>
             <p class="muted" data-i18n="examples.codex.commandLabel">Launch Codex with the MCP config</p>

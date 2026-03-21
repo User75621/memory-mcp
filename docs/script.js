@@ -224,13 +224,21 @@ function initLanguage() {
   loadLocale(saved).catch(() => loadLocale('en'));
 }
 
-function activateTab(tabName) {
+function activateTab(groupName, tabName) {
   tabButtons.forEach((button) => {
+    const group = button.dataset.tabGroup || 'default';
+    if (group !== groupName) {
+      return;
+    }
     const active = button.dataset.tabButton === tabName;
     button.setAttribute('aria-selected', String(active));
   });
 
   tabPanels.forEach((panel) => {
+    const group = panel.dataset.tabGroup || 'default';
+    if (group !== groupName) {
+      return;
+    }
     const active = panel.dataset.tabPanel === tabName;
     panel.classList.toggle('active', active);
     panel.hidden = !active;
@@ -238,10 +246,16 @@ function activateTab(tabName) {
 }
 
 function initTabs() {
+  const initializedGroups = new Set();
   tabButtons.forEach((button) => {
-    button.addEventListener('click', () => activateTab(button.dataset.tabButton));
+    const group = button.dataset.tabGroup || 'default';
+    button.addEventListener('click', () => activateTab(group, button.dataset.tabButton));
+    if (!initializedGroups.has(group)) {
+      initializedGroups.add(group);
+      const defaultButton = document.querySelector(`[data-tab-group="${group}"][data-tab-button]`) || button;
+      activateTab(group, defaultButton.dataset.tabButton);
+    }
   });
-  activateTab('opencode');
 }
 
 function initSmoothScroll() {

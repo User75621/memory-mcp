@@ -231,7 +231,15 @@
     "claudeTitle": "Claude Code CLI",
     "claudeText": "Util cuando quieres un resumen de trabajo conciso y un handoff fuerte entre sesiones.",
     "claudePromptOne": "Retoma este proyecto con Memory MCP y dame un resumen de lo hecho, lo que falta y el siguiente paso recomendado.",
-    "claudePromptTwo": "Cuando terminemos, captura la sesion completa en Memory MCP, incluyendo decisiones, tareas, warnings, prompts y un checkpoint resumen."
+    "claudePromptTwo": "Cuando terminemos, captura la sesion completa en Memory MCP, incluyendo decisiones, tareas, warnings, prompts y un checkpoint resumen.",
+    "codexTitle": "Codex",
+    "codexText": "Util cuando delegas trabajo de codigo y quieres conservar los mismos warnings, tareas y memoria por archivo.",
+    "codexPromptOne": "Usa Memory MCP mientras implementas esta tarea. Mantén sincronizados warnings, estado de tareas y memoria de archivos importantes mientras programas.",
+    "codexPromptTwo": "Antes de devolver el control, guarda todo lo importante de esta sesion de codigo en Memory MCP y dime cual es el siguiente paso seguro.",
+    "qwenTitle": "Qwen Code",
+    "qwenText": "Util para generacion de codigo y refactors donde quieres que la memoria siga alineada con relaciones entre modulos y checkpoints.",
+    "qwenPromptOne": "Usa Memory MCP durante este refactor. Guarda automaticamente decisiones de arquitectura, relaciones entre archivos y progreso de tareas.",
+    "qwenPromptTwo": "Si este repositorio es nuevo, crea el proyecto en Memory MCP y empieza a capturar contexto mientras modificamos el codigo."
   },
   "examples": {
     "title": "Ejemplos por interfaz",

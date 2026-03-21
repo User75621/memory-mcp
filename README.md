@@ -438,6 +438,16 @@ Typical usage now looks like this:
 - "Retoma este proyecto con Memory MCP y dame un resumen de lo hecho, lo que falta y el siguiente paso recomendado."
 - "When we stop, capture the full session in Memory MCP, including decisions, tasks, warnings, prompts, and a checkpoint summary."
 
+### Codex
+
+- "Use Memory MCP while implementing this task. Keep warnings, task status, and important file memory synchronized as you code."
+- "Before handing control back, save everything important from this coding session in Memory MCP and tell me the next safe step."
+
+### Qwen Code
+
+- "Use Memory MCP during this refactor. Save architectural decisions, file relationships, and task progress automatically."
+- "If this repository is new, create the project in Memory MCP and start capturing context as we modify the codebase."
+
 ## Examples
 
 - `examples/antigravity/README.md`

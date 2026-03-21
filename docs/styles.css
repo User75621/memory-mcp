@@ -375,6 +375,11 @@ section {
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 }
 
+.prompt-stack {
+  display: grid;
+  gap: 1rem;
+}
+
 .prompt-card h3 {
   margin-top: 0;
   margin-bottom: 0.7rem;
