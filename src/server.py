@@ -122,7 +122,7 @@ def _safe_json(value: Any) -> Any:
     """Normaliza estructuras para serializacion y Supabase."""
     if value is None:
         return {}
-    if isinstance(value, (dict, list, str, int, float, bool)):
+    if isinstance(value, (str, int, float, bool)):
         return value
     return json.loads(json.dumps(value, default=str))
 
@@ -191,7 +191,7 @@ def _db_select(table: str, filters: dict[str, Any] | None = None) -> list[dict[s
                 query += sql.SQL(" where ") + sql.SQL(" and ").join(clauses)
             cursor.execute(query, values)
             rows = cursor.fetchall()
-            return [dict(row) for row in rows]
+            return [_safe_json(dict(row)) for row in rows]
 
 
 def _db_insert(table: str, payload: dict[str, Any]) -> dict[str, Any]:
@@ -210,7 +210,7 @@ def _db_insert(table: str, payload: dict[str, Any]) -> dict[str, Any]:
             cursor.execute(query, values)
             row = cursor.fetchone()
             connection.commit()
-            return dict(row) if row else clean_payload
+            return _safe_json(dict(row)) if row else _safe_json(clean_payload)
 
 
 def _db_upsert(table: str, payload: dict[str, Any]) -> dict[str, Any]:
@@ -247,7 +247,7 @@ def _db_upsert(table: str, payload: dict[str, Any]) -> dict[str, Any]:
             cursor.execute(query, values)
             row = cursor.fetchone()
             connection.commit()
-            return dict(row) if row else clean_payload
+            return _safe_json(dict(row)) if row else _safe_json(clean_payload)
 
 
 def _extract_data(response: Any) -> Any:
@@ -307,7 +307,7 @@ def _table_rpc(client: Any, function_name: str, params: dict[str, Any]) -> Any:
                         params.get("filter_owner_id"),
                     ],
                 )
-                return [dict(row) for row in cursor.fetchall()]
+                return [_safe_json(dict(row)) for row in cursor.fetchall()]
     if not hasattr(client, "rpc"):
         return []
     response = client.rpc(function_name, params).execute()
