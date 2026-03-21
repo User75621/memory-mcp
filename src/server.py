@@ -738,10 +738,15 @@ def _markdown_bundle(bundle: dict[str, Any]) -> str:
 def _project_result(project: dict[str, Any], workspace: dict[str, Any], repo: dict[str, Any]) -> dict[str, Any]:
     """Normaliza la respuesta de resolucion de proyecto."""
     return {
-        "project": project,
-        "workspace": workspace,
-        "repo": repo,
+        "status": "ok",
         "project_id": project.get("id"),
+        "project_slug": project.get("slug"),
+        "project_name": project.get("name"),
+        "workspace_id": workspace.get("id"),
+        "workspace_slug": workspace.get("slug"),
+        "repo_root": repo.get("repo_root"),
+        "repo_remote": repo.get("repo_remote"),
+        "repo_branch": repo.get("repo_branch"),
     }
 
 
@@ -943,10 +948,10 @@ def save_cross_interface_decision(
         )
         return {
             "status": "ok",
-            "project": project,
-            "workspace": workspace,
-            "decision": decision,
-            "warnings": warnings,
+            "project_id": project.get("id"),
+            "decision_id": decision.get("id"),
+            "decision_summary": decision.get("summary"),
+            "warning_count": len(warnings),
         }
     except Exception as exc:
         return {"error": str(exc), "tool": "save_cross_interface_decision"}
@@ -1000,7 +1005,13 @@ def update_task_status(
             f"{normalized_title} -> {payload['status']}",
             {"task_id": task.get("id"), "interface": detect_interface()},
         )
-        return {"status": "ok", "task": task, "warnings": warnings}
+        return {
+            "status": "ok",
+            "task_id": task.get("id"),
+            "task_title": task.get("title"),
+            "task_status": task.get("status"),
+            "warning_count": len(warnings),
+        }
     except Exception as exc:
         return {"error": str(exc), "tool": "update_task_status"}
 
@@ -1053,7 +1064,13 @@ def create_session(
             f"Started {interface_name} session.",
             {"session_id": session.get("id"), "interface": interface_name, "repo": repo},
         )
-        return {"status": "ok", "session": session, "project": project}
+        return {
+            "status": "ok",
+            "project_id": project.get("id"),
+            "session_id": session.get("id"),
+            "interface": session.get("interface"),
+            "model_name": session.get("model_name"),
+        }
     except Exception as exc:
         return {"error": str(exc), "tool": "create_session"}
 
@@ -1126,7 +1143,14 @@ def end_session(
             summary_bits["summary"],
             {"session_id": ended.get("id"), "next_step": summary_bits["next_step"]},
         )
-        return {"status": "ok", "session": ended, "checkpoint": checkpoint.get("checkpoint")}
+        checkpoint_data = checkpoint.get("checkpoint") if checkpoint else None
+        return {
+            "status": "ok",
+            "session_id": ended.get("id"),
+            "session_status": ended.get("status"),
+            "checkpoint_id": checkpoint_data.get("id") if checkpoint_data else None,
+            "next_step": summary_bits.get("next_step", ""),
+        }
     except Exception as exc:
         return {"error": str(exc), "tool": "end_session"}
 
@@ -1156,7 +1180,12 @@ def add_warning(
             severity,
             interface or detect_interface(),
         )
-        return {"status": "ok", "warning": warning}
+        return {
+            "status": "ok",
+            "warning_id": warning.get("id"),
+            "severity": warning.get("severity"),
+            "message": warning.get("message"),
+        }
     except Exception as exc:
         return {"error": str(exc), "tool": "add_warning"}
 
@@ -1178,7 +1207,12 @@ def get_active_warnings(
         warnings = _sort_rows(
             _table_select(client, "warnings", {"project_id": project["id"], "is_active": True})
         )
-        return {"status": "ok", "warnings": warnings, "count": len(warnings), "project": project}
+        return {
+            "status": "ok",
+            "project_id": project.get("id"),
+            "warnings": warnings,
+            "count": len(warnings),
+        }
     except Exception as exc:
         return {"error": str(exc), "tool": "get_active_warnings"}
 
@@ -1227,7 +1261,12 @@ def sync_session_state(
             summary or "Synced working session state.",
             {"session_id": active.get("id"), "interface": active.get("interface")},
         )
-        return {"status": "ok", "session_state": session_state, "session": active}
+        return {
+            "status": "ok",
+            "session_id": active.get("id"),
+            "interface": active.get("interface"),
+            "state_keys": sorted(list((session_state.get("state") or {}).keys())),
+        }
     except Exception as exc:
         return {"error": str(exc), "tool": "sync_session_state"}
 
@@ -1520,10 +1559,17 @@ def capture_project_memory(
                 details=str(task.get("details", "")),
                 repo_path=repo_path,
             )
-            if result.get("task"):
-                saved["tasks"].append(result["task"])
-            for warning in result.get("warnings", []):
-                saved["warnings"].append(warning)
+            if result.get("status") == "ok":
+                saved["tasks"].append(
+                    {
+                        "task_id": result.get("task_id"),
+                        "task_title": result.get("task_title"),
+                        "task_status": result.get("task_status"),
+                    }
+                )
+            warning_count = int(result.get("warning_count", 0) or 0)
+            if warning_count:
+                saved["warnings"].extend([{"source": "task", "count": warning_count}])
 
         for warning in warnings or []:
             result = add_warning(
@@ -1549,8 +1595,9 @@ def capture_project_memory(
             )
             if result.get("file_memory"):
                 saved["file_memory"].append(result["file_memory"])
-            for warning in result.get("warnings", []):
-                saved["warnings"].append(warning)
+            warning_count = int(result.get("warning_count", 0) or 0)
+            if warning_count:
+                saved["warnings"].extend([{"source": "file_memory", "count": warning_count}])
 
         for pattern in prompt_patterns or []:
             result = save_prompt_pattern(
