@@ -2,10 +2,34 @@
 
 from __future__ import annotations
 
-import asyncio
-import inspect
 import os
-from typing import Any, Awaitable, Callable
+from typing import Any, Callable
+
+try:
+    from mcp.server.fastmcp import FastMCP
+except ModuleNotFoundError:  # pragma: no cover - fallback for local test envs
+    class FastMCP:  # type: ignore[no-redef]
+        """Fallback minimo cuando la libreria mcp no esta instalada."""
+
+        def __init__(self, *_args: Any, **_kwargs: Any) -> None:
+            self._tools: dict[str, Callable[..., Any]] = {}
+
+        def tool(
+            self,
+            name: str | None = None,
+            description: str | None = None,
+            **_kwargs: Any,
+        ) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+            def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
+                self._tools[name or func.__name__] = func
+                setattr(func, "_tool_description", description)
+                return func
+
+            return decorator
+
+        def run(self, transport: str = "stdio", mount_path: str | None = None) -> None:
+            del transport, mount_path
+            return None
 
 from .interface_detector import detect_interface, get_model_for_interface
 from .model_router import ModelRouter
@@ -21,64 +45,15 @@ from .utils import (
 
 Handler = Callable[..., Any]
 
-
-class MemoryMCP:
-    """Shim ligero compatible con decoradores MCP para este proyecto."""
-
-    def __init__(self, name: str) -> None:
-        self.name = name
-        self._list_handler: Handler | None = None
-        self._call_handler: Handler | None = None
-
-    def list_tools(self) -> Callable[[Handler], Handler]:
-        """Registra la funcion que expone herramientas disponibles."""
-
-        def decorator(func: Handler) -> Handler:
-            self._list_handler = func
-            return func
-
-        return decorator
-
-    def call_tool(self) -> Callable[[Handler], Handler]:
-        """Registra la funcion que enruta la ejecucion de tools."""
-
-        def decorator(func: Handler) -> Handler:
-            self._call_handler = func
-            return func
-
-        return decorator
-
-    async def list_registered_tools(self) -> Any:
-        """Ejecuta el handler decorado de listado."""
-        if self._list_handler is None:
-            raise RuntimeError("No list_tools handler registered")
-        result = self._list_handler()
-        if inspect.isawaitable(result):
-            return await result
-        return result
-
-    async def call_registered_tool(
-        self, tool_name: str, arguments: dict[str, Any] | None = None
-    ) -> Any:
-        """Ejecuta el handler decorado de llamada de herramientas."""
-        if self._call_handler is None:
-            raise RuntimeError("No call_tool handler registered")
-        result = self._call_handler(tool_name, arguments or {})
-        if inspect.isawaitable(result):
-            return await result
-        return result
-
-    def run(self) -> None:
-        """Inicia un loop basico para compatibilidad con entry points."""
-        loop = asyncio.new_event_loop()
-        try:
-            asyncio.set_event_loop(loop)
-            loop.run_until_complete(self.list_registered_tools())
-        finally:
-            loop.close()
-
-
-server = MemoryMCP("Project Memory MCP")
+server = FastMCP(
+    name="Project Memory MCP",
+    instructions=(
+        "Persistent project memory MCP server backed by Supabase. "
+        "Use tools to load shared context, persist decisions, sync sessions, "
+        "track warnings, and query analytics across AI clients."
+    ),
+    log_level=os.getenv("LOG_LEVEL", "INFO"),
+)
 optimizer = ContextOptimizer()
 router = ModelRouter()
 
@@ -145,50 +120,10 @@ def _table_upsert(client: Any, table: str, payload: dict[str, Any]) -> Any:
     return _extract_data(client.table(table).upsert(payload).execute())
 
 
-@server.list_tools()
-async def list_tools() -> list[dict[str, Any]]:
-    """Expone las herramientas soportadas por el servidor.
-
-    Returns:
-        Lista descriptiva de tools MCP disponibles.
-    """
-    return TOOL_SCHEMAS
-
-
-@server.call_tool()
-async def call_tool(tool_name: str, arguments: dict[str, Any]) -> dict[str, Any]:
-    """Enruta llamadas de herramientas a la implementacion correspondiente.
-
-    Args:
-        tool_name: Nombre de la herramienta solicitada.
-        arguments: Argumentos serializados de la llamada.
-
-    Returns:
-        Resultado serializable para MCP.
-
-    Raises:
-        ValueError: Si el nombre de herramienta no existe.
-    """
-    handlers: dict[str, Handler] = {
-        "load_unified_context": load_unified_context,
-        "save_cross_interface_decision": save_cross_interface_decision,
-        "update_task_status": update_task_status,
-        "create_session": create_session,
-        "end_session": end_session,
-        "add_warning": add_warning,
-        "get_active_warnings": get_active_warnings,
-        "sync_session_state": sync_session_state,
-        "get_interface_analytics": get_interface_analytics,
-    }
-    if tool_name not in handlers:
-        raise ValueError(f"Unknown tool: {tool_name}")
-
-    result = handlers[tool_name](**arguments)
-    if isinstance(result, Awaitable):
-        return await result
-    return result
-
-
+@server.tool(
+    name="load_unified_context",
+    description="Carga contexto persistente multi-interfaz de un proyecto.",
+)
 def load_unified_context(
     project_id: str,
     interface: str | None = None,
@@ -209,24 +144,18 @@ def load_unified_context(
     client = _client(owner_id)
 
     try:
-        project_rows = _table_select(
-            client, "projects", {"id": validated_project_id}
-        )
+        project_rows = _table_select(client, "projects", {"id": validated_project_id})
         context = {
             "project": project_rows[0] if project_rows else {},
-            "decisions": _table_select(
-                client, "decisions", {"project_id": validated_project_id}
-            ),
+            "decisions": _table_select(client, "decisions", {"project_id": validated_project_id}),
             "tasks": _table_select(client, "tasks", {"project_id": validated_project_id}),
-            "preferences": _table_select(
-                client, "preferences", {"project_id": validated_project_id}
-            ),
+            "preferences": _table_select(client, "preferences", {"project_id": validated_project_id}),
             "warnings": _table_select(
-                client, "warnings", {"project_id": validated_project_id, "is_active": True}
+                client,
+                "warnings",
+                {"project_id": validated_project_id, "is_active": True},
             ),
-            "sessions": _table_select(
-                client, "sessions", {"project_id": validated_project_id}
-            ),
+            "sessions": _table_select(client, "sessions", {"project_id": validated_project_id}),
             "metadata": {
                 "interface": target_interface,
                 "recommended_model": get_model_for_interface(target_interface),
@@ -244,6 +173,10 @@ def load_unified_context(
         return {"error": str(exc), "tool": "load_unified_context"}
 
 
+@server.tool(
+    name="save_cross_interface_decision",
+    description="Guarda decisiones compartidas entre interfaces.",
+)
 def save_cross_interface_decision(
     project_id: str,
     summary: str,
@@ -288,23 +221,17 @@ def save_cross_interface_decision(
         return {"error": str(exc), "tool": "save_cross_interface_decision"}
 
 
+@server.tool(
+    name="update_task_status",
+    description="Actualiza el estado de una tarea persistida.",
+)
 def update_task_status(
     task_id: str,
     project_id: str,
     status: str,
     owner_id: str | None = None,
 ) -> dict[str, Any]:
-    """Actualiza el estado de una tarea almacenada.
-
-    Args:
-        task_id: Identificador de la tarea.
-        project_id: UUID del proyecto asociado.
-        status: Nuevo estado semantico.
-        owner_id: Propietario para RLS.
-
-    Returns:
-        Resultado de la operacion de escritura.
-    """
+    """Actualiza el estado de una tarea almacenada."""
     client = _client(owner_id)
     payload = {
         "id": task_id,
@@ -319,23 +246,14 @@ def update_task_status(
         return {"error": str(exc), "tool": "update_task_status"}
 
 
+@server.tool(name="create_session", description="Crea una nueva sesion de memoria.")
 def create_session(
     project_id: str,
     interface: str | None = None,
     model_name: str | None = None,
     owner_id: str | None = None,
 ) -> dict[str, Any]:
-    """Crea una sesion activa para una interfaz especifica.
-
-    Args:
-        project_id: UUID del proyecto.
-        interface: Interfaz iniciadora.
-        model_name: Modelo asociado a la sesion.
-        owner_id: Propietario del contexto.
-
-    Returns:
-        Sesion persistida o error.
-    """
+    """Crea una sesion activa para una interfaz especifica."""
     client = _client(owner_id)
     interface_name = interface or detect_interface()
     model = model_name or router.recommend_model("coding")
@@ -353,16 +271,9 @@ def create_session(
         return {"error": str(exc), "tool": "create_session"}
 
 
+@server.tool(name="end_session", description="Marca una sesion como finalizada.")
 def end_session(session_id: str, owner_id: str | None = None) -> dict[str, Any]:
-    """Marca una sesion como finalizada.
-
-    Args:
-        session_id: Identificador de la sesion.
-        owner_id: Propietario del contexto.
-
-    Returns:
-        Resultado de la actualizacion.
-    """
+    """Marca una sesion como finalizada."""
     client = _client(owner_id)
     payload = {
         "id": session_id,
@@ -376,6 +287,7 @@ def end_session(session_id: str, owner_id: str | None = None) -> dict[str, Any]:
         return {"error": str(exc), "tool": "end_session"}
 
 
+@server.tool(name="add_warning", description="Registra advertencias persistentes.")
 def add_warning(
     project_id: str,
     message: str,
@@ -383,18 +295,7 @@ def add_warning(
     owner_id: str | None = None,
     interface: str | None = None,
 ) -> dict[str, Any]:
-    """Registra una advertencia activa en la memoria persistente.
-
-    Args:
-        project_id: UUID del proyecto.
-        message: Mensaje de advertencia.
-        severity: low, medium, high o critical.
-        owner_id: Propietario para RLS.
-        interface: Interfaz que genera la advertencia.
-
-    Returns:
-        Advertencia persistida o error.
-    """
+    """Registra una advertencia activa en la memoria persistente."""
     client = _client(owner_id)
     payload = {
         "project_id": validate_project_id(project_id),
@@ -411,19 +312,15 @@ def add_warning(
         return {"error": str(exc), "tool": "add_warning"}
 
 
+@server.tool(
+    name="get_active_warnings",
+    description="Obtiene advertencias activas de un proyecto.",
+)
 def get_active_warnings(
     project_id: str,
     owner_id: str | None = None,
 ) -> dict[str, Any]:
-    """Obtiene todas las advertencias activas de un proyecto.
-
-    Args:
-        project_id: UUID del proyecto.
-        owner_id: Propietario para RLS.
-
-    Returns:
-        Lista de advertencias activas y conteo.
-    """
+    """Obtiene todas las advertencias activas de un proyecto."""
     client = _client(owner_id)
     try:
         warnings = _table_select(
@@ -436,23 +333,17 @@ def get_active_warnings(
         return {"error": str(exc), "tool": "get_active_warnings"}
 
 
+@server.tool(
+    name="sync_session_state",
+    description="Sincroniza el estado actual de una sesion activa.",
+)
 def sync_session_state(
     session_id: str,
     project_id: str,
     state: dict[str, Any],
     owner_id: str | None = None,
 ) -> dict[str, Any]:
-    """Sincroniza el estado de una sesion entre interfaces.
-
-    Args:
-        session_id: Identificador de la sesion.
-        project_id: UUID del proyecto.
-        state: Estado serializable compartido.
-        owner_id: Propietario para RLS.
-
-    Returns:
-        Estado persistido o error estructurado.
-    """
+    """Sincroniza el estado de una sesion entre interfaces."""
     client = _client(owner_id)
     payload = {
         "session_id": session_id,
@@ -462,24 +353,23 @@ def sync_session_state(
     }
     try:
         stored = _table_upsert(client, "session_state", payload)
-        return {"status": "ok", "session_state": stored[0] if isinstance(stored, list) else stored}
+        return {
+            "status": "ok",
+            "session_state": stored[0] if isinstance(stored, list) else stored,
+        }
     except Exception as exc:
         return {"error": str(exc), "tool": "sync_session_state"}
 
 
+@server.tool(
+    name="get_interface_analytics",
+    description="Resume uso y rendimiento por interfaz.",
+)
 def get_interface_analytics(
     project_id: str | None = None,
     owner_id: str | None = None,
 ) -> dict[str, Any]:
-    """Lee analitica agregada por interfaz desde la vista SQL.
-
-    Args:
-        project_id: UUID opcional para filtrar resultados.
-        owner_id: Propietario para RLS.
-
-    Returns:
-        Resumen de interfaces y uso de sesiones.
-    """
+    """Lee analitica agregada por interfaz desde la vista SQL."""
     client = _client(owner_id)
     try:
         filters: dict[str, Any] = {}
@@ -491,9 +381,41 @@ def get_interface_analytics(
         return {"error": str(exc), "tool": "get_interface_analytics"}
 
 
+TOOL_HANDLERS: dict[str, Handler] = {
+    "load_unified_context": load_unified_context,
+    "save_cross_interface_decision": save_cross_interface_decision,
+    "update_task_status": update_task_status,
+    "create_session": create_session,
+    "end_session": end_session,
+    "add_warning": add_warning,
+    "get_active_warnings": get_active_warnings,
+    "sync_session_state": sync_session_state,
+    "get_interface_analytics": get_interface_analytics,
+}
+
+
+async def list_registered_tools() -> list[dict[str, Any]]:
+    """Expone las herramientas soportadas por el servidor para tests locales."""
+    return TOOL_SCHEMAS
+
+
+async def call_registered_tool(
+    tool_name: str,
+    arguments: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Ejecuta una herramienta por nombre para tests locales."""
+    if tool_name not in TOOL_HANDLERS:
+        raise ValueError(f"Unknown tool: {tool_name}")
+    return TOOL_HANDLERS[tool_name](**(arguments or {}))
+
+
+setattr(server, "list_registered_tools", list_registered_tools)
+setattr(server, "call_registered_tool", call_registered_tool)
+
+
 def main() -> None:
-    """Punto de entrada del servidor para ejecucion local o MCP."""
-    server.run()
+    """Punto de entrada del servidor para ejecucion local o MCP stdio."""
+    server.run(transport="stdio")
 
 
 if __name__ == "__main__":
