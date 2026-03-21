@@ -97,10 +97,13 @@
     "cardTwoText": "If the client exposes Memory MCP tools, the model can call `load_unified_context`, `capture_project_memory`, `sync_session_state`, or other tools automatically based on your request.",
     "cardThreeTitle": "Force a tool only when needed",
     "cardThreeText": "Manual tool calls are useful for debugging, integrations, or when you want exact control over inputs and outputs.",
+    "cardFourTitle": "Projects are detected automatically",
+    "cardFourText": "When the client exposes the active repo or workspace, Memory MCP can resolve or create the right project automatically, even if you open a new repo in the IDE.",
     "promptOne": "Resume this project and tell me where we left off.",
     "promptTwo": "Load the stored project memory before continuing the refactor.",
     "promptThree": "Save this architecture decision and mark the current task as in progress.",
     "promptFour": "Save everything important from this session in Memory MCP.",
+    "promptFive": "If this is a new project, create what you need in Memory MCP and start saving memory automatically.",
     "note": "If a client disables tool use, the model cannot call MCP tools automatically. In that case, enable MCP tools in the client or call the tool explicitly."
   },
   "clients": {

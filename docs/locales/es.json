@@ -97,10 +97,13 @@
     "cardTwoText": "Si el cliente expone las tools de Memory MCP, el modelo puede llamar `load_unified_context`, `capture_project_memory`, `sync_session_state` u otras tools automaticamente segun tu solicitud.",
     "cardThreeTitle": "Fuerza una tool solo si hace falta",
     "cardThreeText": "Las llamadas manuales sirven para depuracion, integraciones o cuando quieres control exacto sobre entradas y salidas.",
+    "cardFourTitle": "Los proyectos se detectan automaticamente",
+    "cardFourText": "Cuando el cliente expone el repo o workspace activo, Memory MCP puede resolver o crear el proyecto correcto automaticamente, incluso si abres un repo nuevo en el IDE.",
     "promptOne": "Retoma este proyecto y dime por donde nos quedamos.",
     "promptTwo": "Carga la memoria guardada del proyecto antes de continuar el refactor.",
     "promptThree": "Guarda esta decision de arquitectura y marca la tarea actual como en progreso.",
     "promptFour": "Guarda todo lo importante de esta sesion en Memory MCP.",
+    "promptFive": "Si este es un proyecto nuevo, crea lo necesario en Memory MCP y empieza a guardar memoria automaticamente.",
     "note": "Si un cliente desactiva el uso de tools, el modelo no podra llamar tools MCP automaticamente. En ese caso, habilita MCP en el cliente o llama la tool de forma explicita."
   },
   "clients": {

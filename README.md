@@ -336,6 +336,7 @@ Typical natural-language prompts:
 - "Save this architecture decision and mark the current task as in progress."
 - "Check active warnings before we keep coding."
 - "Save everything important from this session in Memory MCP."
+- "If this is a new project, create what you need in Memory MCP and start saving memory automatically."
 
 When the model sees those requests, it can map them to the right MCP tools automatically.
 
