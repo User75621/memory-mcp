@@ -5,7 +5,7 @@ Use this guide when you want Claude Code CLI to continue a project with the same
 ## Configuration
 
 1. Install the project dependencies.
-2. Run `pip install -e .` so the `project-memory-mcp` command is available.
+2. Run `pip install -e .` so the `memory-mcp` command is available.
 3. Register `mcp.json` in your Claude Code CLI configuration.
 
 ## Command

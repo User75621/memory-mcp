@@ -5,7 +5,7 @@ Use this guide when you want OpenCode to inherit project memory before editing o
 ## Configuration
 
 1. Install the project dependencies.
-2. Run `pip install -e .` so the `project-memory-mcp` command is available.
+2. Run `pip install -e .` so the `memory-mcp` command is available.
 3. Point OpenCode to the local `mcp.json` file.
 
 ## Command
@@ -25,8 +25,8 @@ OpenCode can also use the standard MCP command entry:
 ```json
 {
   "mcpServers": {
-    "project-memory-mcp": {
-      "command": "project-memory-mcp"
+    "memory-mcp": {
+      "command": "memory-mcp"
     }
   }
 }

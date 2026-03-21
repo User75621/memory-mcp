@@ -1,4 +1,4 @@
-"""Project Memory MCP package."""
+"""Memory MCP package."""
 
 __all__ = [
     "server",

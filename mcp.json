@@ -1,7 +1,7 @@
 {
   "mcpServers": {
-    "project-memory-mcp": {
-      "command": "project-memory-mcp",
+    "memory-mcp": {
+      "command": "memory-mcp",
       "env": {
         "SUPABASE_URL": "${SUPABASE_URL}",
         "SUPABASE_KEY": "${SUPABASE_KEY}",

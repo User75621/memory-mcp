@@ -1,4 +1,4 @@
--- Project Memory MCP schema
+-- Memory MCP schema
 -- Persistent project memory for AI models and coding agents.
 
 create extension if not exists pgcrypto;

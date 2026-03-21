@@ -1,4 +1,4 @@
-"""Setup script for Project Memory MCP."""
+"""Setup script for Memory MCP."""
 
 from setuptools import setup
 

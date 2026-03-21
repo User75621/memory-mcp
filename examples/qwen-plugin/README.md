@@ -1,6 +1,6 @@
 # Qwen Code Example
 
-This example shows how to attach Project Memory MCP to a Qwen Code workflow.
+This example shows how to attach Memory MCP to a Qwen Code workflow.
 
 ## Configuration
 

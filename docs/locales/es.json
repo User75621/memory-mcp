@@ -1,7 +1,7 @@
 {
   "meta": {
-    "siteName": "Project Memory MCP",
-    "title": "Project Memory MCP | Memoria de Proyecto IA",
+    "siteName": "Memory MCP",
+    "title": "Memory MCP | Memoria de Proyecto IA",
     "description": "Memoria de proyecto MCP con Supabase persistent context para modelos de IA, OpenCode, Claude Code CLI, Qwen Code y Codex.",
     "ogDescription": "Memoria persistente de proyecto para modelos de IA y agentes de codigo impulsada por Supabase.",
     "twitterDescription": "Memoria de proyecto para IA con Supabase persistent context para OpenCode, Claude Code CLI, Qwen Code y Codex."
@@ -25,9 +25,9 @@
     "onThisPage": "En esta pagina"
   },
   "hero": {
-    "eyebrow": "Project Memory MCP Server",
+    "eyebrow": "Memory MCP Server",
     "title": "Memoria de largo plazo para modelos de IA y agentes de codigo",
-    "description": "Project Memory MCP guarda arquitectura, decisiones, tareas, advertencias, preferencias y estado de sesion para que tus herramientas de IA retomen el trabajo exactamente donde se quedaron.",
+    "description": "Memory MCP guarda arquitectura, decisiones, tareas, advertencias, preferencias y estado de sesion para que tus herramientas de IA retomen el trabajo exactamente donde se quedaron.",
     "primaryCta": "Leer guia de instalacion",
     "secondaryCta": "Ver arquitectura",
     "statsLabel": "Lo que resuelve",
@@ -86,7 +86,7 @@
     "cardOneTitle": "Habla normal",
     "cardOneText": "No necesitas nombrar manualmente una tool para tareas comunes. Puedes pedir contexto, preguntar que cambio o pedir que retome el proyecto.",
     "cardTwoTitle": "El modelo elige las tools",
-    "cardTwoText": "Si el cliente expone las tools de Project Memory MCP, el modelo puede llamar `load_unified_context`, `sync_session_state` u otras tools automaticamente segun tu solicitud.",
+    "cardTwoText": "Si el cliente expone las tools de Memory MCP, el modelo puede llamar `load_unified_context`, `sync_session_state` u otras tools automaticamente segun tu solicitud.",
     "cardThreeTitle": "Fuerza una tool solo si hace falta",
     "cardThreeText": "Las llamadas manuales sirven para depuracion, integraciones o cuando quieres control exacto sobre entradas y salidas.",
     "promptOne": "Retoma este proyecto y dime por donde nos quedamos.",
@@ -104,13 +104,13 @@
     "envSourceTitle": "Como obtener cada valor",
     "envSourceText": "SUPABASE_URL y SUPABASE_KEY salen de la configuracion de tu proyecto en Supabase. OWNER_ID no te lo da Supabase: lo defines tu con un identificador estable, por ejemplo tu usuario de GitHub, el slug de tu empresa o el id de tu workspace, y debes mantener siempre el mismo valor.",
     "platformTitle": "macOS y Linux",
-    "platformText": "El MCP no es solo para Windows. Despues de `pip install -e .`, macOS y Linux tambien exponen el mismo comando `project-memory-mcp`, asi que la misma entrada MCP funciona entre plataformas.",
+    "platformText": "El MCP no es solo para Windows. Despues de `pip install -e .`, macOS y Linux tambien exponen el mismo comando `memory-mcp`, asi que la misma entrada MCP funciona entre plataformas.",
     "keepTitle": "2. Mantén una sola instalacion central",
     "keepText": "No copies el servidor dentro de cada proyecto. Mantén una sola carpeta estable para el servidor MCP y conecta todos los clientes a esa misma instalacion.",
     "standardTitle": "3. Usa un solo comando MCP estandar",
-    "standardText": "Despues de instalarlo, configura los clientes para lanzar el mismo comando: project-memory-mcp. Asi el servidor se comporta como cualquier otro servidor MCP por stdio.",
+    "standardText": "Despues de instalarlo, configura los clientes para lanzar el mismo comando: memory-mcp. Asi el servidor se comporta como cualquier otro servidor MCP por stdio.",
     "startTitle": "4. Debo iniciarlo cada vez que enciendo la PC?",
-    "startText": "Normalmente no. Cuando un cliente esta configurado con el comando `project-memory-mcp`, suele iniciar el servidor automaticamente cuando lo necesita. Solo hace falta ejecutarlo manualmente si quieres probarlo directo o depurarlo fuera del cliente.",
+    "startText": "Normalmente no. Cuando un cliente esta configurado con el comando `memory-mcp`, suele iniciar el servidor automaticamente cuando lo necesita. Solo hace falta ejecutarlo manualmente si quieres probarlo directo o depurarlo fuera del cliente.",
     "genericTitle": "Funciona con otros clientes MCP",
     "genericText": "Si un IDE o agente acepta una configuracion MCP estandar con una entrada mcpServers, normalmente puedes pegar el mismo bloque del servidor y solo ajustar las variables de entorno.",
     "opencodeTitle": "OpenCode",
@@ -118,7 +118,7 @@
     "codexTitle": "Codex",
     "codexText": "Registra el mismo bloque del servidor en la configuracion MCP de Codex y luego inicia Codex con esa configuracion.",
     "claudeDesktopTitle": "Claude Desktop",
-    "claudeDesktopText": "Agrega una entrada de servidor MCP local en Claude Desktop usando el comando instalado project-memory-mcp y las mismas variables de entorno de tu configuracion local.",
+    "claudeDesktopText": "Agrega una entrada de servidor MCP local en Claude Desktop usando el comando instalado memory-mcp y las mismas variables de entorno de tu configuracion local.",
     "claudeCodeTitle": "Claude Code CLI",
     "claudeCodeText": "Ejecuta Claude Code con la configuracion MCP compartida o con el flujo equivalente de registro del CLI.",
     "qwenTitle": "Qwen Code",
@@ -181,13 +181,13 @@
   },
   "seo": {
     "title": "Enfoque SEO",
-    "description": "Project Memory MCP, memoria de proyecto IA, Supabase persistent context, AI agent memory, OpenCode memory, Claude Code CLI memory, Qwen Code memory y Codex memory estan explicados en lenguaje claro para una adopcion rapida."
+    "description": "Memory MCP, memoria de proyecto IA, Supabase persistent context, AI agent memory, OpenCode memory, Claude Code CLI memory, Qwen Code memory y Codex memory estan explicados en lenguaje claro para una adopcion rapida."
   },
   "footer": {
     "title": "Infraestructura open source de memoria para flujos reales con IA",
     "description": "Creado por Danny Maaz para que desarrolladores y equipos conserven contexto, decisiones de arquitectura y continuidad de trabajo entre distintos clientes de IA.",
     "supportTitle": "Apoya el proyecto",
-    "supportDescription": "Si Project Memory MCP te ayuda en tu flujo de trabajo, puedes apoyar su desarrollo con PayPal o Ko-fi.",
+    "supportDescription": "Si Memory MCP te ayuda en tu flujo de trabajo, puedes apoyar su desarrollo con PayPal o Ko-fi.",
     "supportButton": "Apoyar con PayPal",
     "supportKofi": "Apoyar en Ko-fi",
     "supportMetaPayPal": "Apoyo puntual",

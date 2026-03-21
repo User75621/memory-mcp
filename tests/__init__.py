@@ -1,1 +1,1 @@
-"""Test suite for Project Memory MCP."""
+"""Test suite for Memory MCP."""

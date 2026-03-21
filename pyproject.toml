@@ -3,7 +3,7 @@ requires = ["setuptools>=68.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "project-memory-mcp"
+name = "memory-mcp"
 version = "0.1.0"
 description = "Persistent Project Memory for AI Models"
 readme = "README.md"
@@ -11,7 +11,7 @@ requires-python = ">=3.10"
 license = { text = "MIT" }
 authors = [{ name = "Danny Maaz" }]
 keywords = [
-  "Project Memory MCP",
+  "Memory MCP",
   "AI project memory",
   "Supabase persistent context",
   "AI agent memory",
@@ -35,7 +35,7 @@ classifiers = [
 ]
 
 [project.scripts]
-project-memory-mcp = "src.server:main"
+memory-mcp = "src.server:main"
 
 [tool.setuptools]
 include-package-data = true

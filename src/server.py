@@ -46,7 +46,7 @@ from .utils import (
 Handler = Callable[..., Any]
 
 server = FastMCP(
-    name="Project Memory MCP",
+    name="Memory MCP",
     instructions=(
         "Persistent project memory MCP server backed by Supabase. "
         "Use tools to load shared context, persist decisions, sync sessions, "

@@ -5,8 +5,8 @@ Use this guide to connect Codex to the same persistent memory backend used by yo
 ## Configuration
 
 1. Export Supabase credentials from `.env`.
-2. Run `pip install -e .` so the `project-memory-mcp` command is available.
-3. Start the server with `project-memory-mcp` if you want to test it manually.
+2. Run `pip install -e .` so the `memory-mcp` command is available.
+3. Start the server with `memory-mcp` if you want to test it manually.
 4. Load `mcp.json` inside your Codex plugin or CLI settings.
 
 ## Command

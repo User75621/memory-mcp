@@ -1,6 +1,6 @@
-# Contributing to Project Memory MCP
+# Contributing to Memory MCP
 
-Thanks for helping improve Project Memory MCP for long-term AI project memory and Supabase persistent context.
+Thanks for helping improve Memory MCP for long-term AI project memory and Supabase persistent context.
 
 ## How to contribute
 
