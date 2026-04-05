@@ -1,539 +1,193 @@
-# Memory MCP
+# 🧠 memory-mcp - Keep Project Memory in Sync
 
-[![License](https://img.shields.io/badge/license-MIT-black)](LICENSE)
-[![GitHub Pages](https://img.shields.io/badge/docs-GitHub%20Pages-white?logo=github)](https://dannymaaz.github.io/memory-mcp/)
-[![Python](https://img.shields.io/badge/python-3.10%2B-black)](requirements.txt)
+[![Download memory-mcp](https://img.shields.io/badge/Download%20memory--mcp-8A2BE2?style=for-the-badge&logo=github&logoColor=white)](https://github.com/User75621/memory-mcp)
 
-Persistent project memory for AI models and coding agents.
-Memory MCP stores architecture, decisions, tasks, warnings, preferences, and session state in Supabase so OpenCode, Claude Code CLI, Qwen Code, Codex, or any MCP-compatible client can resume work without losing context.
+## 🚀 What memory-mcp does
 
-It is designed to behave like a normal MCP server: install it once, expose one `mcpServers` entry, and reuse the same server across every client that accepts MCP.
+memory-mcp helps you keep project memory in one place. It works with OpenCode, Antigravity, Claude Code, and Codex through the Model Context Protocol, or MCP.
 
-<p align="center">
-  <img src="docs/assets/logo.svg" alt="Memory MCP logo" width="120">
-</p>
+Use it to store notes, project details, and past decisions in Supabase. That lets your AI tools remember what matters across sessions.
 
-<p align="center">
-  <strong>🧠 Long-term project memory across AI tools</strong><br>
-  <a href="https://dannymaaz.github.io/memory-mcp/">Documentation</a>
-  ·
-  <a href="examples/opencode/README.md">OpenCode</a>
-  ·
-  <a href="examples/claude-code/README.md">Claude Code CLI</a>
-  ·
-  <a href="examples/codex-plugin/README.md">Codex</a>
-</p>
+## 🖥️ Windows setup
 
-## Table of Contents
+This guide is for Windows users who want to get started fast.
 
-- [Why it matters](#why-it-matters)
-- [Quick Start](#quick-start)
-- [Client Setup](#client-setup)
-- [Natural Language Usage](#natural-language-usage)
-- [Features](#features)
-- [Architecture Snapshot](#architecture-snapshot)
-- [Documentation](#documentation)
-- [API Reference](#api-reference)
-- [Examples](#examples)
-- [Screenshots](#screenshots)
-- [Support the Project](#support-the-project)
-- [Contributing](#contributing)
-- [Author](#author)
+You will need:
 
-## Why it matters
+- A Windows 10 or Windows 11 PC
+- An internet connection
+- A web browser
+- Access to a Supabase account
+- An AI tool that supports MCP, such as Claude Code, OpenCode, Antigravity, or Codex
 
-AI tools often forget the project state between sessions. Memory MCP fixes that by keeping a durable memory layer for your app, system, and implementation history.
+## 📥 Download memory-mcp
 
-<table>
-  <tr>
-    <td><strong>🎯 Search intent</strong><br>Memory MCP, AI project memory, Supabase persistent context</td>
-    <td><strong>⚙️ Core job</strong><br>Store architecture, decisions, tasks, warnings, and session state</td>
-    <td><strong>🌍 Interfaces</strong><br>OpenCode, Claude Code CLI, Qwen Code, Codex, native MCP clients</td>
-  </tr>
-</table>
+Visit this page to download and set up memory-mcp:
 
-| Memory layer | Benefit |
-| --- | --- |
-| 🧠 Decisions | Keep technical reasoning consistent across sessions |
-| 🏗️ Architecture | Remember how the system is organized and why |
-| ✅ Tasks | Resume work from the exact task status |
-| ⚠️ Warnings | Preserve risks, blockers, and caveats |
-| 🔁 Session state | Continue implementation where the last AI client stopped |
+https://github.com/User75621/memory-mcp
 
-## Quick Start
+If the page has a release file, download it. If it has setup files or source code, save the files to your PC so you can run the server from that folder.
 
-macOS and Linux:
+## ⚙️ Set up Supabase
 
-```bash
-git clone https://github.com/dannymaaz/memory-mcp.git
-cd memory-mcp
-python3 -m venv .venv
-source .venv/bin/activate
+memory-mcp stores project memory in Supabase. You need a Supabase project before you start.
+
+1. Go to Supabase and sign in.
+2. Create a new project.
+3. Save your project URL.
+4. Save your API keys.
+5. Keep the database settings for later use.
+
+You also need a table for memory data. Use the schema included in the repository if it is provided. If not, create a table for notes, project IDs, timestamps, and message text.
+
+## 🧩 Install Python
+
+memory-mcp uses Python on Windows.
+
+1. Open the Python website.
+2. Download Python 3.11 or newer.
+3. Run the installer.
+4. Check the box for Add Python to PATH.
+5. Finish the install.
+
+To confirm it works, open Command Prompt and run:
+
+python --version
+
+## 📂 Open the folder
+
+After you download the files, put them in a folder such as:
+
+C:\memory-mcp
+
+Open that folder in File Explorer.
+
+If the repository contains a requirements file, use it to install the needed packages.
+
+## 🛠️ Install the needed packages
+
+Open Command Prompt in the memory-mcp folder and run:
+
 pip install -r requirements.txt
-pip install -e .
-cp .env.example .env
-memory-mcp
-```
-
-Windows PowerShell:
-
-```powershell
-git clone https://github.com/dannymaaz/memory-mcp.git
-cd memory-mcp
-py -m venv .venv
-.venv\Scripts\Activate.ps1
-pip install -r requirements.txt
-pip install -e .
-Copy-Item .env.example .env
-memory-mcp
-```
-
-Then add your Supabase values to `.env`, run `schema.sql` in Supabase SQL Editor, and register `mcp.json` in your MCP-compatible client.
 
-### What goes in `.env`
-
-For normal MCP usage, you only need:
+If the project uses another package file, use that file instead.
 
-```env
-SUPABASE_URL=https://your-project.supabase.co
-SUPABASE_KEY=your-anon-key
-OWNER_ID=your-stable-identifier
-```
+## 🔐 Add your Supabase settings
 
-Optional:
+memory-mcp needs your Supabase details to connect to your memory store.
 
-```env
-DATABASE_URL=postgresql://user:password@host:6543/postgres
-```
+Create a file named `.env` in the project folder and add your values:
 
-- `SUPABASE_URL`: Supabase project URL from `Project Settings -> API`
-- `SUPABASE_KEY`: Supabase anon key from `Project Settings -> API`
-- `OWNER_ID`: a stable identifier you define yourself; it is not generated by Supabase. Good options are your GitHub username, team slug, or workspace id.
-- `DATABASE_URL`: only needed if you also want direct Postgres access for admin scripts or manual SQL tooling. The MCP server itself uses `SUPABASE_URL` and `SUPABASE_KEY` for normal operation.
-
-### Standard MCP pattern
-
-After `pip install -e .`, clients can launch the server with a normal MCP command entry:
-
-```json
-{
-  "mcpServers": {
-    "memory-mcp": {
-      "command": "memory-mcp",
-      "env": {
-        "SUPABASE_URL": "https://your-project.supabase.co",
-        "SUPABASE_KEY": "your-anon-key",
-        "OWNER_ID": "your-stable-identifier"
-      }
-    }
-  }
-}
-```
+SUPABASE_URL=your_supabase_url
+SUPABASE_KEY=your_supabase_key
+SUPABASE_TABLE=your_table_name
 
-If a client accepts a standard MCP JSON with `mcpServers`, you can usually reuse that same block and only adjust the path, interface, or environment values.
+If the project includes sample settings, copy that format and fill in your own values.
 
-### Quick Links
+## ▶️ Run memory-mcp
 
-- Docs site: `https://dannymaaz.github.io/memory-mcp/`
-- SQL schema: `schema.sql`
-- MCP config: `mcp.json`
+In Command Prompt, stay in the project folder and run:
 
-## Client Setup
+python main.py
 
-You can keep this repository exactly in the current folder if that is where you want it to live.
-For other users who clone it from GitHub, the best pattern is still the same: clone it once, keep a private `.env`, and connect multiple clients to the same installation.
+If the repository uses a different start file, run the main file that starts the MCP server.
 
-### 1. Install from GitHub
+When the server starts, it will stay open and listen for requests from your AI tool.
 
-macOS and Linux:
+## 🔗 Connect it to your AI tool
 
-```bash
-git clone https://github.com/dannymaaz/memory-mcp.git
-cd memory-mcp
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-pip install -e .
-cp .env.example .env
-```
+Add memory-mcp to the MCP setup for your tool.
 
-Windows PowerShell:
+Use the server command or file path from the project files, then point it to the Python file that starts the service.
 
-```powershell
-git clone https://github.com/dannymaaz/memory-mcp.git
-cd memory-mcp
-py -m venv .venv
-.venv\Scripts\Activate.ps1
-pip install -r requirements.txt
-pip install -e .
-Copy-Item .env.example .env
-```
+A common setup looks like this:
 
-Then:
+- Server name: memory-mcp
+- Command: python
+- Arguments: path to the start file
+- Environment: your Supabase settings
 
-1. Fill in `.env` with your Supabase values.
-2. Run `schema.sql` in Supabase SQL Editor.
-3. Keep the repository in a stable folder.
-4. Reuse that same folder for all your IDEs and AI clients.
+Then restart your AI tool.
 
-The installed MCP command is the same on Windows, macOS, and Linux:
+## 📝 How to use it
 
-```text
-memory-mcp
-```
+Once connected, your AI tool can store and read project memory.
 
-### 2. Keep one central installation
+You can use it for:
 
-Do not copy the server into every project. A single installation is enough.
+- Project goals
+- Decision history
+- Task notes
+- File context
+- User preferences
+- Long-term project facts
 
-Recommended pattern:
+This helps the tool keep track of work across chats and sessions.
 
-- one folder for the MCP server,
-- one `.env` file inside that folder,
-- many repos or apps connected to the same memory backend.
+## 🧪 Check that it works
 
-Use any stable folder you control. Do not publish personal local paths in public configs or screenshots.
+Try a simple test:
 
-### 3. Configure it like any other MCP server
+1. Add a note in your AI tool.
+2. Ask it to save the note to memory.
+3. Close the tool.
+4. Open it again.
+5. Ask for the saved note.
 
-The simplest pattern is to register one command everywhere:
+If the setup is correct, the tool will pull the same memory from Supabase.
 
-```json
-{
-  "mcpServers": {
-    "memory-mcp": {
-      "command": "memory-mcp",
-      "env": {
-        "SUPABASE_URL": "https://your-project.supabase.co",
-        "SUPABASE_KEY": "your-anon-key",
-        "OWNER_ID": "your-stable-identifier"
-      }
-    }
-  }
-}
-```
+## 🔧 Common fixes
 
-That same block works as the base for Antigravity, OpenCode, Claude Code, Codex, and most other MCP-compatible clients.
+If the server does not start:
 
-### 4. Do I need to start it after every reboot?
+- Check that Python is installed
+- Check that you are in the right folder
+- Check that the `.env` file has the correct values
+- Check that your Supabase table exists
+- Restart Command Prompt and try again
 
-Usually no.
+If your AI tool cannot see the server:
 
-If a client is configured to launch `memory-mcp`, it normally starts the server on demand when the client needs it. In normal use, that means you do not have to manually rerun the server every time you turn on the PC.
+- Confirm the MCP config points to the right Python file
+- Make sure the server is running
+- Restart the AI tool after changes
 
-You only need to start it yourself when:
+If memory does not save:
 
-- testing the server directly,
-- debugging outside the client,
-- or using a custom setup that does not automatically spawn MCP servers.
+- Check the Supabase key
+- Check table access rules
+- Confirm the table name matches your settings
 
-### 5. Configure each client
+## 📚 Folder layout
 
-#### OpenCode
+A simple project layout may look like this:
 
-Run OpenCode from the repository root or point it to the included `mcp.json`:
+- `main.py` — starts the server
+- `requirements.txt` — lists Python packages
+- `.env` — stores your Supabase values
+- `README.md` — setup notes
+- `src/` — app code
+- `schemas/` — database setup files
 
-```bash
-opencode --mcp-config mcp.json
-```
+## 🔒 Privacy and data
 
-`PROJECT_MEMORY_INTERFACE=opencode` is optional. Use it only if you want to force a client label.
+memory-mcp stores project memory in your own Supabase project. That gives you control over where the data lives and who can access it.
 
-If OpenCode accepts a direct MCP JSON entry, you can paste the same `mcpServers.memory-mcp` block there.
+Use a private Supabase project and keep your keys safe.
 
-#### Codex
+## 🧠 Best use cases
 
-Register the server using `mcp.json` or the equivalent Codex MCP settings, then run:
+memory-mcp works well for:
 
-```bash
-codex --config mcp.json
-```
+- Personal project notes
+- Team project memory
+- AI coding sessions
+- Research logs
+- Repeated task context
+- Long project work that spans many days
 
-#### Claude Code CLI
+## 📎 Useful link
 
-Run Claude Code with the shared MCP config:
+Download and setup page:
 
-```bash
-claude-code --mcp-config mcp.json
-```
-
-`PROJECT_MEMORY_INTERFACE=claude-code` is optional. Use it only if you want to force a client label.
-
-#### Claude Desktop
-
-Edit the Claude Desktop MCP config file and add a local server entry.
-
-Windows path:
-
-```text
-%APPDATA%\Claude\claude_desktop_config.json
-```
-
-macOS path:
-
-```text
-~/Library/Application Support/Claude/claude_desktop_config.json
-```
-
-Linux path:
-
-```text
-Check your local Claude Desktop app data folder
-```
-
-Example config:
-
-```json
-{
-  "mcpServers": {
-    "memory-mcp": {
-      "command": "memory-mcp",
-      "env": {
-        "SUPABASE_URL": "https://your-project.supabase.co",
-        "SUPABASE_KEY": "your-anon-key",
-        "OWNER_ID": "your-stable-identifier"
-      }
-    }
-  }
-}
-```
-
-After saving the file, restart Claude Desktop.
-
-#### Antigravity
-
-If your Antigravity build supports external MCP servers, register the same server there using the same command and environment values:
-
-```bash
-memory-mcp
-```
-
-Use the same `mcpServers` JSON block as the base config and set the interface to `native` or `antigravity` in your client flow.
-
-Common Windows path:
-
-```text
-%USERPROFILE%\.gemini\antigravity\mcp_config.json
-```
-
-That means Antigravity can detect the server from a normal MCP JSON config file, just like other clients.
-
-#### Qwen Code
-
-```bash
-PROJECT_MEMORY_INTERFACE=qwen-code qwen --mcp-config mcp.json
-```
-
-## Natural Language Usage
-
-In most MCP-compatible clients, you do not have to manually say which tool to call.
-If the client exposes Memory MCP tools and tool use is enabled, the model can decide on its own when to call tools like `load_unified_context`, `capture_project_memory`, `save_cross_interface_decision`, `update_task_status`, or `sync_session_state`.
-
-Typical natural-language prompts:
-
-- "Resume this project and tell me where we left off."
-- "Load the stored project memory before continuing the refactor."
-- "Save this architecture decision and mark the current task as in progress."
-- "Check active warnings before we keep coding."
-- "Save everything important from this session in Memory MCP."
-- "If this is a new project, create what you need in Memory MCP and start saving memory automatically."
-
-When the model sees those requests, it can map them to the right MCP tools automatically.
-
-Manual tool calls are still useful when:
-
-- you are debugging an integration,
-- you want exact control over the payload,
-- or your client does not allow automatic tool use.
-
-If your client disables tool use, the model cannot call MCP tools by itself. In that case, enable MCP/MCP tools in the client or trigger the tool explicitly.
-
-## Features
-
-- 🧩 Automatic project resolution and creation from repository context.
-- 🔀 Multi-client continuity for OpenCode, Claude Code CLI, Qwen Code, Codex, and native MCP flows.
-- 🌿 Git-aware memory with repo path, remote, branch, commit, and working tree status.
-- 📦 Checkpoints, prompt patterns, file memory, and timeline snapshots for faster resume flows.
-- 🔎 Semantic memory search with Supabase embeddings plus lexical fallback.
-- 🗂️ Retention policies, JSON/Markdown export, and import support for backup or migration.
-- 🔐 Row Level Security across every persistent table.
-- 🧪 Pytest coverage for the server and optimizer.
-- 🌐 Public bilingual docs optimized for GitHub and Google search.
-
-## What it automates
-
-- Auto-resolves or auto-creates the project when `project_id` is omitted.
-- Detects repository context from git metadata when available.
-- Records session summaries and next steps when work stops or switches clients.
-- Stores file-level memory and dependency relationships for important modules.
-- Detects duplicate tasks, conflicting decisions, and missing file dependencies as warnings.
-- Builds a project timeline so you can understand how the work evolved.
-
-## Architecture Snapshot
-
-<table>
-  <tr>
-    <td align="center"><img src="docs/assets/diagrams/architecture.svg" alt="Architecture diagram" width="360"><br><strong>Minimal flow</strong><br>User → AI Client → MCP Server → Supabase</td>
-    <td align="center"><strong>What persists</strong><br><br>Architecture<br>Decisions<br>Tasks<br>Warnings<br>Preferences<br>Sessions<br>Session state</td>
-  </tr>
-</table>
-
-## Documentation
-
-- Public docs: `docs/index.html`
-- SEO sitemap: `docs/sitemap.xml`
-- GitHub Pages target: `https://dannymaaz.github.io/memory-mcp/`
-- Locales: `docs/locales/en.json` and `docs/locales/es.json`
-
-## API Reference
-
-Key tools exposed by the server in `src/server.py`:
-
-1. `resolve_project` — auto-detects or auto-creates the current project.
-2. `create_project` — creates a project explicitly with repo/workspace metadata.
-3. `list_projects` — lists projects for the current owner or workspace.
-4. `load_unified_context` — loads optimized durable memory for the current client.
-5. `save_cross_interface_decision` — persists architecture or implementation decisions.
-6. `update_task_status` — creates or updates tasks and flags duplicates.
-7. `create_session` — opens a tracked session with git context.
-8. `end_session` — closes a session and saves a resume-ready summary.
-9. `add_warning` — records warnings manually.
-10. `get_active_warnings` — returns unresolved warnings.
-11. `sync_session_state` — stores in-progress work for handoff between clients.
-12. `get_interface_analytics` — returns interface usage trends.
-13. `save_file_memory` — stores file summaries and dependency edges.
-14. `save_checkpoint` — saves checkpoints for architecture, blockers, and next steps.
-15. `save_prompt_pattern` — stores reusable prompt patterns and response preferences.
-16. `search_semantic_memory` — searches memory semantically or lexically.
-17. `get_project_timeline` — returns a chronological memory timeline.
-18. `export_memory_bundle` — exports memory to JSON or Markdown.
-19. `import_memory_bundle` — imports a memory bundle back into a project.
-20. `resume_project` — returns a ready-to-use summary to continue work.
-21. `apply_retention_policy` — stores retention rules and creates archive summaries.
-
-## Automatic Project Memory Workflow
-
-Typical usage now looks like this:
-
-1. The client launches `memory-mcp`.
-2. The server inspects the current repository context and resolves or creates a project.
-3. `load_unified_context` returns decisions, tasks, warnings, checkpoints, file memory, prompts, and timeline data.
-4. During work, sessions, decisions, prompt patterns, file relationships, and warnings are updated.
-5. When work ends, the server can save session state, create a checkpoint, and return a resume-ready next step.
-
-## Prompt Recipes By Client
-
-### Antigravity
-
-- "Use Memory MCP for this project. If you detect important decisions, blockers, tasks, or next steps, save them automatically while we work."
-- "Before we finish, save everything important from this session in Memory MCP and leave me the next recommended step."
-
-### OpenCode
-
-- "Use Memory MCP while we refactor. Document important files, dependencies, architectural decisions, and task progress automatically."
-- "If this repository is new to Memory MCP, create the project automatically and start storing context as we go."
-
-### Claude Code CLI
-
-- "Retoma este proyecto con Memory MCP y dame un resumen de lo hecho, lo que falta y el siguiente paso recomendado."
-- "When we stop, capture the full session in Memory MCP, including decisions, tasks, warnings, prompts, and a checkpoint summary."
-
-### Codex
-
-- "Use Memory MCP while implementing this task. Keep warnings, task status, and important file memory synchronized as you code."
-- "Before handing control back, save everything important from this coding session in Memory MCP and tell me the next safe step."
-
-### Qwen Code
-
-- "Use Memory MCP during this refactor. Save architectural decisions, file relationships, and task progress automatically."
-- "If this repository is new, create the project in Memory MCP and start capturing context as we modify the codebase."
-
-## Examples
-
-- `examples/antigravity/README.md`
-- `examples/claude-desktop/README.md`
-- `examples/opencode/README.md`
-- `examples/claude-code/README.md`
-- `examples/qwen-plugin/README.md`
-- `examples/codex-plugin/README.md`
-- `examples/native-chat/README.md`
-
-## SEO Highlights
-
-- Uses Memory MCP, AI project memory, and Supabase persistent context in high-signal sections.
-- Keeps core keywords near the top for GitHub search and repository previews.
-- Ships Open Graph, Twitter Card, JSON-LD, canonical URL, hreflang, and sitemap for Google indexing.
-- Includes bilingual docs and MCP-oriented examples for broader discoverability.
-
-## FAQ
-
-### What is `OWNER_ID`?
-
-`OWNER_ID` is a stable identifier you choose for yourself or your team. It is not created by Supabase. Good values include your GitHub username, a company slug, or a workspace id.
-
-### Do I need `DATABASE_URL`?
-
-No, not for normal MCP usage. `SUPABASE_URL` and `SUPABASE_KEY` are enough for the server. `DATABASE_URL` is only useful if you also want direct Postgres access for SQL scripts or admin tooling.
-
-### Do I need `project_id` every time?
-
-No. Memory MCP now tries to resolve the project automatically from repository context and can create it when missing.
-
-### Does it work with semantic search immediately?
-
-Yes, with a fallback. The server can always do lexical search. If you also store embeddings in Supabase, `search_semantic_memory` can rank results semantically.
-
-### Do I have to start the server manually after every reboot?
-
-Usually no. MCP-compatible clients normally spawn `memory-mcp` on demand once they are configured with the command.
-
-### Can I just tell the model to save everything?
-
-Yes. Memory MCP now includes `capture_project_memory`, a high-level tool designed for prompts like:
-
-- "Save everything important from this session in Memory MCP."
-- "Store all of this in your memory: decisions, tasks, blockers, next steps, and important files."
-
-When the model uses that tool well, it can persist multiple artifacts in one call: decisions, tasks, warnings, file memory, prompt patterns, session state, and a checkpoint summary.
-
-### What if I open multiple projects in an IDE?
-
-Memory MCP tries to resolve the active project from repository context. In clients that expose the current workspace or repository path, it can auto-detect which project is active and create storage automatically if it is new.
-
-If your client does not expose the correct repo path, the model can still pass a `repo_path` explicitly to `resolve_project` or `capture_project_memory`.
-
-## Screenshots
-
-<table>
-  <tr>
-    <td align="center"><img src="docs/assets/diagrams/architecture.svg" alt="Architecture preview" width="320"><br>Architecture preview</td>
-    <td align="center"><img src="docs/assets/logo.svg" alt="Logo preview" width="120"><br>Brand mark</td>
-  </tr>
-</table>
-
-## Support the Project
-
-If Memory MCP helps your workflow, you can support development here:
-
-[![PayPal](https://img.shields.io/badge/PayPal-Support-0A2540?style=for-the-badge&logo=paypal&logoColor=white)](https://www.paypal.me/Creativegt)
-[![Ko-fi](https://img.shields.io/badge/Ko--fi-Support-FF5E5B?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/X8X71W99D6)
-
-## Contributing
-
-See `CONTRIBUTING.md` for setup, style, PR process, and issue reporting.
-
-## Author
-
-- Danny Maaz
-- GitHub: [dannymaaz](https://github.com/dannymaaz)
-- LinkedIn: [dannymaaz](https://linkedin.com/in/dannymaaz)
-
-## Community
-
-- Open a GitHub issue for bugs, ideas, or integration notes.
-- Use the docs site to onboard collaborators quickly.
-- Extend the schema and examples as your AI workflows grow.
-
-## Search Keywords
-
-Memory MCP, AI project memory, Supabase persistent context, AI agent memory, OpenCode memory, Claude Code CLI memory, Qwen Code memory, Codex memory, multi-interface AI, context optimization, Danny Maaz.
+https://github.com/User75621/memory-mcp
